@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="679px" height="357px" viewBox="0 0 679 357" enable-background="new 0 0 679 357" xml:space="preserve">
+<g>
+	<polyline fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="669,325 16,325 16,11 	"/>
+	<polygon fill="none" points="665.102,325 16,325 16,16 16.65,16 16.65,324 665.102,324 	"/>
+</g>
+<rect x="44" y="130" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="192"/>
+<rect x="453" y="210" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="112"/>
+<rect x="289" y="146" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="176"/>
+<rect x="208" y="87" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="235"/>
+<rect x="126" y="189" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="133"/>
+<rect x="371" y="47" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="275"/>
+<rect x="535" y="130" fill="#808080" stroke="#808080" stroke-width="6" stroke-miterlimit="10" width="58" height="192"/>
+<text transform="matrix(1 0 0 1 53.6543 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Montag</text>
+<text transform="matrix(1 0 0 1 132.8926 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Dienstag</text>
+<text transform="matrix(1 0 0 1 213.1333 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Mittwoch</text>
+<text transform="matrix(1 0 0 1 289.4683 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Donnerstag</text>
+<text transform="matrix(1 0 0 1 383.5986 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Freitag</text>
+<text transform="matrix(1 0 0 1 461.3203 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Samstag</text>
+<text transform="matrix(1 0 0 1 543.5332 345.5)" font-family="'MyriadPro-Regular'" font-size="12">Sonntag</text>
+<text transform="matrix(1 0 0 1 620 318)" fill="#808080" font-family="'MyriadPro-Regular'" font-size="12">Woche X</text>
+<text transform="matrix(-0.005 -1 1 -0.005 29.5513 187.0562)" fill="#808080" font-family="'MyriadPro-Regular'" font-size="12">Summe des Passagieraufkommens</text>
+</svg>
