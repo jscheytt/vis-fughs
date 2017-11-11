@@ -11,7 +11,34 @@
     <meta name="author" content="LayoutIt!">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-	
+	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+	<style>
+
+	    #view3, #view5 {
+		    margin: 0;
+		    padding: 0;
+		    width: 100%;
+	    }
+
+	    text {
+		    font-family: arial;
+		    font-size: 12px;
+	    }
+
+
+	    path.line {
+		    fill: none;
+		    stroke: black;
+		    stroke-width: 3px;
+	    }
+
+		.axis path,
+		.axis line {
+		  fill: none;
+		  stroke: slategray;
+		  shape-rendering: crispEdges;
+		}		
+    </style>
 
   </head>
   <body>
@@ -89,13 +116,15 @@
 		<div class="col-md-4">
 			<h3>
 				Detailansicht 3
-			</h3><img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/">
+			</h3><div id="view3"><script src="LineChart3.js" >
+			</script></div>
 			<h3>
 				Detailansicht 4
 			</h3><img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/">
 			<h3>
 				Detailansicht 5
-			</h3><img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/">
+			</h3><div id="view5"><script src="LineChart5.js" >
+			</script></div>
 		</div>
 	</div>
 </div>

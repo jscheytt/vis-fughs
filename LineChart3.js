@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>Line chart from CSV using d3.js</title>
-    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-    <style>
-
-	    html, body {
-		    margin: 0;
-		    padding: 0;
-		    height: 100%;
-		    width: 100%;
-	    }
-
-	    text {
-		    font-family: arial;
-		    font-size: 12px;
-	    }
-
-
-	    path.line {
-		    fill: none;
-		    stroke: blue;
-		    stroke-width: 3px;
-	    }
-
-		.axis path,
-		.axis line {
-		  fill: none;
-		  stroke: slategray;
-		  shape-rendering: crispEdges;
-		}
-    </style>
-  </head>
-  <body>
-
-	<script type="text/javascript">
-
-var parseDate = d3.timeParse("%m/%d/%Y");
+var parseDate = d3.timeParse("%d/%m/%Y");
 
 var margin = {left: 50, right: 20, top: 20, bottom: 50 };
 
@@ -55,8 +16,8 @@ var maxDate = new Date();
 
 
 
-
-d3.csv("LineChart5.csv")
+//Daten bekommen
+d3.csv("LineChart3.csv")
     .row(function(d) { return { month: parseDate(d.month), price: Number(d.price.trim().slice(1))}; })
     .get(function(error, rows) {
 	    max = d3.max(rows, function(d) { return d.price; });
@@ -82,7 +43,7 @@ d3.csv("LineChart5.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("body").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
+		var svg = d3.select("#view3").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
@@ -99,14 +60,4 @@ d3.csv("LineChart5.csv")
 			.attr("class","axis y")
 			.call(yAxis);
 
-
-
 	});
-
-
-
-
-
-	</script>
-  </body>
-</html>
