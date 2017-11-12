@@ -26,14 +26,14 @@ function init(evt)
 }
 
 function showTooltip(evt, id){	
-	var div = document.getElementById("MapDiv");
+	var div = document.getElementById("container");
 	var map = document.getElementById("Map");
-	tooltip.setAttributeNS(null,"x",(evt.pageX - div.offsetLeft) * 1500/map.clientWidth +21);
-	tooltip.setAttributeNS(null,"y",(evt.pageY - div.offsetTop) * 920/map.clientHeight + 37 -480);
+	tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth +30);
+	tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 42 -270);
 	tooltip.firstChild.data = getMouseoverText(id);  
 	tooltip.setAttributeNS(null,"visibility","visible");
-	tooltip_bg.setAttributeNS(null,"x",(evt.pageX - div.offsetLeft) * 1500/map.clientWidth  +18);
-	tooltip_bg.setAttributeNS(null,"y",(evt.pageY - div.offsetTop) * 920/map.clientHeight +26 - 480); 	
+	tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  +26);
+	tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight +30 -270); 	
 	tooltip_bg.setAttributeNS(null,"visibility","visible");
 	length = tooltip.getComputedTextLength();
 	tooltip_bg.setAttributeNS(null,"width",length+8);
@@ -90,6 +90,7 @@ function selectLine (id){
 }
 
 function selectStation (id){
+	id = id.replace("label_", "");
 	var station = document.getElementById(id);
 	if(station.style.strokeWidth != 4){	
 		station.style.strokeWidth = 4;
