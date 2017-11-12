@@ -1,0 +1,127 @@
+#view3, #view5 {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+text {
+    font-family: arial;
+    font-size: 12px;
+}
+
+
+path.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 3px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: slategray;
+  shape-rendering: crispEdges;
+}	
+
+/* Header styles */
+
+#container{
+	width:1300px;
+	height:1000px;
+	float: center;
+}
+
+#headerDiv{
+	height: 80px;
+	display:block;
+}
+
+#logoDiv{
+	width: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	float: left;
+}
+
+#helpDiv{
+	margin-top: 10px;
+	display: block;
+	float: right;
+}
+
+#helpButton{
+	float: right;
+}
+
+#leftInfoDiv{
+	width: 850px;
+}
+
+
+
+/* Map styles */
+
+#MapDiv {
+	width:700px;
+	height:550px;
+	display: block;
+	padding-right: 10px
+}
+
+line[id ^="line"]{
+	opacity: 1;
+}
+
+
+.tooltip_bg{
+  fill: white;
+  stroke: black;
+  stroke-width: 1;
+  opacity: 0.85;
+}
+
+.tooltip{
+	font-size: 12px;
+}
+
+#overview{
+	display: block;
+	width: 850px;
+}	
+	
+#EinAussteiger{
+	display: inline-block;
+	width: 100px;
+	height:50px;
+	float: left;
+}
+
+#zoomView{
+	display: inline-block;
+	width:150px;
+	height:150px;
+	float: right;
+	border-style: groove;
+    border-color: black;
+	border-width: 0.5px;
+	margin-right: 10px;
+}
+
+/* Timeline styles */
+
+#Timeline{
+	width:800px;
+	height: 400px;
+	display: inline-block;
+}
+
+/* Detail styles */
+
+#rightInfoDiv{
+	display:block;
+	float: right;
+	width: 450px;
+	margin-right: 0px;
+}
