@@ -17,7 +17,7 @@ var maxDate = new Date();
 
 
 //Daten bekommen
-d3.csv("LineChart5.csv")
+d3.csv("data/LineChart3.csv")
     .row(function(d) { return { month: parseDate(d.month), price: Number(d.price.trim().slice(1))}; })
     .get(function(error, rows) {
 	    max = d3.max(rows, function(d) { return d.price; });
@@ -43,7 +43,7 @@ d3.csv("LineChart5.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("#view5").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
+		var svg = d3.select("#view3").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
