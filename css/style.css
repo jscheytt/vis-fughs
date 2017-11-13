@@ -6,7 +6,7 @@
 
 text {
     font-family: arial;
-    font-size: 12px;
+    font-size: 6px;
 }
 
 
@@ -177,4 +177,10 @@ line[id ^="line"]{
 	border-style: groove;
     border-color: black;
 	border-width: 0.5px;
+}
+
+/* View 4 */
+
+#heatmap{
+	font-size: 6px;
 }
