@@ -18,7 +18,7 @@ var maxDate = new Date();
 
 //Daten bekommen
 d3.csv("data/LineChart5.csv")
-    .row(function(d) { return { month: parseDate(d.month), price: Number(d.price.trim().slice(1))}; })
+    .row(function(d) { return { month: parseDate(d.month), price: Number(d.price)}; })
     .get(function(error, rows) {
 	    max = d3.max(rows, function(d) { return d.price; });
 	    minDate = d3.min(rows, function(d) {return d.month; });
@@ -55,9 +55,25 @@ d3.csv("data/LineChart5.csv")
 			.attr("class","axis x")
 			.attr("transform","translate(0,"+height+")")
 			.call(xAxis);
+			
+		// Add the text label for the x axis
+		svg.append("text")
+			.attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
+			.style("text-anchor", "right")
+			.text("Uhrzeit");
 
 		chartGroup.append("g")
 			.attr("class","axis y")
 			.call(yAxis);
+			
+			
+		// Add the text label for the Y axis
+		svg.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 0)
+			.attr("x",0 - (height / 2))
+			.attr("dy", "1em")
+			.style("text-anchor", "middle")
+			.text("Anzahl Passagiere");
 
 	});

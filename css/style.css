@@ -1,7 +1,6 @@
 #view3, #view5 {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+    margin:  0px;
+    padding: 0px;
 }
 
 text {
@@ -22,15 +21,6 @@ path.line {
   stroke: slategray;
   shape-rendering: crispEdges;
 }	
-
-#view3Diagram{
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;	
-	height:150px;
-	width:350px;
-}
 
 /* Header styles */
 
