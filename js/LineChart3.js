@@ -1,4 +1,4 @@
-var parseDate = d3.timeParse("%d/%m/%Y");
+var parseDate = d3.timeParse("%m/%d/%Y");
 
 var margin = {left: 50, right: 20, top: 20, bottom: 50 };
 
@@ -43,7 +43,8 @@ d3.csv("data/LineChart3.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("#view3").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
+		var svg = d3.select("#view3Diagram").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
+		
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
@@ -53,11 +54,14 @@ d3.csv("data/LineChart3.csv")
 
 		chartGroup.append("g")
 			.attr("class","axis x")
+			.attr("width", width)
 			.attr("transform","translate(0,"+height+")")
 			.call(xAxis);
 
 		chartGroup.append("g")
 			.attr("class","axis y")
+			.attr("height", height)
+			.attr("transform","translate(0, 0)")
 			.call(yAxis);
 
 	});
