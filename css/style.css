@@ -123,6 +123,7 @@ line[id ^="line"]{
     border-color: black;
 	border-width: 0.5px;
 	margin-right: 10px;
+	font-size: 12px;
 }
 
 /* Timeline styles */
