@@ -23,6 +23,15 @@ path.line {
   shape-rendering: crispEdges;
 }	
 
+#view3Diagram{
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;	
+	height:150px;
+	width:350px;
+}
+
 /* Header styles */
 
 #infoDiv{
@@ -88,7 +97,7 @@ line[id ^="line"]{
 }
 
 .tooltip{
-	font-size: 12px;
+	font-size: 22px;
 	opacity: 1;
 }
 
@@ -156,6 +165,7 @@ line[id ^="line"]{
 	border-style: groove;
     border-color: black;
 	border-width: 0.5px;
+	display: block;
 }
 
 #view4{
@@ -167,6 +177,7 @@ line[id ^="line"]{
 	border-style: groove;
     border-color: black;
 	border-width: 0.5px;
+	display: block;
 }
 
 #view5{
@@ -177,6 +188,7 @@ line[id ^="line"]{
 	border-style: groove;
     border-color: black;
 	border-width: 0.5px;
+	display:block;
 }
 
 /* View 4 */

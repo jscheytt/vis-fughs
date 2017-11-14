@@ -29,7 +29,7 @@ function showTooltip(evt, id){
 	var div = document.getElementById("infoDiv");
 	var map = document.getElementById("Map");
 	tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth +25);
-	tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 40);
+	tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 48);
 	tooltip.firstChild.data = getMouseoverText(id);  
 	tooltip.setAttributeNS(null,"visibility","visible");
 	tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  +21);
