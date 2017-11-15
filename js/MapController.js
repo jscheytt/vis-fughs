@@ -5,6 +5,8 @@ var selectedStations = [
 
 var firstSelectedStation = true;
 
+var factor = 0;
+
 function init(evt)
 {
 	if ( window.svgDocument == null )
@@ -40,7 +42,7 @@ function loadPassengerCount(passengersPerStation){
 	var maxValue =  d3.max(passengersPerStation, function(d) { return d.count; });
 	var minValue = 0;
 	
-	var factor = 1/(maxValue/maxRadius);
+	factor = 1/(maxValue/maxRadius);
 	
 	var bobbels = document.querySelectorAll('*[id^="bobbel_"]');
 	for (i = 0; i < bobbels.length; i++){
@@ -55,14 +57,23 @@ function loadPassengerCount(passengersPerStation){
 }	
 	
 function showTooltip(evt, id){	
+
 	var div = document.getElementById("infoDiv");
 	var map = document.getElementById("Map");
-	tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth +25);
-	tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 48);
+		
+	if(id.includes("_lineS")){
+		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth -39);
+		tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 15);
+		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  -42);
+		tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight - 6);
+	}else{
+		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth +25);
+		tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 48);
+		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  +21);
+		tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight +28); 	
+	}
 	tooltip.firstChild.data = getMouseoverText(id);  
 	tooltip.setAttributeNS(null,"visibility","visible");
-	tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  +21);
-	tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight +28); 	
 	tooltip_bg.setAttributeNS(null,"visibility","visible");
 	length = tooltip.getComputedTextLength();
 	tooltip_bg.setAttributeNS(null,"width",length+8);
@@ -79,6 +90,10 @@ function hideTooltip (){
 }
 
 function selectLine (id){
+	var zoomView = document.getElementById("zoomView");
+	zoomView.innerHTML = "";
+	zoomView.style.borderStyle = "none";
+	
 	if(selectedStations[0] != "" || selectedStations[1] != ""){
 		if(selectedStations[0] != ""){
 			var oldFirst = selectedStations[0];	
@@ -140,6 +155,7 @@ function selectLine (id){
 
 function selectStation (id){
 	//show all lines
+
 	var lineS1 = document.getElementById("line_S1");
 	var lineS2 = document.getElementById("line_S2");
 	var lineS3 = document.getElementById("line_S3");
@@ -216,21 +232,73 @@ function showZoomView(){
 	
 	//no station, no route seleted
 	if(selectedStations[0] == "" && selectedStations[1] == ""){
-		zoomView.innerHTML = "Nothing selected";
+		zoomView.innerHTML = "";
+		zoomView.style.borderStyle = "none";
 		
 	}
 	//only one station, no route
 	else if(selectedStations[0] != "" && selectedStations[1] == ""){
+		zoomView.style.borderStyle = "groove";
+		
 		var lines = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
-		zoomView.innerHTML = selectedStations[0] + " Station selected: "+lines.length;
+		//show titel -> Stationname
+		//show possible lines for station (checked checkbox, linename, station-image in according color) 
+		
+		var lineoptions = "";
+		for(j = 0; j<lines.length; j++){
+			var lineColor = lineColors.find(function(g) {return g.line === lines[j];}).color;
+			var bobbelWidth = getPassengerCountLine(selectedStations[0], lines[j]); 
+			lineoptions +=
+			"<div style=\"display:inline-block; position:relative; height:50px; width:100%\"><input id=\"checkBox\" type=\"checkbox\" id=\"lineDescription"+j+"\" style=\"display: inline-block; float:left; margin-top: 30px; margin-left: 2px;\" checked>"+
+			"<label for=\"lineDescription"+j+"\" style=\"float:left; margin-top: 28px; margin-left: 2px;\">"+lines[j]+"</label>"+
+			"<svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" id=\"Station\" sodipodi:docname=\"Station.svg\" inkscape:version=\"0.92.2 (5c3e80d, 2017-08-06)\" x=\"0px\" y=\"0px\" display=\"inline-block\" viewBox=\"0 0 170 28.260856\" enable-background=\"new 0 0 170 28.260856\" xml:space=\"preserve\" onload=\"init(evt)\" style=\"display:inline-block; height: 50px; width: 100px; float:right\"><metadata id=\"metadata4732\"><rdf:RDF><cc:Work rdf:about=\"\"><dc:format>image/svg+xml</dc:format><dc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs id=\"defs4730\" /><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" inkscape:pageopacity=\"0\" inkscape:pageshadow=\"2\" inkscape:window-width=\"1920\" inkscape:window-height=\"1001\" id=\"namedview4728\" showgrid=\"false\" inkscape:snap-smooth-nodes=\"false\" inkscape:object-nodes=\"true\" inkscape:object-paths=\"false\" inkscape:zoom=\"0.625\" inkscape:cx=\"660.83357\" inkscape:cy=\"431.84027\" inkscape:window-x=\"-9\" inkscape:window-y=\"-9\" inkscape:window-maximized=\"1\" inkscape:current-layer=\"layer1\" /><g id=\"layer1\" transform=\"translate(5673.9687,-1482.2978)\" inkscape:label=\"Livello 1\" inkscape:groupmode=\"layer\">"+
+			"<path sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" />"+
+			"<rect  x=\"-5592.5132\" y=\"1510.5\" width=\"9\" height=\"9\" style=\"fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.8;stroke-linejoin:round\" cursor=\"pointer\" />"+
+			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" /></g></svg>"+"</div>";
+		}
+		zoomView.innerHTML = selectedStations[0] + lineoptions;
+		for(j = 0; j<lines.length; j++){
+			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = getPassengerCountLine(selectedStations[0], lines[j]);
+		}
 	}
 	//route selected
 	else{
+		zoomView.style.borderStyle = "groove";
+		
 		var lines1 = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
 		var lines2 = linesOfStations.find(function(f) { return f.station === selectedStations[1]; }).lines;
 		var lines = lines1.filter((n) => lines2.includes(n))
-		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1]+" Route selected: "+lines.length;
+		
+		var lineoptions = "";
+		for(j = 0; j<lines.length; j++){
+			var lineColor = lineColors.find(function(g) {return g.line === lines[j];}).color;
+			var bobbelWidth = getPassengerCountLine(selectedStations[0], lines[j]); 
+			lineoptions +=
+			"<div style=\"display:inline-block; position:relative; height:50px; width:100%\"><input id=\"checkBox\" type=\"checkbox\" id=\"routeDescription"+j+"\" style=\"display: inline-block; float:left; margin-top: 30px; margin-left: 2px;\" checked>"+
+			"<label for=\"routeDescription"+j+"\" style=\"float:left; margin-top: 28px; margin-left: 2px;\">"+lines[j]+"</label>"+
+			"<svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" id=\"Station\" sodipodi:docname=\"Station.svg\" inkscape:version=\"0.92.2 (5c3e80d, 2017-08-06)\" x=\"0px\" y=\"0px\" display=\"inline-block\" viewBox=\"0 0 170 28.260856\" enable-background=\"new 0 0 170 28.260856\" xml:space=\"preserve\" onload=\"init(evt)\" style=\"display:inline-block; height: 50px; width: 100px; float:right\"><metadata id=\"metadata4732\"><rdf:RDF><cc:Work rdf:about=\"\"><dc:format>image/svg+xml</dc:format><dc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs id=\"defs4730\" /><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" inkscape:pageopacity=\"0\" inkscape:pageshadow=\"2\" inkscape:window-width=\"1920\" inkscape:window-height=\"1001\" id=\"namedview4728\" showgrid=\"false\" inkscape:snap-smooth-nodes=\"false\" inkscape:object-nodes=\"true\" inkscape:object-paths=\"false\" inkscape:zoom=\"0.625\" inkscape:cx=\"660.83357\" inkscape:cy=\"431.84027\" inkscape:window-x=\"-9\" inkscape:window-y=\"-9\" inkscape:window-maximized=\"1\" inkscape:current-layer=\"layer1\" />"+
+			
+			"<g id=\"layer1\" transform=\"translate(5673.9687,-1482.2978)\" inkscape:label=\"Livello 1\" inkscape:groupmode=\"layer\">"+
+			"<path id=\"line_S3\" sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" />"+
+			
+			"<rect x=\"-5670.2241\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80000001;stroke-linejoin:round\" cursor=\"pointer\" onclick=\"selectStation(this.id)\" />"+
+			
+			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" />"+
+			
+			"<rect x=\"-5514.8521\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"display:block;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80000001;stroke-linejoin:round\" cursor=\"pointer\" onclick=\"selectStation(this.id)\" />"
+	   
+			+"</g></svg>"+"</div>";
+		}
+		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1] + lineoptions;
+		for(j = 0; j<lines.length; j++){
+			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = getPassengerCountLine(selectedStations[0], lines[j]);
+		}
 	}
+}
+
+function getPassengerCountLine(station, line){
+	return Math.floor(Math.random() * 57);
+	//request to server
 }
 
 var lineColors = [
