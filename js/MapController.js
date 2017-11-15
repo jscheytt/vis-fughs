@@ -79,6 +79,25 @@ function hideTooltip (){
 }
 
 function selectLine (id){
+	if(selectedStations[0] != "" || selectedStations[1] != ""){
+		if(selectedStations[0] != ""){
+			var oldFirst = selectedStations[0];	
+			var oldStationFirst = document.getElementById(oldFirst);
+			oldStationFirst.style.strokeWidth = 0.8;
+			oldStationFirst.style.fill = "#ffffff";	
+		}
+		if(selectedStations[1] != ""){
+			var oldSecond = selectedStations[1];
+			var oldStationSecond = document.getElementById(oldSecond);
+			oldStationSecond.style.strokeWidth = 0.8;
+			oldStationSecond.style.fill = "#ffffff";
+		}
+		selectedStations[0] = "";
+		selectedStations[1] = "";
+		var zoomView = document.getElementById("zoomView");
+		zoomView.innerHTML = "";
+	}
+	
 	var newID = id.replace("label", "line");
 	var lineS1 = document.getElementById("line_S1");
 	var lineS2 = document.getElementById("line_S2");
@@ -120,6 +139,20 @@ function selectLine (id){
 }
 
 function selectStation (id){
+	//show all lines
+	var lineS1 = document.getElementById("line_S1");
+	var lineS2 = document.getElementById("line_S2");
+	var lineS3 = document.getElementById("line_S3");
+	var lineS11 = document.getElementById("line_S11");
+	var lineS21 = document.getElementById("line_S21");
+	var lineS31 = document.getElementById("line_S31");
+	lineS1.setAttributeNS(null,"opacity",1);
+	lineS2.setAttributeNS(null,"opacity",1);
+	lineS3.setAttributeNS(null,"opacity",1);
+	lineS11.setAttributeNS(null,"opacity",1);
+	lineS21.setAttributeNS(null,"opacity",1);
+	lineS31.setAttributeNS(null,"opacity",1);
+	
 	id = id.replace("label_", "");
 	var station = document.getElementById(id);
 	
