@@ -144,9 +144,18 @@ function selectStation (id){
 		
 		//second selected station
 		else if(selectedStations[1] == ""){
-			selectedStations[1] = id;
+			var lines1 = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
+			var lines2 = linesOfStations.find(function(f) { return f.station === id; }).lines;
+			var lines = lines1.filter((n) => lines2.includes(n))
+			if(lines.length != 0){
+				selectedStations[1] = id;
+			}else{
+				var oldStationFirst = document.getElementById(selectedStations[0]);
+				oldStationFirst.style.strokeWidth = 0.8;
+				oldStationFirst.style.fill = "#ffffff";
+				selectedStations[0] = id;
+			}
 		}
-		
 		//new route, delete selection and set selected as first
 		else{
 			var oldFirst = selectedStations[0];
@@ -228,7 +237,7 @@ var linesOfStations = [
 {station: "Hoheneichen", 			lines: ["S11", "S1"]},
 {station: "Wellingsbuettel", 		lines: ["S11", "S1"]},
 {station: "Poppenbuettel", 			lines: ["S11", "S1"]},
-{station: "Aumuehe", 				lines: ["S21"]},
+{station: "Aumuehle", 				lines: ["S21"]},
 {station: "Wohltorf", 				lines: ["S21"]},
 {station: "Reinbek", 				lines: ["S21"]},
 {station: "Hamburg-Bergedorf", 		lines: ["S21", "S2"]},
@@ -299,7 +308,7 @@ var stationData= [
 {station: "Hoheneichen", 			count: 22},
 {station: "Wellingsbuettel", 		count: 19},
 {station: "Poppenbuettel", 			count: 10},
-{station: "Aumuehe", 				count: 20},
+{station: "Aumuehle", 				count: 20},
 {station: "Wohltorf", 				count: 7},
 {station: "Reinbek", 				count: 13},
 {station: "Hamburg-Bergedorf", 		count: 16},
