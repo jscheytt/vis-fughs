@@ -33,7 +33,7 @@ path.line {
 }
 
 #headerDiv{
-	height: 80px;
+	height: 100px;
 	display:block;
 }
 
@@ -42,7 +42,6 @@ path.line {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10px;
 	float: left;
 }
 
@@ -102,6 +101,7 @@ line[id ^="line"]{
 	width: 100px;
 	height:50px;
 	float: left;
+	margin-top:20px;
 }
 
 #zoomView{
