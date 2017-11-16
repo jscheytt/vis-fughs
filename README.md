@@ -9,7 +9,7 @@ Visualisierung WS1718 Team FUGHS
 * Bobbel über Station: `bobbel_X` -> X entsprechender Name der Station
 
 ## OnClick-Events
-* Linien-Label -> `selectLine(this.id`
+* Linien-Label -> `selectLine(this.id)`
 * Station -> `selectStation(this.id)`
 
 ## Hover-Events 
