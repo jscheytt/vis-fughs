@@ -2,20 +2,20 @@
 Visualisierung WS1718 Team FUGHS
 
 ## IDs der Map-Elemente zur Änderung bei Click
-* Linien: ``line_SX`` -> X entsprechende Nummer der Linie
-* Linien-Label: ``label_SX`` -> X entsprechende Nummer der Linie
-* Stationen-Label: ``label_X``
-* Stationen: ``Name der Station`` -> X entsprechender Name der Station
-* Bobbel über Station: ``bobbel_X`` -> X entsprechender Name der Station
+* Linien: `line_SX` -> X entsprechende Nummer der Linie
+* Linien-Label: `label_SX` -> X entsprechende Nummer der Linie
+* Stationen-Label: `label_X`
+* Stationen: `Name der Station` -> X entsprechender Name der Station
+* Bobbel über Station: `bobbel_X` -> X entsprechender Name der Station
 
 ## OnClick-Events
-* Linien-Label -> selectLine(this.id)
-* Station -> selectStation(this.id)
+* Linien-Label -> `selectLine(this.id`
+* Station -> `selectStation(this.id)`
 
 ## Hover-Events 
 * Bobbel
-  * ``onmousemove="showTooltip(evt, this.id)"``
-  * ``onmouseout="hideTooltip()"``
+  * `onmousemove="showTooltip(evt, this.id)"`
+  * `onmouseout="hideTooltip()"`
 
 ## Liste der Stationsnamen
 Station lang | Station kurz | Stations-ID
