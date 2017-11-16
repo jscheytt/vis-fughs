@@ -43,7 +43,7 @@ d3.csv("data/LineChart3.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("#view3").append("svg").attr("id","svg").attr("height","195px").attr("width","100%");
+		var svg = d3.select("div#view3").append("div").classed("svg-container", true).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400").classed("svg-content-responsive", true); 
 		
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
@@ -62,7 +62,7 @@ d3.csv("data/LineChart3.csv")
 		svg.append("text")
 			.attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
 			.style("text-anchor", "right")
-			.text("Uhrzeit");
+			.text("Minuten");
 
 		chartGroup.append("g")
 			.attr("class","axis y")
