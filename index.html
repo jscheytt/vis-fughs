@@ -24,10 +24,6 @@
 	<div class="row" id="infoDiv">
 		<div class="col-md-8" id="leftInfoDiv">
 			<div class="row" id="overview">
-				<div class="col-md-4" id="EinAussteiger">
-					<div id="Einsteiger">Einsteiger</div>
-					<div id="Aussteiger">Aussteiger</div>
-				</div>		
 				<div id ="MapDiv">
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -3819,13 +3815,28 @@
      visibility="hidden">Tooltip</text>
 </svg>
 </div>			
+				<div class="col-md-4" id="EinAussteiger">
+					<div id="Einsteiger"> <input type="checkbox" checked>
+					<label>Einsteiger</label> </div>
+					<div id="Aussteiger"> <input type="checkbox" checked>
+					<label>Aussteiger</label> </div>
+				</div>		
 			<div class="col-md-4" id="zoomView">
 				</div>
 			</div>
 			<div class="row" id="bottomInfoDiv">
 				<div class="col-md-4" id="varianzAndTimestep">
-					<div id="Varianz">Varianz</div>
-					<div id="Timesteps">Timesteps</div>
+					<div id="Varianz">
+					<label class="switch">
+					<input type="checkbox">
+					<span class="slider round"></span>
+					</label><label id="VarianzLabel" style="margin-bottom: 0px; margin-left: 5px">Varianz</label></div>
+					<div id="Timesteps">Timesteps
+					<div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio1" checked><label class="radiobuttonlabel">Jahr</label></div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2"><label class="radiobuttonlabel">Monat</label></div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio3"><label class="radiobuttonlabel">Tag</label></div>
+					</div></div>
 				</div>
 				<div class="col-md-8" id="Timeline">
 					<img alt="Bootstrap Image Preview" src="img/BarChart.svg" style='height: 100%; width: 760px; object-fit: contain'>
