@@ -58,8 +58,10 @@ d3.csv("data/LineChart5.csv")
 			
 		// Add the text label for the x axis
 		svg.append("text")
-			.attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
+			.attr("transform", "translate(" + (width / 1.62) + " ," + (height * 1.35) + ")")
 			.style("text-anchor", "right")
+			.style ("font-size", "10px")
+			.style ("font-weight", "bold")
 			.text("Uhrzeit");
 
 		chartGroup.append("g")
@@ -71,9 +73,11 @@ d3.csv("data/LineChart5.csv")
 		svg.append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", 0)
-			.attr("x",0 - (height / 2))
+			.attr("x",0 - (height / 1.65))
 			.attr("dy", "1em")
 			.style("text-anchor", "middle")
+			.style ("font-size", "10px")
+			.style ("font-weight", "bold")
 			.text("Anzahl Passagiere");
 
 	});
