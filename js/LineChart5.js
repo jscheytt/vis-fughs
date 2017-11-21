@@ -1,4 +1,4 @@
-var parseDate = d3.timeParse("%d/%m/%Y");
+var parseDate = d3.timeParse("%H:%M:%S");
 
 var margin = {left: 50, right: 20, top: 20, bottom: 50 };
 
@@ -14,15 +14,15 @@ var yNudge = 20;
 var minDate = new Date();
 var maxDate = new Date();
 
-
+var formatxAxis = d3.timeFormat("%H:%M");
 
 //Daten bekommen
 d3.csv("data/LineChart5.csv")
-    .row(function(d) { return { month: parseDate(d.month), price: Number(d.price)}; })
+    .row(function(d) { return { time: parseDate(d.time), amount: Number(d.amount)}; })
     .get(function(error, rows) {
-	    max = d3.max(rows, function(d) { return d.price; });
-	    minDate = d3.min(rows, function(d) {return d.month; });
-		maxDate = d3.max(rows, function(d) { return d.month; });
+	    max = d3.max(rows, function(d) { return d.amount; });
+	    minDate = d3.min(rows, function(d) {return d.time; });
+		maxDate = d3.max(rows, function(d) { return d.time; });
 
 
 		var y = d3.scaleLinear()
@@ -36,10 +36,12 @@ d3.csv("data/LineChart5.csv")
 		var yAxis = d3.axisLeft(y);
 
 		var xAxis = d3.axisBottom(x);
+		
+		xAxis.tickFormat(formatxAxis);
 
 		var line = d3.line()
-			.x(function(d){ return x(d.month); })
-			.y(function(d){ return y(d.price); })
+			.x(function(d){ return x(d.time); })
+			.y(function(d){ return y(d.amount); })
 			.curve(d3.curveCardinal);
 
 

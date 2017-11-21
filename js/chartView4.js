@@ -1,4 +1,4 @@
-var margin = { top: 20, right: 20, bottom: 0, left: 25 },
+var margin = { top: 20, right: 20, bottom: 0, left: 40 },
   width = 350 - margin.left - margin.right,
   height = 180 - margin.top - margin.bottom,
   gridSizeWidth = Math.floor(width / 7),
@@ -7,7 +7,7 @@ var margin = { top: 20, right: 20, bottom: 0, left: 25 },
   buckets = 9,
   colors = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'], // alternatively colorbrewer.YlGnBu[9]
   days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-  times = ['1 Uhr', '2 Uhr', '3 Uhr', '4 Uhr', '5 Uhr', '6 Uhr', '7 Uhr', '8 Uhr', '9 Uhr', '10 Uhr', '11 Uhr', '12 Uhr', '13 Uhr', '14 Uhr', '15 Uhr', '16 Uhr', '17 Uhr', '18 Uhr', '19 Uhr', '20 Uhr', '21 Uhr', '22 Uhr', '23 Uhr', '24 Uhr'];
+  times = ['', '2 Uhr', '', '', '', '6 Uhr', '', '', '', '10 Uhr', '', '', '', '14 Uhr', '', '', '', '18 Uhr', '', '', '', '22 Uhr', '', ''];
 
 var svg = d3.select('#heatmap').append('svg')
     .attr('width', width + margin.left + margin.right)
