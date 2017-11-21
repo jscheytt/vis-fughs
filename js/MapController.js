@@ -114,6 +114,12 @@ function selectLine (id){
 	}
 	
 	var newID = id.replace("label", "line");
+	
+	highlightOneLine(newID);
+	
+}
+
+function highlightOneLine(newID){
 	var lineS1 = document.getElementById("line_S1");
 	var lineS2 = document.getElementById("line_S2");
 	var lineS3 = document.getElementById("line_S3");
@@ -149,7 +155,40 @@ function selectLine (id){
 		lineS31.setAttributeNS(null,"opacity",1);
 		line.setAttributeNS(null,"opacity",1);
 	}
+}
+
+
+function highlightMultiLines(lines){
+	var lineS1 = document.getElementById("line_S1");
+	var lineS2 = document.getElementById("line_S2");
+	var lineS3 = document.getElementById("line_S3");
+	var lineS11 = document.getElementById("line_S11");
+	var lineS21 = document.getElementById("line_S21");
+	var lineS31 = document.getElementById("line_S31");
 	
+	if(!lines.includes("S1")){
+		lineS1.setAttributeNS(null,"opacity",0.3);
+	}
+	if(!lines.includes("S2")){
+		lineS2.setAttributeNS(null,"opacity",0.3);
+	}
+	if(!lines.includes("S3")){
+		lineS3.setAttributeNS(null,"opacity",0.3);
+	}
+	if(!lines.includes("S11")){
+		lineS11.setAttributeNS(null,"opacity",0.3);
+	}
+	if(!lines.includes("S21")){
+		lineS21.setAttributeNS(null,"opacity",0.3);
+	}
+	if(!lines.includes("S31")){
+		lineS31.setAttributeNS(null,"opacity",0.3);
+	}
+	
+	for(i = 0; i<lines.length; i++){
+		var line = document.getElementById("line_"+lines[i]);
+		line.setAttributeNS(null,"opacity",1);
+	}
 	
 }
 
@@ -234,7 +273,6 @@ function showZoomView(){
 	if(selectedStations[0] == "" && selectedStations[1] == ""){
 		zoomView.innerHTML = "";
 		zoomView.style.borderStyle = "none";
-		
 	}
 	//only one station, no route
 	else if(selectedStations[0] != "" && selectedStations[1] == ""){
@@ -243,6 +281,8 @@ function showZoomView(){
 		var lines = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
 		//show titel -> Stationname
 		//show possible lines for station (checked checkbox, linename, station-image in according color) 
+		
+		highlightMultiLines(lines);
 		
 		var lineoptions = "";
 		for(j = 0; j<lines.length; j++){
@@ -268,6 +308,8 @@ function showZoomView(){
 		var lines1 = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
 		var lines2 = linesOfStations.find(function(f) { return f.station === selectedStations[1]; }).lines;
 		var lines = lines1.filter((n) => lines2.includes(n))
+		
+		highlightMultiLines(lines);
 		
 		var lineoptions = "";
 		for(j = 0; j<lines.length; j++){
