@@ -49,7 +49,7 @@ d3.csv("data/LineChart5.csv")
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
-			.attr("class","line")
+			.attr("class","line2")
 			.attr("d",function(d){ return line(rows); })
 
 

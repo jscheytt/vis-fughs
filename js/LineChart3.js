@@ -12,7 +12,7 @@ var yNudge = 20;
 var minDate = 0;
 var maxDate = 0;
 
-var formatxAxis = d3.format('.0f');
+var formatxAxis3 = d3.format('.0f');
 
 
 //Daten bekommen
@@ -37,7 +37,7 @@ d3.csv("data/LineChart3.csv")
 
 		var xAxis = d3.axisBottom(x);
 		
-		xAxis.tickFormat(formatxAxis)
+		xAxis.tickFormat(formatxAxis3)
 			.ticks(maxDate);
 
 		var line = d3.line()
@@ -51,8 +51,17 @@ d3.csv("data/LineChart3.csv")
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
-			.attr("class","line")
+			.attr("class","line1")
 			.attr("d",function(d){ return line(rows); })
+
+		svg.selectAll("dot")
+			.data(rows)
+			.enter().append("circle")
+			.attr("r", 4)
+			.attr("class","dot")
+			.attr("transform","translate("+xNudge+","+yNudge+")")
+			.attr("cx", function(d) { return x(d.mins); })
+			.attr("cy", function(d) { return y(d.amount); });
 
 
 		chartGroup.append("g")
@@ -84,5 +93,6 @@ d3.csv("data/LineChart3.csv")
 			.style ("font-size", "10px")
 			.style ("font-weight", "bold")
 			.text("Anzahl Passagiere");
+			
 
 	});

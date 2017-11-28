@@ -19,7 +19,18 @@ text {
     left: 0;
 }
 
-path.line {
+.dot {
+    fill: #000000;
+    stroke: #fff;
+}
+
+path.line1 {
+    fill: none;
+    stroke: lightgrey;
+    stroke-width: 3px;
+}
+
+path.line2 {
     fill: none;
     stroke: black;
     stroke-width: 3px;
