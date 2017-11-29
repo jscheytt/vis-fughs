@@ -27,7 +27,7 @@ var svg1 = d3.select("#barchart").append("svg")
           "translate(" + margin1.left*2 + "," + margin1.top + ")");
 
 	// get the data
-	d3.csv("data/BarChart_d.csv", function(error, data) {
+	d3.csv("data/BarChart_w.csv", function(error, data) {
 	if (error) throw error;
 
 		// format the data
@@ -82,19 +82,32 @@ var svg1 = d3.select("#barchart").append("svg")
 		var ticksJanis = d3.selectAll(".tick text");
 		ticksJanis.style("display", function (d, i) { return i % 5 ? "none" : "initial" })
 
+				
+
 		// 
 		svg1.append("g")
 			.call(yAxis1);
 			
-		svg1.selectAll(".bar")
+		/* svg1.selectAll(".bar")
 			.data(data)
 			.enter().append("rect")
 			.attr("class", "bar")
 			.attr("x", function(d) { return x1(d.timeJanis); })
 			.attr("width", x1.bandwidth())
 			.attr("y", function(d) { return y1(d.passenger); })
-			.attr("height", function(d) { return height1 - y1(d.passenger); })
-
+			.attr("height", function(d) { return height1 - y1(d.passenger); }) */
+		
+		
+		var barsJanis = svg1.selectAll(".bar").data(data)
+			.enter().append("g")
+			.attr("class", "bar")
+			.attr("transform", function(d) { return "translate(" + x1(d.timeJanis) + ", " + y1(d.passenger) + ")" });
+		var rectsJanis = barsJanis.append("rect")
+		// ---- add a className for easy selecting 
+			.attr("class", "bar")
+			.attr("width", x1.bandwidth())
+			.attr("height", function(d){return height1-y1(d.passenger);})
+			.attr("fill", "steelblue")					
 			.attr("fill", function(d) { return colours(d.timeJanis); })
 			.on("mousemove", function(d){
 				tooltipJanis

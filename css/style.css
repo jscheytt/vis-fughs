@@ -229,7 +229,9 @@ input:checked + .slider:before {
 	border-width: 0.5px;
 	display:block;
 }
-#Timeline > svg {width="100%";}
+#Timeline > svg {
+	width: "100%";
+}
 
 /* Detail styles */
 
@@ -282,16 +284,7 @@ input:checked + .slider:before {
 	font-size: 6px;
 }
 
-.axis {
-	font: 15px sans-serif;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #D4D8DA;
-  stroke-width: 1px;
-  shape-rendering: crispEdges;
-}
+
 .toolTip {
   position: absolute;
   display: none;
@@ -302,3 +295,11 @@ input:checked + .slider:before {
   padding: 14px;
   text-align: center;
 }
+.bar rect:hover {
+  fill: blue;
+}
+
+.bar rect {
+    fill: black;
+  }
+  
