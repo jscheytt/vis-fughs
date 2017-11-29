@@ -98,19 +98,6 @@ line[id ^="line"]{
 	opacity: 1;
 }
 
-
-.tooltip_bg{
-  fill: white;
-  stroke: black;
-  stroke-width: 1;
-  opacity: 0.85;
-}
-
-.tooltip{
-	font-size: 22px;
-	opacity: 1;
-}
-
 #overview{
 	display: block;
 	width: 880px;
@@ -297,7 +284,8 @@ input:checked + .slider:before {
 
 
 .toolTip {
-  position: absolute;
+  position: absolute; 
+  top: 10px;
   display: none;
   min-width: 80px;
   height: auto;
@@ -307,7 +295,7 @@ input:checked + .slider:before {
   text-align: center;
 }
 .bar rect:hover {
-  fill: blue;
+  fill: grey;
 }
 
 .bar rect {
