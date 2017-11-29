@@ -30,7 +30,7 @@ Mittlerer Landweg | ML | Mittlerer Landweg
 Billwerder-Moorfleet | BWM | Billwerder-Moorfleet
 Tiefstack | TK | Tiefstack
 Rothenburgsort | ROP | Rothenburgsort
-Berliner Tor 2 | BTSB | *Berliner Tor*
+Berliner Tor 2 **(wurde überschrieben mit Berliner Tor 1)** | BTSB | *Berliner Tor*
 Hauptbahnhof | HS | *Hamburg Hbf*
 Dammtor | DST | Dammtor
 Sternschanze | SST | Sternschanze
@@ -89,3 +89,40 @@ Horneburg | HOG | Horneburg
 Dollern | DR | Dollern
 Agathenburg | ABG | Agathenburg
 Stade | ST | Stade
+
+# Format der Daten
+
+## Für #2 Timeline
+Timestamp | Einsteiger | Aussteiger | Avg | AbwEin | AbwAus | AbwAvg
+--- | --- | --- | --- | --- | --- | ---
+2016-12-31 | 123 | 321 | 222 | -27 | 171 | 72
+
+Es gibt insgesamt 4 Files für den Gesamtzeitraum, die Monate, die Wochen und die Tage. Der Timestamp ist für den **Gesamtzeitraum** ```0```, für **Monate** ```YYYY-MM-01```, für **Wochen** ```YYYY-MM-[Montag der Woche, 1-31]``` und für **Tage** ```YYYY-MM-DD```. _Avg_ ist ```(Einsteiger + Aussteiger) / 2```, _AbwEin_ ist ```Einsteiger - Mittelwert(Einsteiger_Gesamtzeitraum)```, _AbwAus_ ist ```Aussteiger - Mittelwert(Aussteiger_Gesamtzeitraum)``` und _AbwAvg_ ist ```Avg - Mittelwert(Avg_Gesamtzeitraum)```.
+
+## Für #1 Map, #3 Duration und #9 Zoom
+Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg | Haltezeit
+--- | --- | --- | --- | --- | --- | ---
+2016-12-31 | [68] | [6] | 123 | 321 | 222 | 139
+
+Es gibt 1 File. Der Timestamp ist tagesgenau. Zahlen in [eckigen Klammern] zeigen an, wie viele kategorische Werte pro Timestamp angenommen werden. Die Anzahl an Zeilen pro Timestamp ist das Produkt aller Zahlen in Klammern, also hier z. B. ```68 * 6 = 408```. Die Haltezeit ist in Sekunden.
+
+## Für #4 Calendar
+Timestamp | Zeitslot | Station | Linie | Einsteiger | Aussteiger | Avg
+--- | --- | --- | --- | --- | --- | ---
+2016-12-31 | [168, z. B. ```Fr11```] | [68] | [6] | 123 | 321 | 222
+
+Es gibt insgesamt 3 Files für den Gesamtzeitraum, die Monate und die Wochen. Die Timestamps sind analog zu denen von #2. Das Format der Zeitslots ist ```[erste 2 Buchstaben Wochentag][Startuhrzeit des Intervalls]```. Bspw. entspricht ```Sa00``` dem Intervall "Samstag von 0 bis 1 Uhr".
+
+## Für #5 TimeDetail
+Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg | AbwEin | AbwAus | AbwAvg
+--- | --- | --- | --- | --- | --- | --- | --- | ---
+2016-12-31 03:00 | [68] | [6] | 123 | 321 | 222 | -27 | 171 | 72
+
+Es gibt insgesamt 4 Files analog zu #2. Die Aufteilung ist wie folgt:
+
+Rasterungsbezug des Files | Genauigkeit | Timestamp
+--- | --- | ---
+Gesamtzeitraum | auf Wochen | ```YYYY-MM-[Montag der Woche, 1-31]```
+Monate | auf Tage | ```YYYY-MM-DD```
+Wochen | auf 6 Stunden | ```YYYY-MM-DD [Anfang des Intervalls, z. B. 06]:00```
+Tage | auf Stunden | ```YYYY-MM-DD HH:00```
