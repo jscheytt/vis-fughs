@@ -296,7 +296,7 @@ input:checked + .slider:before {
 }
 
 
-.toolTip {
+.toolTipJanis {
   position: absolute;
   display: none;
   min-width: 80px;
