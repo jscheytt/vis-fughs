@@ -1,17 +1,17 @@
-timeJanis,passenger
-Woche 1,33
-Woche 2,12
-Woche 3,41
-Woche 4,16
-Woche 5,59
-Woche 6,38
-Woche 7,21
-Woche 8,25
-Woche 9,30
-Woche 10,47
-Woche 11,5
-Woche 12,20
-Woche 13,13
-Woche 14,29
-Woche 15,33
-Woche 16,32
+timeJanis,einsteigerJanis,aussteigerJanis
+Woche 1,33,30
+Woche 2,12,47
+Woche 3,41,5
+Woche 4,16,20
+Woche 5,59,13
+Woche 6,38,29
+Woche 7,21,33
+Woche 8,25,32
+Woche 9,30,33
+Woche 10,47,12
+Woche 11,5,41
+Woche 12,20,16
+Woche 13,13,59
+Woche 14,29,38
+Woche 15,33,21
+Woche 16,32,25

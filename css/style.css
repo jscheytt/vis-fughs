@@ -307,10 +307,8 @@ input:checked + .slider:before {
   text-align: center;
 }
 .bar rect:hover {
-  fill: blue;
+  fill: black;
 }
 
-.bar rect {
-    fill: black;
-  }
+
   
