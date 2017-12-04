@@ -2,6 +2,8 @@ var selectedStations = [
 "",
 ""
 ];
+
+var zoomSelection = [];
 var line ="";
 var firstSelectedStation = true;
 
@@ -52,6 +54,9 @@ function showView1(passengersPerStation){
 			bobbels[i].setAttributeNS(null,"r", bobbelvalue);
 		}
 	}
+	requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 }	
 	
 function showTooltip(evt, id){	
@@ -91,6 +96,14 @@ function onLineSelectionChange (id){
 	var checkEle = document.getElementById(id);
 	highlightOrDisableLine(id.replace("lineDescription", "line_"), checkEle.checked);
 	highlightOrDisableLine(id.replace("lineDescription", "lineSmall_"), checkEle.checked);
+	if(checkEle.checked && !zoomSelection.includes(id)){
+		zoomSelection.push(id);
+	}else if(!checkEle.checked){
+		zoomSelection = zoomSelection.filter (function (r) { return r != id;});
+	}	
+	requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 }
 
 function selectLine (id){
@@ -165,6 +178,10 @@ function highlightOneLine(newID){
 		lineS31.setAttributeNS(null,"opacity",1);
 		selline.setAttributeNS(null,"opacity",1);
 		line = "";
+		zoomSelection = [];
+		requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+		requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+		requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 	}
 }
 
@@ -215,7 +232,6 @@ function highlightOrDisableLine(id, highlight){
 
 function selectStation (id){
 	//show all lines
-	
 	id = id.replace("label_", "");
 	var station = document.getElementById(id);
 	
@@ -293,6 +309,7 @@ function selectStation (id){
 }
 
 function showViewZoom(dataLines){
+	zoomSelection = [];
 	var zoomView = document.getElementById("zoomView");
 	
 	if(dataLines != ""){
@@ -328,6 +345,7 @@ function showViewZoom(dataLines){
 			"<path sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" id=\"lineSmall_"+lines[j]+"\" />"+
 			"<rect  x=\"-5592.5132\" y=\"1510.5\" width=\"9\" height=\"9\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" />"+
 			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" /></g></svg>"+"</div>";
+			zoomSelection.push("lineDescription"+lines[j]);
 		}
 		zoomView.innerHTML = selectedStations[0] + lineoptions;
 		for(j = 0; j<lines.length; j++){
@@ -365,6 +383,8 @@ function showViewZoom(dataLines){
 			"<rect x=\"-5514.8521\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"display:block;fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" onclick=\"selectStation(this.id)\" />"
 	   
 			+"</g></svg>"+"</div>";
+			
+			zoomSelection.push("lineDescription"+lines[j]);
 		}
 		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1] + lineoptions;
 		for(j = 0; j<lines.length; j++){
@@ -372,12 +392,15 @@ function showViewZoom(dataLines){
 			dataLines.find(function(h) {return h.Linie ===lines[j];}).Anzahl;
 		}
 	}
+	requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 }
 
 function getStations(start, end){
 	//nothing selected
 	if(start == ""){
-		return "";
+		return linesOfStations.map(function (t) {return t.station;});
 	}
 	//station selected
 	else if(end == ""){
@@ -402,7 +425,7 @@ function getStations(start, end){
 						return res.slice(endIndex, startIndex+1);
 					}
 				}else{
-					var res = stationsOfLine.find(function(h) { return h.line === lines[0];}).stations.join();
+					var res = stationsOfLine.find(function(h) { return h.line === lines[0];}).stations;
 					var startIndex = res.indexOf(start);
 					var endIndex = res.indexOf(end);
 					if(startIndex < endIndex){
@@ -412,7 +435,14 @@ function getStations(start, end){
 					}
 				}
 			}else{
-				return stationsOfLine.find(function(h) { return h.line === lines[0];}).stations.join();
+				var res = stationsOfLine.find(function(h) { return h.line === lines[0];}).stations;
+				var startIndex = res.indexOf(start);
+					var endIndex = res.indexOf(end);
+					if(startIndex < endIndex){
+						return res.slice(startIndex, endIndex+1);
+					}else{
+						return res.slice(endIndex, startIndex+1);
+					}
 			}
 		}
 	}

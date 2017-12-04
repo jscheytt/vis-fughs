@@ -9,7 +9,7 @@ if(!empty($_POST)){
 	$passenger = intval(urldecode($_POST['passenger']));
 	$varianz = urldecode($_POST['varianz']) === 'true'? true: false;
 	$stations = explode(",", urldecode($_POST['stations']));	
-	$line = urldecode($_POST['line']);
+	$lines = explode(",", urldecode($_POST['lines']));
 	
 	if($view == "1"){
 		loadView1();
@@ -18,16 +18,16 @@ if(!empty($_POST)){
 		//loadView2();
 	}
 	else if($view == "3"){
-		//loadView3();
+		loadView3();
 	}
 	else if($view == "4"){
-		//loadView4();
+		loadView4();
 	}
 	else if($view == "5"){
-		//loadView5();
+		loadView5();
 	}
 	else if($view == "zoom"){
-		loadViewZoom($stations, $line);
+		loadViewZoom($stations, $lines);
 	}
 	// if (array_key_exists('room', $_POST)){
 		// getOPInfos(urldecode($_POST['room']));
@@ -74,14 +74,14 @@ function loadView1(){
 	echo json_encode($result);
 }
 
-function loadViewZoom($stations, $line){
+function loadViewZoom($stations, $lines){
 	$resultList = [];
 	
 	$fp = @fopen("data.csv", "r") or die ("Datei nicht lesbar"); 
 	while($zeile = fgets($fp)) 
 	{ 
 		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] count
-		if($spalten[0] != "station" && in_array($spalten[0], $stations) && ($spalten[1] == $line || $line == "")){
+		if($spalten[0] != "station" && in_array($spalten[0], $stations) && (in_array($spalten[1],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
 			if(array_key_exists($spalten[1], $resultList)){
 				$resultList [$spalten[1]] = $resultList[$spalten[1]] + intval($spalten[2]);
 			//$resultList[$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
@@ -109,5 +109,18 @@ function loadViewZoom($stations, $line){
 	//Ausgabe 
 	echo json_encode($result);
 }
+
+function loadView3(){
+ echo "data view 3";	
+}
+
+function loadView4(){
+ echo "data view 4";	
+}
+
+function loadView5(){
+ echo "data view 5";	
+}
+
 
 ?>
