@@ -15,7 +15,7 @@ if(!empty($_POST)){
 		loadView1();
 	}
 	else if($view == "2"){
-		//loadView2();
+		loadView2();
 	}
 	else if($view == "3"){
 		loadView3();
@@ -29,12 +29,6 @@ if(!empty($_POST)){
 	else if($view == "zoom"){
 		loadViewZoom($stations, $lines);
 	}
-	// if (array_key_exists('room', $_POST)){
-		// getOPInfos(urldecode($_POST['room']));
-	// }else if (array_key_exists('state', $_POST)){
-		// getOPStates(urldecode($_POST['state']));
-	// }
-	//loadCSV();
 }
 
 
@@ -46,19 +40,11 @@ function loadView1(){
 	{ 
 		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] count
 		if($spalten[0] != "station"){
-		if(array_key_exists($spalten[0], $resultList)){
-			$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
-			//$resultList[$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
-		}else{
-			$resultList [$spalten[0]] = intval($spalten[2]);
-			//$station = new \stdClass();
-			//$station->Name = $spalten[0];
-			//$station->Anzahl = intval($spalten[2]);
-			//array_push($resultList, $station);
-		}
-		//if(in_array($spalten[1], $lines){
-			//$station->Anzahl = $station->Anzahl + intval($spalten[2]);
-		//}
+			if(array_key_exists($spalten[0], $resultList)){
+				$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
+			}else{
+				$resultList [$spalten[0]] = intval($spalten[2]);
+			}
 		}
 	} 
 	fclose($fp); 
@@ -84,17 +70,9 @@ function loadViewZoom($stations, $lines){
 		if($spalten[0] != "station" && in_array($spalten[0], $stations) && (in_array($spalten[1],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
 			if(array_key_exists($spalten[1], $resultList)){
 				$resultList [$spalten[1]] = $resultList[$spalten[1]] + intval($spalten[2]);
-			//$resultList[$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
 			}else{
 				$resultList [$spalten[1]] = intval($spalten[2]);
-			//$station = new \stdClass();
-			//$station->Name = $spalten[0];
-			//$station->Anzahl = intval($spalten[2]);
-			//array_push($resultList, $station);
 			}
-		//if(in_array($spalten[1], $lines){
-			//$station->Anzahl = $station->Anzahl + intval($spalten[2]);
-		//}
 		}
 	} 
 	fclose($fp); 
@@ -110,16 +88,20 @@ function loadViewZoom($stations, $lines){
 	echo json_encode($result);
 }
 
+function loadView2(){
+	echo "data view 2";	
+}
+
 function loadView3(){
- echo "data view 3";	
+	echo "data view 3";	
 }
 
 function loadView4(){
- echo "data view 4";	
+	echo "data view 4";	
 }
 
 function loadView5(){
- echo "data view 5";	
+	echo "data view 5";	
 }
 
 

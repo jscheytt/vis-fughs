@@ -7,7 +7,11 @@ var requestDataZoom;
 
 
 function loadData(){ //wird bei onload der Seite aufgerufen  
-	//requestDataForView("2"); //timeline laden
+	//requestDataForView("2", "", ""); //timeline laden
+}
+
+function onCheckChange(){
+	requestDataForView("2", "", "");
 }
 
 //onVarianz change -> requestData("2") -> select timeslot again
@@ -17,6 +21,16 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 //onSelectionView1 change -> requestData("3"), requestData("4"), requestData("5")
 //onSelectionZoom change -> requestData("3"), requestData("4"), requestData("5")
 function requestDataForView(view, stations, lines){
+	var varianz = document.getElementById("VarianzCheckbox").checked;
+	
+	var passenger = 0;
+	var ein = document.getElementById("EinsteigerCheckbox");
+	var aus = document.getElementById("AussteigerCheckbox");
+	if(ein.checked && !aus.checked){
+		passenger = 1;
+	}else if (!ein.checked && aus.checked){
+		passenger = 2;
+	}
 	
 	if(view == "1"){
 		if(window.XMLHttpRequest){
@@ -27,7 +41,7 @@ function requestDataForView(view, stations, lines){
 		requestData1.open('post', 'DataController.php', true);
 		requestData1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData1.onreadystatechange = handleResponseView1;
-		requestData1.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
+		requestData1.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "2"){
 		if(window.XMLHttpRequest){
@@ -38,7 +52,7 @@ function requestDataForView(view, stations, lines){
 		requestData2.open('post', 'DataController.php', true);
 		requestData2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData2.onreadystatechange = handleResponseView2;
-		requestData2.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
+		requestData2.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "3"){
 		if(window.XMLHttpRequest){
@@ -49,8 +63,8 @@ function requestDataForView(view, stations, lines){
 		requestData3.open('post', 'DataController.php', true);
 		requestData3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData3.onreadystatechange = handleResponseView3;
-		requestData3.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
-			alert ("view="+view+"    stations="+stations+"     lines="+lines);
+		requestData3.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		alert ("view="+view+"    stations="+stations+"     lines="+lines+"    passenger="+passenger+"     varianz="+varianz);
 	}
 	else if(view == "4"){
 		if(window.XMLHttpRequest){
@@ -61,7 +75,7 @@ function requestDataForView(view, stations, lines){
 		requestData4.open('post', 'DataController.php', true);
 		requestData4.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData4.onreadystatechange = handleResponseView4;
-		requestData4.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
+		requestData4.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "5"){
 		if(window.XMLHttpRequest){
@@ -72,7 +86,7 @@ function requestDataForView(view, stations, lines){
 		requestData5.open('post', 'DataController.php', true);
 		requestData5.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData5.onreadystatechange = handleResponseView5;
-		requestData5.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
+		requestData5.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "zoom"){
 		if(window.XMLHttpRequest){
@@ -83,7 +97,7 @@ function requestDataForView(view, stations, lines){
 		requestDataZoom.open('post', 'DataController.php', true);
 		requestDataZoom.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestDataZoom.onreadystatechange = handleResponseViewZoom;
-		requestDataZoom.send("view="+view+"&passenger=0&varianz=false&stations="+stations+"&lines="+lines);
+		requestDataZoom.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 }
 
@@ -103,29 +117,32 @@ function handleResponseViewZoom(){
 
 function handleResponseView2(){
 	if (requestData2.readyState == 4 && requestData2.status == 200){
-		showView2(JSON.parse(requestData2.responseText));
+		//showView2(JSON.parse(requestData2.responseText));
+		//alert(requestData2.responseText);
+		requestData2 = null;
 	}
 }
 
 function handleResponseView3(){
 	if (requestData3.readyState == 4 && requestData3.status == 200){
 		//showView3(JSON.parse(requestData.responseText));
-		alert(requestData3.responseText);
-				requestData3 = null;
+		//alert(requestData3.responseText);
+		requestData3 = null;
 	}
 }
 
 function handleResponseView4(){
 	if (requestData4.readyState == 4 && requestData4.status == 200){
 		//showView4(JSON.parse(requestData.responseText));
-				requestData4 = null;
+		//alert(requestData4.responseText);
+		requestData4 = null;
 	}
 }
 
 function handleResponseView5(){
 	if (requestData5.readyState == 4 && requestData5.status == 200){
 		//showView5(JSON.parse(requestData.responseText));
-		alert(requestData5.responseText);
-				requestData5 = null;
+		//alert(requestData5.responseText);
+		requestData5 = null;
 	}
 }
