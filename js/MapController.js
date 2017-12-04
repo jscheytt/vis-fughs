@@ -2,10 +2,8 @@ var selectedStations = [
 "",
 ""
 ];
-
+var line ="";
 var firstSelectedStation = true;
-
-var factor = 0;
 
 function init(evt)
 {
@@ -31,26 +29,26 @@ function init(evt)
 	lineS21.setAttributeNS(null,"opacity",1);
 	lineS31.setAttributeNS(null,"opacity",1);
 	
-	loadPassengerCount(stationData);
+	requestDataForView("1", "", "");
 }
 
 
-function loadPassengerCount(passengersPerStation){
+function showView1(passengersPerStation){
 	var maxRadius = 20;
 	var minRadius = 0;
 	
-	var maxValue =  d3.max(passengersPerStation, function(d) { return d.count; });
+	var maxValue =  d3.max(passengersPerStation, function(d) { return d.Anzahl; });
 	var minValue = 0;
 	
-	factor = 1/(maxValue/maxRadius);
+	var factor = 1/(maxValue/maxRadius);
 	
 	var bobbels = document.querySelectorAll('*[id^="bobbel_"]');
 	for (i = 0; i < bobbels.length; i++){
 		var stationname = bobbels[i].id.replace("bobbel_", "");
-		var stationvalue = passengersPerStation.find(function(e) { return e.station === stationname; });
+		var stationvalue = passengersPerStation.find(function(e) { return e.Name === stationname; });
 		if (stationvalue != null){
-			bobbels[i].name = stationvalue.count;
-			var bobbelvalue = stationvalue.count * factor;
+			bobbels[i].name = stationvalue.Anzahl;
+			var bobbelvalue = stationvalue.Anzahl * factor;
 			bobbels[i].setAttributeNS(null,"r", bobbelvalue);
 		}
 	}
@@ -120,9 +118,7 @@ function selectLine (id){
 	}
 	
 	var newID = id.replace("label", "line");
-	
 	highlightOneLine(newID);
-	
 }
 
 function highlightOneLine(newID){
@@ -133,15 +129,19 @@ function highlightOneLine(newID){
 	var lineS21 = document.getElementById("line_S21");
 	var lineS31 = document.getElementById("line_S31");
 	
-	var line = document.getElementById(newID);
-	if(line.getAttribute('opacity') == 0.3){
+	var selline = document.getElementById(newID);
+	if(selline.getAttribute('opacity') == 0.3){
 		lineS1.setAttributeNS(null,"opacity",0.3);
 		lineS2.setAttributeNS(null,"opacity",0.3);
 		lineS3.setAttributeNS(null,"opacity",0.3);
 		lineS11.setAttributeNS(null,"opacity",0.3);
 		lineS21.setAttributeNS(null,"opacity",0.3);
 		lineS31.setAttributeNS(null,"opacity",0.3);
-		line.setAttributeNS(null,"opacity",1);
+		selline.setAttributeNS(null,"opacity",1);
+		line = newID.replace("line_", "");
+		var stations = stationsOfLine.find(function (i) {return i.line === line}).stations;
+		selectStation("label_"+stations[0])
+		selectStation("label_"+stations[stations.length -1]);
 	}else if (lineS1.getAttribute('opacity') == 1 && lineS2.getAttribute('opacity') == 1
 	&& lineS3.getAttribute('opacity') == 1 && lineS11.getAttribute('opacity') == 1
 	&& lineS21.getAttribute('opacity') == 1 && lineS31.getAttribute('opacity') == 1){
@@ -151,7 +151,11 @@ function highlightOneLine(newID){
 		lineS11.setAttributeNS(null,"opacity",0.3);
 		lineS21.setAttributeNS(null,"opacity",0.3);
 		lineS31.setAttributeNS(null,"opacity",0.3);
-		line.setAttributeNS(null,"opacity",1);
+		selline.setAttributeNS(null,"opacity",1);
+		line = newID.replace("line_", "");
+		var stations = stationsOfLine.find(function (i) {return i.line === line}).stations;
+		selectStation("label_"+stations[0])
+		selectStation("label_"+stations[stations.length -1]);
 	}else{
 		lineS1.setAttributeNS(null,"opacity",1);
 		lineS2.setAttributeNS(null,"opacity",1);
@@ -159,12 +163,14 @@ function highlightOneLine(newID){
 		lineS11.setAttributeNS(null,"opacity",1);
 		lineS21.setAttributeNS(null,"opacity",1);
 		lineS31.setAttributeNS(null,"opacity",1);
-		line.setAttributeNS(null,"opacity",1);
+		selline.setAttributeNS(null,"opacity",1);
+		line = "";
 	}
 }
 
 
 function highlightMultiLines(lines){
+	line = "";
 	var lineS1 = document.getElementById("line_S1");
 	var lineS2 = document.getElementById("line_S2");
 	var lineS3 = document.getElementById("line_S3");
@@ -192,42 +198,30 @@ function highlightMultiLines(lines){
 	}
 	
 	for(i = 0; i<lines.length; i++){
-		var line = document.getElementById("line_"+lines[i]);
-		line.setAttributeNS(null,"opacity",1);
+		var selline = document.getElementById("line_"+lines[i]);
+		selline.setAttributeNS(null,"opacity",1);
 	}
 	
 }
 
 function highlightOrDisableLine(id, highlight){
-	var line = document.getElementById(id);
+	var selline = document.getElementById(id);
 	if(highlight){
-		line.setAttributeNS(null,"opacity",1);
+		selline.setAttributeNS(null,"opacity",1);
 	}else{
-		line.setAttributeNS(null,"opacity",0.3);
+		selline.setAttributeNS(null,"opacity",0.3);
 	}
 }
 
 function selectStation (id){
 	//show all lines
-
-	var lineS1 = document.getElementById("line_S1");
-	var lineS2 = document.getElementById("line_S2");
-	var lineS3 = document.getElementById("line_S3");
-	var lineS11 = document.getElementById("line_S11");
-	var lineS21 = document.getElementById("line_S21");
-	var lineS31 = document.getElementById("line_S31");
-	lineS1.setAttributeNS(null,"opacity",1);
-	lineS2.setAttributeNS(null,"opacity",1);
-	lineS3.setAttributeNS(null,"opacity",1);
-	lineS11.setAttributeNS(null,"opacity",1);
-	lineS21.setAttributeNS(null,"opacity",1);
-	lineS31.setAttributeNS(null,"opacity",1);
 	
 	id = id.replace("label_", "");
 	var station = document.getElementById(id);
 	
 	//second click on selected station -> remove station, make second to first
 	if(station.style.strokeWidth == 4){
+		line = "";
 		station.style.strokeWidth = 0.8;
 		station.style.fill = "#ffffff";
 		
@@ -241,6 +235,7 @@ function selectStation (id){
 	}
 	else{
 		//first selected station
+		
 		if(selectedStations[0] == ""){
 			selectedStations[0] = id;
 		}
@@ -261,6 +256,7 @@ function selectStation (id){
 		}
 		//new route, delete selection and set selected as first
 		else{
+			line = "";
 			var oldFirst = selectedStations[0];
 			var oldSecond = selectedStations[1];
 			var oldStationFirst = document.getElementById(oldFirst);
@@ -277,12 +273,33 @@ function selectStation (id){
 		station.style.strokeWidth = 4;
 		station.style.fill = "#000000";
 	}
-	
-	showZoomView();
+	if(selectedStations[0] != ""){
+		requestDataForView("zoom", getStations(selectedStations[0], selectedStations[1]), line);
+	}else{
+		showViewZoom("");
+		var lineS1 = document.getElementById("line_S1");
+		var lineS2 = document.getElementById("line_S2");
+		var lineS3 = document.getElementById("line_S3");
+		var lineS11 = document.getElementById("line_S11");
+		var lineS21 = document.getElementById("line_S21");
+		var lineS31 = document.getElementById("line_S31");
+		lineS1.setAttributeNS(null,"opacity",1);
+		lineS2.setAttributeNS(null,"opacity",1);
+		lineS3.setAttributeNS(null,"opacity",1);
+		lineS11.setAttributeNS(null,"opacity",1);
+		lineS21.setAttributeNS(null,"opacity",1);
+		lineS31.setAttributeNS(null,"opacity",1);
+	}
 }
 
-function showZoomView(){
+function showViewZoom(dataLines){
 	var zoomView = document.getElementById("zoomView");
+	
+	if(dataLines != ""){
+		var maxRadius = 20;
+		var maxValue =  d3.max(dataLines, function(d) { return d.Anzahl; });	
+		var factor = 1/(maxValue/maxRadius);
+	}
 	
 	//no station, no route seleted
 	if(selectedStations[0] == "" && selectedStations[1] == ""){
@@ -293,7 +310,8 @@ function showZoomView(){
 	else if(selectedStations[0] != "" && selectedStations[1] == ""){
 		zoomView.style.borderStyle = "groove";
 		
-		var lines = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
+		var lines = dataLines.map(function (f) { return f.Linie});
+		//linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
 		//show titel -> Stationname
 		//show possible lines for station (checked checkbox, linename, station-image in according color) 
 		
@@ -302,7 +320,7 @@ function showZoomView(){
 		var lineoptions = "";
 		for(j = 0; j<lines.length; j++){
 			var lineColor = lineColors.find(function(g) {return g.line === lines[j];}).color;
-			var bobbelWidth = getPassengerCountLine(selectedStations[0], lines[j]); 
+			var bobbelWidth = dataLines.find(function(h) {return h.Linie ===lines[j];}).Anzahl;
 			lineoptions +=
 			"<div style=\"display:inline-block; position:relative; height:50px; width:100%\"><input type=\"checkbox\" id=\"lineDescription"+lines[j]+"\" style=\"display: inline-block; float:left; margin-top: 30px; margin-left: 2px;\" onchange=\"onLineSelectionChange(this.id)\" checked>"+
 			"<label for=\"lineDescription"+j+"\" style=\"float:left; margin-top: 28px; margin-left: 2px;\">"+lines[j]+"</label>"+
@@ -313,7 +331,7 @@ function showZoomView(){
 		}
 		zoomView.innerHTML = selectedStations[0] + lineoptions;
 		for(j = 0; j<lines.length; j++){
-			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = getPassengerCountLine(selectedStations[0], lines[j]);
+			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = dataLines.find(function(h) {return h.Linie ===lines[j];}).Anzahl;
 		}
 	}
 	//route selected
@@ -323,13 +341,15 @@ function showZoomView(){
 		var lines1 = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
 		var lines2 = linesOfStations.find(function(f) { return f.station === selectedStations[1]; }).lines;
 		var lines = lines1.filter((n) => lines2.includes(n))
-		
+		if(line != ""){
+			lines = dataLines.map(function (g) {return g.Linie;});	
+		}
 		highlightMultiLines(lines);
 		
 		var lineoptions = "";
 		for(j = 0; j<lines.length; j++){
 			var lineColor = lineColors.find(function(g) {return g.line === lines[j];}).color;
-			var bobbelWidth = getPassengerCountLine(selectedStations[0], lines[j]); 
+			var bobbelWidth = dataLines.find(function(h) {return h.Linie ===lines[j];}).Anzahl;
 			lineoptions +=
 			"<div style=\"display:inline-block; position:relative; height:50px; width:100%\"><input type=\"checkbox\" id=\"lineDescription"+lines[j]+"\" style=\"display: inline-block; float:left; margin-top: 30px; margin-left: 2px;\" onchange=\"onLineSelectionChange(this.id)\" checked>"+
 			"<label for=\"routeDescription"+j+"\" style=\"float:left; margin-top: 28px; margin-left: 2px;\">"+lines[j]+"</label>"+
@@ -348,14 +368,54 @@ function showZoomView(){
 		}
 		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1] + lineoptions;
 		for(j = 0; j<lines.length; j++){
-			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = getPassengerCountLine(selectedStations[0], lines[j]);
+			document.getElementById("bobbel_Neu Wulmstorf_line"+lines[j]).name = 
+			dataLines.find(function(h) {return h.Linie ===lines[j];}).Anzahl;
 		}
 	}
 }
 
-function getPassengerCountLine(station, line){
-	return Math.floor(Math.random() * 57);
-	//request to server
+function getStations(start, end){
+	//nothing selected
+	if(start == ""){
+		return "";
+	}
+	//station selected
+	else if(end == ""){
+		return start;
+	}
+	//route selected
+	else{
+		var lines1 = linesOfStations.find(function(f) { return f.station === start; }).lines;
+		var lines2 = linesOfStations.find(function(g) { return g.station === end; }).lines;
+		var lines = lines1.filter((n) => lines2.includes(n));
+		if(lines.length == 0){
+			return "";
+		}else{
+			if(lines.length > 1){
+				if(lines[0] == "S11" || lines[0] == "S31"){
+					var res = stationsOfLine.find(function(h) { return h.line === lines[1];}).stations;
+					var startIndex = res.indexOf(start);
+					var endIndex = res.indexOf(end);
+					if(startIndex < endIndex){
+						return res.slice(startIndex, endIndex+1);
+					}else{
+						return res.slice(endIndex, startIndex+1);
+					}
+				}else{
+					var res = stationsOfLine.find(function(h) { return h.line === lines[0];}).stations.join();
+					var startIndex = res.indexOf(start);
+					var endIndex = res.indexOf(end);
+					if(startIndex < endIndex){
+						return res.slice(startIndex, endIndex+1);
+					}else{
+						return res.slice(endIndex, startIndex+1);
+					}
+				}
+			}else{
+				return stationsOfLine.find(function(h) { return h.line === lines[0];}).stations.join();
+			}
+		}
+	}
 }
 
 var lineColors = [
@@ -438,74 +498,13 @@ var linesOfStations = [
 {station: "Wedel", 					lines: ["S1"]}
 ];
 
-var stationData= [
-{station: "Pinneberg", 				count: 20},
-{station: "Thesdorf", 				count: 30},
-{station: "Halstenbek", 			count: 50},
-{station: "Krupunder", 				count: 12},
-{station: "Elbgaustrasse", 			count: 25},
-{station: "Eidelstedt", 			count: 14},
-{station: "Stellingen", 			count: 4},
-{station: "Langenfelde", 			count: 18},
-{station: "Diebstreich", 			count: 28},
-{station: "Holstenstrasse", 		count: 45},
-{station: "Sternschanze", 			count: 20},
-{station: "Dammtor", 				count: 30},
-{station: "Hamburg Hbf",			count: 69},
-{station: "Berliner Tor", 			count: 57},
-{station: "Landwehr", 				count: 24},
-{station: "Hasselbrook", 			count: 26},
-{station: "Wandsbeker Chaussee", 	count: 33},
-{station: "Friedrichsberg", 		count: 17},
-{station: "Barmbek", 				count: 20},
-{station: "Alte Woehr", 			count: 17},
-{station: "Ruebenkamp", 			count: 10},
-{station: "Ohlsdorf", 				count: 8},
-{station: "Hamburg Airport", 		count: 36},
-{station: "Kornweg", 				count: 7},
-{station: "Hoheneichen", 			count: 22},
-{station: "Wellingsbuettel", 		count: 19},
-{station: "Poppenbuettel", 			count: 10},
-{station: "Aumuehle", 				count: 20},
-{station: "Wohltorf", 				count: 7},
-{station: "Reinbek", 				count: 13},
-{station: "Hamburg-Bergedorf", 		count: 16},
-{station: "Nettelnburg", 			count: 20},
-{station: "Allermoehe", 			count: 30},
-{station: "Mittlerer Landweg", 		count: 14},
-{station: "Billwerder-Moorfleet", 	count: 26},
-{station: "Tiefstack", 				count: 6},
-{station: "Rothenburgsort", 		count: 13},
-{station: "Hammerbrook", 			count: 4},
-{station: "Veddel", 				count: 40},
-{station: "Wilhelmsburg", 			count: 34},
-{station: "Hamburg-Harburg", 		count: 50},
-{station: "Harburg Rathaus", 		count: 29},
-{station: "Heimfeld", 				count: 19},
-{station: "Neuwiedenthal", 			count: 8},
-{station: "Neugraben", 				count: 5},
-{station: "Fischbek", 				count: 30},
-{station: "Neu Wulmstorf", 			count: 12}, 
-{station: "Buxtehude", 				count: 46},
-{station: "Neukloster", 			count: 30},
-{station: "Horneburg", 				count: 17},
-{station: "Dollern", 				count: 12},
-{station: "Agathenburg", 			count: 28},
-{station: "Stade", 					count: 22},
-{station: "Jungfernstieg", 			count: 11},
-{station: "Stadthausbruecke", 		count: 10},
-{station: "Landungsbruecken", 		count: 21},
-{station: "Reeperbahn", 			count: 13},
-{station: "Koenigstrasse",		 	count: 58},
-{station: "Hamburg-Altona", 		count: 30},
-{station: "Bahrenfeld", 			count: 24},
-{station: "Othmarschen", 			count: 18},
-{station: "Klein Flottbek", 		count: 9},
-{station: "Hochkamp", 				count: 6},
-{station: "Blankenese", 			count: 33},
-{station: "Iserbrook", 				count: 25},
-{station: "Suelldorf", 				count: 16},
-{station: "Rissen", 				count: 8},
-{station: "Wedel", 					count: 11}
+
+var stationsOfLine = [
+{line: "S1", stations:["Wedel", "Rissen", "Suelldorf", "Iserbrook", "Blankenese", "Hochkamp", "Klein Flottbek", "Othmarschen", "Bahrenfeld", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Landwehr", "Hasselbrook", "Wandsbeker Chaussee", "Friedrichsberg", "Barmbek", "Alte Woehr", "Ruebenkamp", "Ohlsdorf", "Hamburg Airport", "Kornweg", "Hoheneichen", "Wellingsbuettel", "Poppenbuettel"]},
+{line: "S11", stations:["Blankenese", "Hochkamp", "Klein Flottbek", "Othmarschen", "Bahrenfeld", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Landwehr", "Hasselbrook", "Wandsbeker Chaussee", "Friedrichsberg", "Barmbek", "Alte Woehr", "Ruebenkamp", "Ohlsdorf", "Kornweg", "Hoheneichen", "Wellingsbuettel", "Poppenbuettel"]},
+{line: "S2", stations:["Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Rothenburgsort", "Tiefstack", "Billwerder-Moorfleet", "Mittlerer Landweg", "Allermoehe", "Nettelnburg", "Hamburg-Bergedorf"]},
+{line: "S21", stations:["Elbgaustrasse", "Eidelstedt", "Stellingen", "Langenfelde", "Diebstreich", "Holstenstrasse", "Sternschanze", "Dammtor", "Hamburg Hbf", "Berliner Tor", "Rothenburgsort", "Tiefstack", "Billwerder-Moorfleet", "Mittlerer Landweg", "Allermoehe", "Nettelnburg", "Hamburg-Bergedorf", "Reinbek", "Wohltorf", "Aumuehle"]},
+{line: "S3", stations:["Pinneberg", "Thesdorf", "Halstenbek", "Krupunder", "Elbgaustrasse", "Eidelstedt", "Stellingen", "Langenfelde", "Diebstreich", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Hammerbrook", "Veddel", "Wilhelmsburg", "Hamburg-Harburg", "Harburg Rathaus", "Heimfeld", "Neuwiedenthal", 	"Neugraben", "Fischbek", "Neu Wulmstorf", "Buxtehude", "Neukloster", "Horneburg", "Dollern", "Agathenburg", "Stade"]},
+{line: "S31", stations:["Hamburg-Altona", "Holstenstrasse", "Sternschanze", "Dammtor", "Hamburg Hbf", "Berliner Tor", "Hammerbrook", "Veddel", "Wilhelmsburg", "Hamburg-Harburg", "Harburg Rathaus", "Heimfeld", "Neuwiedenthal", "Neugraben"]},
 ];
 
