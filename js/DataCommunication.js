@@ -64,7 +64,7 @@ function requestDataForView(view, stations, lines){
 		requestData3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData3.onreadystatechange = handleResponseView3;
 		requestData3.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
-		alert ("view="+view+"    stations="+stations+"     lines="+lines+"    passenger="+passenger+"     varianz="+varianz);
+		//alert ("view="+view+"    stations="+stations+"     lines="+lines+"    passenger="+passenger+"     varianz="+varianz);
 	}
 	else if(view == "4"){
 		if(window.XMLHttpRequest){
