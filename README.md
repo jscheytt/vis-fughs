@@ -97,7 +97,7 @@ Timestamp | Einsteiger | Aussteiger | Avg | AbwEin | AbwAus | AbwAvg
 --- | --- | --- | --- | --- | --- | ---
 2016-12-31 | 123 | 321 | 222 | -27 | 171 | 72
 
-Es gibt insgesamt 4 Files für den Gesamtzeitraum, die Monate, die Wochen und die Tage. Der Timestamp ist für den **Gesamtzeitraum** ```0```, für **Monate** ```YYYY-MM-01```, für **Wochen** ```YYYY-MM-[Montag der Woche, 1-31]``` und für **Tage** ```YYYY-MM-DD```. _Avg_ ist ```(Einsteiger + Aussteiger) / 2```, _AbwEin_ ist ```Einsteiger - Mittelwert(Einsteiger_Gesamtzeitraum)```, _AbwAus_ ist ```Aussteiger - Mittelwert(Aussteiger_Gesamtzeitraum)``` und _AbwAvg_ ist ```Avg - Mittelwert(Avg_Gesamtzeitraum)```.
+Es gibt insgesamt 4 Files für den Gesamtzeitraum, die Monate, die Wochen und die Tage. Der Timestamp ist für den **Gesamtzeitraum** ```0```, für **Monate** ```YYYY-MM-01```, für **Wochen** ```YYYY-MM-[Montag der Woche, 1-31]``` und für **Tage** ```YYYY-MM-DD```. _Avg_ ist ```(Einsteiger + Aussteiger) / 2```, _AbwEin_ ist ```Einsteiger - Mittelwert(Einsteiger_[Rasterung])```, _AbwAus_ ist ```Aussteiger - Mittelwert(Aussteiger_[Rasterung])``` und _AbwAvg_ ist ```Avg - Mittelwert(Avg_[Rasterung])```.
 
 ## Für #1 Map, #3 Duration und #9 Zoom
 Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg | Haltezeit
