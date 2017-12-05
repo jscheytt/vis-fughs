@@ -1,135 +1,135 @@
-station; line; in; out
-Pinneberg;S3;20;10
-Thesdorf;S3;30;7
-Halstenbek;S3;50;6
-Krupunder;S3;12;21
-Elbgaustrasse;S3;25;12
-Elbgaustrasse;S21;5;7
-Eidelstedt;S21;14;3
-Eidelstedt;S3;6;19
-Stellingen;S3;2;12
-Stellingen;S21;4;5
-Langenfelde;S3;8;7
-Langenfelde;S21;7;10
-Diebstreich;S3;18;9
-Diebstreich;S3;6;6
-Holstenstrasse;S11;15;4
-Holstenstrasse;S21;10;7
-Holstenstrasse;S31;20;11
-Sternschanze;S11;6;11
-Sternschanze;S21;7;9
-Sternschanze;S31;14;20
-Dammtor;S11;10;3
-Dammtor;S21;6;9
-Dammtor;S31;22;12
-Hamburg Hbf;S11;29;12
-Hamburg Hbf;S21;20;6
-Hamburg Hbf;S31;8;11
-Hamburg Hbf;S3;9;5
-Hamburg Hbf;S1;10;8
-Hamburg Hbf;S2;7;12
-Berliner Tor;S2;17;10
-Berliner Tor;S21;20;13
-Berliner Tor;S31;8;5
-Berliner Tor;S1;12;3
-Berliner Tor;S11;18;8
-Landwehr;S1;14;9
-Landwehr;S11;10;16
-Hasselbrook;S1;6;18
-Hasselbrook;S11;20;14
-Wandsbeker Chaussee;S1;8;5
-Wandsbeker Chaussee;S11;21;16
-Friedrichsberg;S1;8;13
-Friedrichsberg;S11;9;6
-Barmbek;S1;9;4
-Barmbek;S11;8;7
-Alte Woehr;S1;7;11
-Alte Woehr;S11;10;18
-Ruebenkamp;S1;5;9
-Ruebenkamp;S11;3;6
-Ohlsdorf;S1;2;14
-Ohlsdorf;S11;6;13
-Hamburg Airport;S1;36;19
-Kornweg;S1;2;12
-Kornweg;S11;5;14
-Hoheneichen;S1;14;17
-Hoheneichen;S11;9;6
-Wellingsbuettel;S1;7;9
-Wellingsbuettel;S11;13;18
-Poppenbuettel;S1;2;8
-Poppenbuettel;S11;6;13
-Aumuehle;S21;20;8
-Wohltorf;S21;7;19
-Reinbek;S21;13;5
-Hamburg-Bergedorf;S21;10;5
-Hamburg-Bergedorf;S2;6;4
-Nettelnburg;S21;8;11
-Nettelnburg;S2;12;9
-Allermoehe;S21;10;5
-Allermoehe;S2;20;9
-Mittlerer Landweg;S21;4;8
-Mittlerer Landweg;S2;10;6
-Billwerder-Moorfleet;S21;16;22
-Billwerder-Moorfleet;S2;10;16
-Tiefstack;S21;2;4
-Tiefstack;S2;4;4
-Rothenburgsort;S21;10;6
-Rothenburgsort;S2;3;7
-Hammerbrook;S3;2;4
-Hammerbrook;S31;2;6
-Veddel;S3;10;17
-Veddel;S31;30;14
-Wilhelmsburg;S3;14;6
-Wilhelmsburg;S31;20;16
-Hamburg-Harburg;S3;12;21
-Hamburg-Harburg;S31;9;6
-Harburg Rathaus;S3;9;4
-Harburg Rathaus;S31;10;8
-Heimfeld;S3;9;15
-Heimfeld;S31;14;10
-Neuwiedenthal;S3;3;8
-Neuwiedenthal;S31;5;9
-Neugraben;S3;3;5
-Neugraben;S31;2;6
-Fischbek;S3;30;22
-Neu Wulmstorf;S3;12;21
-Buxtehude;S3;46;25
-Neukloster;S3;30;23
-Horneburg;S3;17;20
-Dollern;S3;12;7
-Agathenburg;S3;28;19
-Stade;S3;22;30
-Jungfernstieg;S3;6;9
-Jungfernstieg;S2;4;6
-Jungfernstieg;S1;1;6
-Stadthausbruecke;S3;2;9
-Stadthausbruecke;S2;5;9
-Stadthausbruecke;S1;3;11
-Landungsbruecken;S3;5;7
-Landungsbruecken;S2;12;9
-Landungsbruecken;S1;15;19
-Reeperbahn;S3;3;6
-Reeperbahn;S2;6;9
-Reeperbahn;S1;4;7
-Koenigstrasse;S3;8;12
-Koenigstrasse;S2;20;16
-Koenigstrasse;S1;28;20
-Hamburg-Altona;S3;10;16
-Hamburg-Altona;S2;5;7
-Hamburg-Altona;S1;7;9
-Hamburg-Altona;S11;12;12
-Hamburg-Altona;S31;9;15
-Bahrenfeld;S1;11;6
-Bahrenfeld;S11;9;13
-Othmarschen;S1;6;9
-Othmarschen;S11;12;19
-Klein Flottbek;S1;3;6
-Klein Flottbek;S11;6;8
-Hochkamp;S1;6;9
-Hochkamp;S11;6;4
-Blankenese;S1;19;27
-Blankenese;S11;8;15
-Iserbrook;S1;25;30
-Suelldorf;S1;16;22
-Rissen;S1;8;12
-Wedel;S1;11;9
+station; line; in; out; varin; varout
+Pinneberg;S3;20;10;5;1
+Thesdorf;S3;30;7;2;2
+Halstenbek;S3;50;6;8;3
+Krupunder;S3;12;21;4;4
+Elbgaustrasse;S3;25;12;8;5
+Elbgaustrasse;S21;5;7;6;6
+Eidelstedt;S21;14;3;5;7
+Eidelstedt;S3;6;19;2;8
+Stellingen;S3;2;12;9;9
+Stellingen;S21;4;5;5;2
+Langenfelde;S3;8;7;4;2
+Langenfelde;S21;7;10;3;3
+Diebstreich;S3;18;9;8;4
+Diebstreich;S3;6;6;3;5
+Holstenstrasse;S11;15;4;7;6
+Holstenstrasse;S21;10;7;9;7
+Holstenstrasse;S31;20;11;2;7
+Sternschanze;S11;6;11;9;8
+Sternschanze;S21;7;9;3;9
+Sternschanze;S31;14;20;8;1
+Dammtor;S11;10;3;4;1
+Dammtor;S21;6;9;9;4
+Dammtor;S31;22;12;3;7
+Hamburg Hbf;S11;29;12;8;9
+Hamburg Hbf;S21;20;6;2;9
+Hamburg Hbf;S31;8;11;5;6
+Hamburg Hbf;S3;9;5;7;2
+Hamburg Hbf;S1;10;8;2;3
+Hamburg Hbf;S2;7;12;4;4
+Berliner Tor;S2;17;10;5;5
+Berliner Tor;S21;20;13;1;6
+Berliner Tor;S31;8;5;9;7
+Berliner Tor;S1;12;3;6;7
+Berliner Tor;S11;18;8;4;8
+Landwehr;S1;14;9;2;9
+Landwehr;S11;10;16;1;1
+Hasselbrook;S1;6;18;6;2
+Hasselbrook;S11;20;14;3;3
+Wandsbeker Chaussee;S1;8;5;7;4
+Wandsbeker Chaussee;S11;21;16;3;5
+Friedrichsberg;S1;8;13;7;6
+Friedrichsberg;S11;9;6;2;7
+Barmbek;S1;9;4;7;8
+Barmbek;S11;8;7;4;8
+Alte Woehr;S1;7;11;6;9
+Alte Woehr;S11;10;18;6;1
+Ruebenkamp;S1;5;9;6;2
+Ruebenkamp;S11;3;6;3;3
+Ohlsdorf;S1;2;14;5;4
+Ohlsdorf;S11;6;13;4;5
+Hamburg Airport;S1;36;19;5;6
+Kornweg;S1;2;12;6;7
+Kornweg;S11;5;14;3;8
+Hoheneichen;S1;14;17;2;9
+Hoheneichen;S11;9;6;7;1
+Wellingsbuettel;S1;7;9;9;2
+Wellingsbuettel;S11;13;18;2;3
+Poppenbuettel;S1;2;8;5;4
+Poppenbuettel;S11;6;13;6;5
+Aumuehle;S21;20;8;1;6
+Wohltorf;S21;7;19;8;7
+Reinbek;S21;13;5;2;8
+Hamburg-Bergedorf;S21;10;5;9;9
+Hamburg-Bergedorf;S2;6;4;3;1
+Nettelnburg;S21;8;11;8;2
+Nettelnburg;S2;12;9;8;3
+Allermoehe;S21;10;5;5;4
+Allermoehe;S2;20;9;5;5
+Mittlerer Landweg;S21;4;8;0;6
+Mittlerer Landweg;S2;10;6;5;7
+Billwerder-Moorfleet;S21;16;22;0;8
+Billwerder-Moorfleet;S2;10;16;8;9
+Tiefstack;S21;2;4;2;1
+Tiefstack;S2;4;4;4;2
+Rothenburgsort;S21;10;6;7;3
+Rothenburgsort;S2;3;7;7;4
+Hammerbrook;S3;2;4;5;5
+Hammerbrook;S31;2;6;5;6
+Veddel;S3;10;17;7;7
+Veddel;S31;30;14;9;8
+Wilhelmsburg;S3;14;6;2;9
+Wilhelmsburg;S31;20;16;7;1
+Hamburg-Harburg;S3;12;21;12;2
+Hamburg-Harburg;S31;9;6;3;3
+Harburg Rathaus;S3;9;4;3;4
+Harburg Rathaus;S31;10;8;3;5
+Heimfeld;S3;9;15;9;6
+Heimfeld;S31;14;10;5;7
+Neuwiedenthal;S3;3;8;5;8
+Neuwiedenthal;S31;5;9;7;9
+Neugraben;S3;3;5;7;2
+Neugraben;S31;2;6;7;3
+Fischbek;S3;30;22;2;4
+Neu Wulmstorf;S3;12;21;5;5
+Buxtehude;S3;46;25;5;6
+Neukloster;S3;30;23;8;7
+Horneburg;S3;17;20;8;8
+Dollern;S3;12;7;8;9
+Agathenburg;S3;28;19;4;1
+Stade;S3;22;30;4;2
+Jungfernstieg;S3;6;9;7;3
+Jungfernstieg;S2;4;6;7;4
+Jungfernstieg;S1;1;6;7;5
+Stadthausbruecke;S3;2;9;7;6
+Stadthausbruecke;S2;5;9;3;9
+Stadthausbruecke;S1;3;11;3;1
+Landungsbruecken;S3;5;7;3;2
+Landungsbruecken;S2;12;9;3;3
+Landungsbruecken;S1;15;19;3;4
+Reeperbahn;S3;3;6;3;6
+Reeperbahn;S2;6;9;5;5
+Reeperbahn;S1;4;7;6;6
+Koenigstrasse;S3;8;12;6;7
+Koenigstrasse;S2;20;16;6;8
+Koenigstrasse;S1;28;20;6;9
+Hamburg-Altona;S3;10;16;5;1
+Hamburg-Altona;S2;5;7;5;2
+Hamburg-Altona;S1;7;9;4;3
+Hamburg-Altona;S11;12;12;4;4
+Hamburg-Altona;S31;9;15;4;5
+Bahrenfeld;S1;11;6;6;6
+Bahrenfeld;S11;9;13;6;7
+Othmarschen;S1;6;9;6;9
+Othmarschen;S11;12;19;6;8
+Klein Flottbek;S1;3;6;6;1
+Klein Flottbek;S11;6;8;2;2
+Hochkamp;S1;6;9;2;3
+Hochkamp;S11;6;4;3;4
+Blankenese;S1;19;27;3;5
+Blankenese;S11;8;15;3;6
+Iserbrook;S1;25;30;3;7
+Suelldorf;S1;16;22;5;8
+Rissen;S1;8;12;5;9
+Wedel;S1;11;9;1;9
