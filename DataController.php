@@ -12,7 +12,7 @@ if(!empty($_POST)){
 	$lines = explode(",", urldecode($_POST['lines']));
 	
 	if($view == "1"){
-		loadView1();
+		loadView1($passenger, $varianz);
 	}
 	else if($view == "2"){
 		loadView2();
@@ -27,23 +27,47 @@ if(!empty($_POST)){
 		loadView5();
 	}
 	else if($view == "zoom"){
-		loadViewZoom($stations, $lines);
+		loadViewZoom($stations, $lines, $passenger, $varianz);
 	}
 }
 
 
-function loadView1(){
+function loadView1($passenger, $varianz){
 	$resultList = [];
-	
+	$in = 2;
+	$out = 3;
+	if($varianz){
+		$in = 4;
+		$out = 5;
+	}
 	$fp = @fopen("data.csv", "r") or die ("Datei nicht lesbar"); 
 	while($zeile = fgets($fp)) 
 	{ 
-		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] count
+		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] in, [3] out, [4] varin, [5] varout
 		if($spalten[0] != "station"){
-			if(array_key_exists($spalten[0], $resultList)){
-				$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[2]);
-			}else{
-				$resultList [$spalten[0]] = intval($spalten[2]);
+			if($passenger == 0){ //in + out
+			
+				if(array_key_exists($spalten[0], $resultList)){
+					$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[$in]) + intval($spalten[$out]);
+				}else{
+					$resultList [$spalten[0]] = intval($spalten[$in]) + intval($spalten[$out]);
+				}
+			}
+			
+			if($passenger == 1){ //in
+				if(array_key_exists($spalten[0], $resultList)){
+					$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[$in]);
+				}else{
+					$resultList [$spalten[0]] = intval($spalten[$in]);
+				}
+			}
+			
+			if($passenger == 2){ //out
+				if(array_key_exists($spalten[0], $resultList)){
+					$resultList [$spalten[0]] = $resultList[$spalten[0]] + intval($spalten[$out]);
+				}else{
+					$resultList [$spalten[0]] = intval($spalten[$out]);
+				}
 			}
 		}
 	} 
@@ -60,19 +84,44 @@ function loadView1(){
 	echo json_encode($result);
 }
 
-function loadViewZoom($stations, $lines){
+function loadViewZoom($stations, $lines, $passenger, $varianz){
 	$resultList = [];
+	$in = 2;
+	$out = 3;
+	if($varianz){
+		$in = 4;
+		$out = 5;
+	}
 	
 	$fp = @fopen("data.csv", "r") or die ("Datei nicht lesbar"); 
 	while($zeile = fgets($fp)) 
 	{ 
-		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] count
+		$spalten = explode(";", $zeile); //[0] station, [1] line, [2] in, [3] out, [4] varin, [5] varout
 		if($spalten[0] != "station" && in_array($spalten[0], $stations) && (in_array($spalten[1],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
-			if(array_key_exists($spalten[1], $resultList)){
-				$resultList [$spalten[1]] = $resultList[$spalten[1]] + intval($spalten[2]);
-			}else{
-				$resultList [$spalten[1]] = intval($spalten[2]);
+			if($passenger == 0){ //in + out
+				if(array_key_exists($spalten[1], $resultList)){
+					$resultList [$spalten[1]] = intval($resultList[$spalten[1]]) + intval($spalten[$in])+ intval($spalten[$out]);
+				}else{
+					$resultList [$spalten[1]] = intval($spalten[$in]) + intval($spalten[$out]);
+				}				
 			}
+			
+			if($passenger == 1){ //in
+				if(array_key_exists($spalten[1], $resultList)){
+					$resultList [$spalten[1]] = intval($resultList[$spalten[1]]) + intval($spalten[$in]);
+				}else{
+					$resultList [$spalten[1]] = intval($spalten[$in]);
+				}				
+			}
+			
+			if($passenger == 2){ //out
+				if(array_key_exists($spalten[1], $resultList)){
+					$resultList [$spalten[1]] = intval($resultList[$spalten[1]]) + intval($spalten[$out]);
+				}else{
+					$resultList [$spalten[1]] = intval($spalten[$out]);
+				}				
+			}
+		
 		}
 	} 
 	fclose($fp); 

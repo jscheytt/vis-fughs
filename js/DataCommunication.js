@@ -10,7 +10,17 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 	//requestDataForView("2", "", ""); //timeline laden
 }
 
-function onCheckChange(){
+function onCheckChange(id){
+	var ein = document.getElementById("EinsteigerCheckbox");
+	var aus = document.getElementById("AussteigerCheckbox");
+	if(!ein.checked && !aus.checked){
+		if(id == "EinsteigerCheckbox"){
+			aus.checked = true;
+		}
+		if(id == "AussteigerCheckbox"){
+			ein.checked = true;
+		}
+	}
 	requestDataForView("2", "", "");
 }
 
@@ -21,6 +31,15 @@ function onCheckChange(){
 //onSelectionView1 change -> requestData("3"), requestData("4"), requestData("5")
 //onSelectionZoom change -> requestData("3"), requestData("4"), requestData("5")
 function requestDataForView(view, stations, lines){
+	
+	// if(requestData1 != null ||
+	   // requestData2 != null ||
+	   // requestData3 != null ||
+	   // requestData4 != null ||
+	   // requestData5 != null ||
+	   // requestDataZoom != null){
+			// return;
+	   // }
 	var varianz = document.getElementById("VarianzCheckbox").checked;
 	
 	var passenger = 0;
@@ -120,6 +139,7 @@ function handleResponseView2(){
 		//showView2(JSON.parse(requestData2.responseText));
 		//alert(requestData2.responseText);
 		requestData2 = null;
+		requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 	}
 }
 
