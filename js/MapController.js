@@ -4,6 +4,7 @@ var selectedStations = [
 ];
 
 var zoomSelection = [];
+var zoomLines = [];
 var line ="";
 var firstSelectedStation = true;
 
@@ -54,9 +55,7 @@ function showView1(passengersPerStation){
 			bobbels[i].setAttributeNS(null,"r", bobbelvalue);
 		}
 	}
-	requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
-	requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
-	requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
+	requestDataForView("zoom", getStations(selectedStations[0], selectedStations[1]), zoomLines);
 }	
 	
 function showTooltip(evt, id){	
@@ -93,12 +92,12 @@ function hideTooltip (){
 }
 
 function onLineSelectionChange (id){
-	var checkEle = document.getElementById(id);
-	highlightOrDisableLine(id.replace("lineDescription", "line_"), checkEle.checked);
-	highlightOrDisableLine(id.replace("lineDescription", "lineSmall_"), checkEle.checked);
+	var checkEle = document.getElementById("lineDescription"+id);
+	highlightOrDisableLine("line_"+id, checkEle.checked);
+	highlightOrDisableLine("lineSmall_"+id, checkEle.checked);
 	if(checkEle.checked && !zoomSelection.includes(id)){
 		zoomSelection.push(id);
-	}else if(!checkEle.checked){
+	}else{
 		zoomSelection = zoomSelection.filter (function (r) { return r != id;});
 	}	
 	requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
@@ -179,6 +178,7 @@ function highlightOneLine(newID){
 		selline.setAttributeNS(null,"opacity",1);
 		line = "";
 		zoomSelection = [];
+		zoomLines = [];
 		requestDataForView("3", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 		requestDataForView("4", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
 		requestDataForView("5", getStations(selectedStations[0], selectedStations[1]), zoomSelection);
@@ -310,6 +310,7 @@ function selectStation (id){
 
 function showViewZoom(dataLines){
 	zoomSelection = [];
+	zoomLines = [];
 	var zoomView = document.getElementById("zoomView");
 	
 	if(dataLines != ""){
@@ -345,7 +346,8 @@ function showViewZoom(dataLines){
 			"<path sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" id=\"lineSmall_"+lines[j]+"\" />"+
 			"<rect  x=\"-5592.5132\" y=\"1510.5\" width=\"9\" height=\"9\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" />"+
 			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" /></g></svg>"+"</div>";
-			zoomSelection.push("lineDescription"+lines[j]);
+			zoomSelection.push(lines[j]);
+			zoomLines.push(lines[j]);
 		}
 		zoomView.innerHTML = selectedStations[0] + lineoptions;
 		for(j = 0; j<lines.length; j++){
@@ -360,7 +362,7 @@ function showViewZoom(dataLines){
 		var lines2 = linesOfStations.find(function(f) { return f.station === selectedStations[1]; }).lines;
 		var lines = lines1.filter((n) => lines2.includes(n))
 		if(line != ""){
-			lines = dataLines.map(function (g) {return g.Linie;});	
+			var lines = dataLines.map(function (g) {return g.Linie;});	
 		}
 		highlightMultiLines(lines);
 		
@@ -384,7 +386,8 @@ function showViewZoom(dataLines){
 	   
 			+"</g></svg>"+"</div>";
 			
-			zoomSelection.push("lineDescription"+lines[j]);
+			zoomSelection.push(lines[j]);
+			zoomLines.push(lines[j]);
 		}
 		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1] + lineoptions;
 		for(j = 0; j<lines.length; j++){
@@ -531,7 +534,7 @@ var linesOfStations = [
 
 var stationsOfLine = [
 {line: "S1", stations:["Wedel", "Rissen", "Suelldorf", "Iserbrook", "Blankenese", "Hochkamp", "Klein Flottbek", "Othmarschen", "Bahrenfeld", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Landwehr", "Hasselbrook", "Wandsbeker Chaussee", "Friedrichsberg", "Barmbek", "Alte Woehr", "Ruebenkamp", "Ohlsdorf", "Hamburg Airport", "Kornweg", "Hoheneichen", "Wellingsbuettel", "Poppenbuettel"]},
-{line: "S11", stations:["Blankenese", "Hochkamp", "Klein Flottbek", "Othmarschen", "Bahrenfeld", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Landwehr", "Hasselbrook", "Wandsbeker Chaussee", "Friedrichsberg", "Barmbek", "Alte Woehr", "Ruebenkamp", "Ohlsdorf", "Kornweg", "Hoheneichen", "Wellingsbuettel", "Poppenbuettel"]},
+{line: "S11", stations:["Blankenese", "Hochkamp", "Klein Flottbek", "Othmarschen", "Bahrenfeld", "Hamburg-Altona", "Holstenstrasse", "Sternschanze", "Dammtor","Hamburg Hbf", "Berliner Tor", "Landwehr", "Hasselbrook", "Wandsbeker Chaussee", "Friedrichsberg", "Barmbek", "Alte Woehr", "Ruebenkamp", "Ohlsdorf", "Kornweg", "Hoheneichen", "Wellingsbuettel", "Poppenbuettel"]},
 {line: "S2", stations:["Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Berliner Tor", "Rothenburgsort", "Tiefstack", "Billwerder-Moorfleet", "Mittlerer Landweg", "Allermoehe", "Nettelnburg", "Hamburg-Bergedorf"]},
 {line: "S21", stations:["Elbgaustrasse", "Eidelstedt", "Stellingen", "Langenfelde", "Diebstreich", "Holstenstrasse", "Sternschanze", "Dammtor", "Hamburg Hbf", "Berliner Tor", "Rothenburgsort", "Tiefstack", "Billwerder-Moorfleet", "Mittlerer Landweg", "Allermoehe", "Nettelnburg", "Hamburg-Bergedorf", "Reinbek", "Wohltorf", "Aumuehle"]},
 {line: "S3", stations:["Pinneberg", "Thesdorf", "Halstenbek", "Krupunder", "Elbgaustrasse", "Eidelstedt", "Stellingen", "Langenfelde", "Diebstreich", "Hamburg-Altona", "Koenigstrasse", "Reeperbahn", "Landungsbruecken", "Stadthausbruecke", "Jungfernstieg", "Hamburg Hbf", "Hammerbrook", "Veddel", "Wilhelmsburg", "Hamburg-Harburg", "Harburg Rathaus", "Heimfeld", "Neuwiedenthal", 	"Neugraben", "Fischbek", "Neu Wulmstorf", "Buxtehude", "Neukloster", "Horneburg", "Dollern", "Agathenburg", "Stade"]},
