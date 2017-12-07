@@ -92,7 +92,11 @@ function hideTooltip (){
 }
 
 function onLineSelectionChange (id){
-	var checkEle = document.getElementById("lineDescription"+id);
+	if(!id.startsWith("lineDescription")){
+		id = "lineDescription"+id;
+	}
+	var checkEle = document.getElementById(id);
+	id = id.replace("lineDescription","");
 	highlightOrDisableLine("line_"+id, checkEle.checked);
 	highlightOrDisableLine("lineSmall_"+id, checkEle.checked);
 	if(checkEle.checked && !zoomSelection.includes(id)){

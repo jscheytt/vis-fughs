@@ -32,14 +32,6 @@ function onCheckChange(id){
 //onSelectionZoom change -> requestData("3"), requestData("4"), requestData("5")
 function requestDataForView(view, stations, lines){
 	
-	// if(requestData1 != null ||
-	   // requestData2 != null ||
-	   // requestData3 != null ||
-	   // requestData4 != null ||
-	   // requestData5 != null ||
-	   // requestDataZoom != null){
-			// return;
-	   // }
 	var varianz = document.getElementById("VarianzCheckbox").checked;
 	
 	var passenger = 0;
