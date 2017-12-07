@@ -106,7 +106,7 @@ Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg
 
 Es gibt insgesamt 4 Files mit Timestamps analog zu #2. Zahlen in [eckigen Klammern] zeigen an, wie viele kategorische Werte pro Timestamp angenommen werden. Die Anzahl an Zeilen pro Timestamp ist das Produkt aller Zahlen in Klammern, also hier z. B. ```68 * 6 = 408```.
 
-# Für #3 Duration
+## Für #3 Duration
 Timestamp | Station | Linie | Bin | EinsteigerHaltezeiten | AussteigerHaltezeiten | AvgHaltezeiten
 --- | --- | --- | --- | --- | --- | ---
 2016-12-31 | [68] | [6] | [7] | 10,10,11,23,... | s. vorherige Spalte | s. vorherige Spalte
@@ -114,9 +114,9 @@ Timestamp | Station | Linie | Bin | EinsteigerHaltezeiten | AussteigerHaltezeite
 Es gibt insgesamt 4 Files mit Timestamps analog zu #2. Jede _Haltezeiten_-Spalte ist eine komma-separarierte Liste von Werten (in Sekunden). Bei einer Zusammenfassung mehrerer _Haltezeiten_-Listen (z. B. Bin #4 der _EinsteigerHaltezeiten_ aller Stationen und aller Linien) werden die Listen aneinandergehängt.
 
 ## Für #4 Calendar
-Timestamp | Zeitslot | Station | Linie | Einsteiger | Aussteiger | Avg
+Timestamp | Station | Linie | Zeitslot | Einsteiger | Aussteiger | Avg
 --- | --- | --- | --- | --- | --- | ---
-2016-12-31 | [168, z. B. ```Fr11```] | [68] | [6] | 123 | 321 | 222
+2016-12-31 | [68] | [6] | [168, z. B. ```Fr11```] | 123 | 321 | 222
 
 Es gibt insgesamt 3 Files für den Gesamtzeitraum, die Monate und die Wochen. Die Timestamps sind analog zu denen von #2. Das Format der Zeitslots ist ```[erste 2 Buchstaben Wochentag][Startuhrzeit des Intervalls]```. Bspw. entspricht ```Sa00``` dem Intervall "Samstag von 0 bis 1 Uhr".
 
