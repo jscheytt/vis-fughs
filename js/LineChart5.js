@@ -1,10 +1,7 @@
 var parseDate = d3.timeParse("%H:%M:%S");
 
-var margin = {left: 50, right: 20, top: 20, bottom: 50 };
-
-var width = 480 - margin.left - margin.right;
-var height = 250 - margin.top - margin.bottom;
-
+var width = 300;
+var height = 150;
 
 var max = 0;
 
@@ -45,7 +42,13 @@ d3.csv("data/LineChart5.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("div#view5").append("div").classed("svg-container", true).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400").classed("svg-content-responsive", true);
+		var svg = d3.select("div#view5")
+					.append("div").classed("svg-container", true)
+					.append("svg")
+					.attr("preserveAspectRatio", "xMinYMin meet")
+					.attr("viewBox", "0 0 600 400")
+					.classed("svg-content-responsive", true);
+		
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")
