@@ -12,11 +12,49 @@ text {
     overflow: hidden;
 }
 
+.svg-container2 {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+	height: 150%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
     top: 0px;
     left: 0;
+}
+
+.area{
+  shape-rendering: geometricPrecision;
+  fill: #ccc !important;
+}
+
+.boxplot{
+  shape-rendering: crispEdges;
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
+.boxplot.fill{
+  fill: black;
+}
+.boxplot.mean, .boxplot.median{
+  fill: white;
+  stroke: white;
+}
+.boxplot.mean{
+  shape-rendering: geometricPrecision;
+}
+.violin{
+  shape-rendering: geometricPrecision;
+  fill: none !important;
+  stroke: #777;
+  stroke-width: 1px;
 }
 
 .domain {
@@ -41,11 +79,15 @@ path.line2 {
     stroke-width: 3px;
 }
 
-
-.axis line {
-  stroke-width: 2px;
+.axis path, .axis line {
+  fill: none;
   stroke: black;
-}	
+  stroke-width: 2px;
+  color-rendering: optimizeQuality !important;
+  shape-rendering: crispEdges !important;
+  text-rendering: geometricPrecision !important; 
+
+}
 
 /* Header styles */
 
