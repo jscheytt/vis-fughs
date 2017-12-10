@@ -67,14 +67,14 @@ function showTooltip(evt, id){
 	var map = document.getElementById("Map");
 		
 	if(id.includes("_lineS")){
-		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth -39);
+		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1370/map.clientWidth -39);
 		tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 15);
-		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  -42);
+		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1370/map.clientWidth  -42);
 		tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight - 6);
 	}else{
-		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth +25);
+		tooltip.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1410/map.clientWidth +25);
 		tooltip.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight + 48);
-		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1500/map.clientWidth  +21);
+		tooltip_bg.setAttributeNS(null,"x",(evt.clientX - div.offsetLeft) * 1410/map.clientWidth  +21);
 		tooltip_bg.setAttributeNS(null,"y",(evt.clientY - div.offsetTop) * 920/map.clientHeight +28); 	
 	}
 	tooltip.firstChild.data = getMouseoverText(id);  
