@@ -52,6 +52,9 @@ function showView1(passengersPerStation){
 		if (stationvalue != null){
 			bobbels[i].name = stationvalue.Anzahl;
 			var bobbelvalue = stationvalue.Anzahl * factor;
+			if(isNaN(bobbelvalue)){
+			 bobbelvalue = 0;	
+			}
 			bobbels[i].setAttributeNS(null,"r", bobbelvalue);
 		}
 	}
@@ -378,11 +381,11 @@ function showViewZoom(dataLines){
 			"<g id=\"layer1\" transform=\"translate(5673.9687,-1482.2978)\" inkscape:label=\"Livello 1\" inkscape:groupmode=\"layer\">"+
 			"<path id=\"lineSmall_"+lines[j]+"\" sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" />"+
 			
-			"<rect x=\"-5670.2241\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" onclick=\"selectStation(this.id)\" />"+
+			"<rect x=\"-5670.2241\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" />"+
 			
 			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" />"+
 			
-			"<rect x=\"-5514.8521\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"display:block;fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" onclick=\"selectStation(this.id)\" />"
+			"<rect x=\"-5514.8521\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"display:block;fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" cursor=\"pointer\" />"
 	   
 			+"</g></svg>"+"</div>";
 			

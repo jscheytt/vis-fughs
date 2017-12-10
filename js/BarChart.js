@@ -1,4 +1,13 @@
-function barChart(valueJanis) {
+function showView2(valueJanis) {
+	//DataCommunication Zeile 150 einkommentieren, dann wird der Wert des Paramerters valueJanis ein Array mit den Daten vom Server im Format valueJanis = [{Datum: "01.11.2000", AnzahlEin: 1200, AnzahlAus: 3000}, {Datum: "01.12.2000", AnzahlEin: 2300, AnzahlAus: 600}]
+	//Zugriff: valueJanis[0].Datum -> "01.11.2000", valueJanis[0].AnzahlEin ->1200, valueJanis[0].AnzahlAus -> 600
+	
+	
+	//clear region for bar-chart
+	var regionBarChart = document.getElementById("barchart");
+	if(regionBarChart != null){
+		regionBarChart.innerHTML = "";
+	}
 	
 	// set the dimensions and margin1s of the graph
 	var margin1 = {top: 20, right: 120, bottom: 40, left: 40},

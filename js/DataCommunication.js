@@ -6,11 +6,17 @@ var requestData5;
 var requestDataZoom;
 
 
+// 0 -> gesamt, 1 -> months, 2 -> weeks, 3 -> days
+var timestep = 0;
+var selectedTime = "";
+
+
 function loadData(){ //wird bei onload der Seite aufgerufen  
-	//requestDataForView("2", "", ""); //timeline laden
+	requestDataForView("2", "", ""); //timeline laden
 }
 
-function onCheckChange(id){
+function onCheckChange(id){	
+	//Checkboxen Ein-/Aussteiger
 	var ein = document.getElementById("EinsteigerCheckbox");
 	var aus = document.getElementById("AussteigerCheckbox");
 	if(!ein.checked && !aus.checked){
@@ -21,6 +27,11 @@ function onCheckChange(id){
 			ein.checked = true;
 		}
 	}
+	requestDataForView("2", "", "");
+}
+
+function onTimestepChange (step){
+	timestep = step;
 	requestDataForView("2", "", "");
 }
 
@@ -60,7 +71,7 @@ function requestDataForView(view, stations, lines){
 		requestData1.open('post', 'DataController.php', true);
 		requestData1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData1.onreadystatechange = handleResponseView1;
-		requestData1.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		requestData1.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "2"){
 		if(window.XMLHttpRequest){
@@ -71,7 +82,7 @@ function requestDataForView(view, stations, lines){
 		requestData2.open('post', 'DataController.php', true);
 		requestData2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData2.onreadystatechange = handleResponseView2;
-		requestData2.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		requestData2.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "3"){
 		if(window.XMLHttpRequest){
@@ -82,8 +93,7 @@ function requestDataForView(view, stations, lines){
 		requestData3.open('post', 'DataController.php', true);
 		requestData3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData3.onreadystatechange = handleResponseView3;
-		requestData3.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
-		//alert ("view="+view+"    stations="+stations+"     lines="+lines+"    passenger="+passenger+"     varianz="+varianz);
+		requestData3.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "4"){
 		if(window.XMLHttpRequest){
@@ -94,7 +104,7 @@ function requestDataForView(view, stations, lines){
 		requestData4.open('post', 'DataController.php', true);
 		requestData4.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData4.onreadystatechange = handleResponseView4;
-		requestData4.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		requestData4.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "5"){
 		if(window.XMLHttpRequest){
@@ -105,7 +115,7 @@ function requestDataForView(view, stations, lines){
 		requestData5.open('post', 'DataController.php', true);
 		requestData5.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData5.onreadystatechange = handleResponseView5;
-		requestData5.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		requestData5.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 	else if(view == "zoom"){
 		if(window.XMLHttpRequest){
@@ -116,53 +126,55 @@ function requestDataForView(view, stations, lines){
 		requestDataZoom.open('post', 'DataController.php', true);
 		requestDataZoom.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestDataZoom.onreadystatechange = handleResponseViewZoom;
-		requestDataZoom.send("view="+view+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
+		requestDataZoom.send("view="+view+"&timestep="+timestep+"&selectedTime="+selectedTime+"&passenger="+passenger+"&varianz="+varianz+"&stations="+stations+"&lines="+lines);
 	}
 }
 
 function handleResponseView1(){
-	if (requestData1.readyState == 4 && requestData1.status == 200){
+	if (requestData1 != null && requestData1.readyState == 4 && requestData1.status == 200){
 		showView1(JSON.parse(requestData1.responseText));
 		requestData1 = null;
 	}
 }
 
 function handleResponseViewZoom(){
-	if (requestDataZoom.readyState == 4 && requestDataZoom.status == 200){
+	if (requestDataZoom != null && requestDataZoom.readyState == 4 && requestDataZoom.status == 200){
 		showViewZoom(JSON.parse(requestDataZoom.responseText));
 		requestDataZoom = null;
 	}
 }
 
 function handleResponseView2(){
-	if (requestData2.readyState == 4 && requestData2.status == 200){
-		//showView2(JSON.parse(requestData2.responseText));
-		//alert(requestData2.responseText);
+	if (requestData2 != null && requestData2.readyState == 4 && requestData2.status == 200){
 		requestData2 = null;
+		//showView2(JSON.parse(requestData2.responseText)); -> einkommentieren
+		showView2 (timestep); //löschen wenn das darüber einkommentiert
 		requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 	}
 }
 
 function handleResponseView3(){
-	if (requestData3.readyState == 4 && requestData3.status == 200){
-		//showView3(JSON.parse(requestData.responseText));
-		//alert(requestData3.responseText);
+	if (requestData3 != null && requestData3.readyState == 4 && requestData3.status == 200){
+		//showView3(JSON.parse(requestData.responseText)); -> einkommentieren
+		
+		//Die Methode showView3 wird mit einem Array als Parameter aufgerufen das die Daten für die View in folgendem Format enthält: 
+		//JSON.parse(requestData.responseText) -> [{Bin: 1, Haltezeiten: [10, 17, 35]}, {Bin: 2, Haltezeiten: [22, 24]}, {Bin: 3, Haltezeiten: [8, 19, 200]}]
+		//Zugriff auf die Daten:
+		//data[0].Bin -> 1, data[0].Haltezeiten -> [10, 17, 35]
 		requestData3 = null;
 	}
 }
 
 function handleResponseView4(){
-	if (requestData4.readyState == 4 && requestData4.status == 200){
+	if (requestData4 != null && requestData4.readyState == 4 && requestData4.status == 200){
 		//showView4(JSON.parse(requestData.responseText));
-		//alert(requestData4.responseText);
 		requestData4 = null;
 	}
 }
 
 function handleResponseView5(){
-	if (requestData5.readyState == 4 && requestData5.status == 200){
+	if (requestData5 != null && requestData5.readyState == 4 && requestData5.status == 200){
 		//showView5(JSON.parse(requestData.responseText));
-		//alert(requestData5.responseText);
 		requestData5 = null;
 	}
 }
