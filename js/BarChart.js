@@ -10,7 +10,7 @@ function showView2(valueJanis2) {
 	}
 	
 	// set the dimensions and margin1s of the graph
-	var margin1 = {top: 20, right: 120, bottom: 40, left: 80},
+	var margin1 = {top: 15, right: 120, bottom: 20, left: 80},
 		width1 = 900 - margin1.left - margin1.right,
 		height1 = 130 - margin1.top - margin1.bottom;
 
@@ -91,12 +91,12 @@ function showView2(valueJanis2) {
 						.call(d3.axisBottom(xJanis))
 						// rotate elements on x axis 
 						.selectAll("text")
-						.attr("y", 0)
-						.attr("x", 15)
+						.attr("y", 15)
+						.attr("x", 0)
 						.attr("dx", "-0.18em")
 						.attr("dy", ".35em")
-						.attr("transform", "rotate(50)")
-						.style("text-anchor", "start");
+						
+						.style("text-anchor", "middle");
 				
 					// x axis label
 					svg1.append("text")
@@ -108,9 +108,11 @@ function showView2(valueJanis2) {
 						.text("Tage");
 				  
 					var ticksJanis = d3.selectAll("#barchart .tick text");
+					if (timestep == 2) {
+						ticksJanis.style("display", function (d, i) { return i % 2 ? "none" : "initial" })						  
+					}
 					if (timestep == 3) {
-						ticksJanis.style("display", function (d, i) { return i % 5 ? "none" : "initial" })						  
-					
+						ticksJanis.style("display", function (d, i) { return i % 10 ? "none" : "initial" })						  
 					}
 							  
 					// create bars, tooltip, hover		  
@@ -129,7 +131,7 @@ function showView2(valueJanis2) {
 						.style("left", d3.event.pageX - 50 + "px")
 						.style("top", d3.event.pageY - 90 + "px")
 						.style("display", "inline-block")
-						.html((d.Datum) + "<br>" + "Ein: " + (d.Anzahl));
+						.html((d.Datum) + "<br>" + "Anzahl: " + (d.Anzahl));
 					})
 					.on("mouseout", function(d){ tooltipJanis.style("display", "none");});
 					

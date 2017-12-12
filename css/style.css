@@ -172,10 +172,10 @@ line[id ^="line"]{
 	width: 100px;
 	height:50px;
 	float: left;
-	margin-top:42px;
+	margin-top:10px;
 }
 
-#Einsteiger,#Aussteiger{
+#Einsteiger,#Aussteiger, #Mittelwert{
 	height:25px;
 	margin-top: 2px;
     padding-top: 2px;
@@ -187,7 +187,10 @@ line[id ^="line"]{
 
 #Aussteiger{
     background-color: lightsteelblue;
-	
+}
+#Mittelwert {
+	background-color: #00335e;
+	color: white;
 }
 
 #zoomView{
@@ -385,7 +388,7 @@ input:checked + .slider:before {
   text-align: center;
 }
 .bar rect:hover {
-  fill: black;
+  fill: grey;
 }
 
 
