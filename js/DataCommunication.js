@@ -162,8 +162,7 @@ function handleResponseView4(){
 
 function handleResponseView5(){
 	if (requestData5 != null && requestData5.readyState == 4 && requestData5.status == 200){
-		showView5("");
-		//showView5(JSON.parse(requestData5.responseText));
+		showView5(JSON.parse(requestData5.responseText));
 		requestData5 = null;
 	}
 }

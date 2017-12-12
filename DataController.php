@@ -305,7 +305,25 @@ function loadView4(){
 }
 
 function loadView5(){
-	echo "data view 5";	
+//[{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
+	$result = [];
+	
+		$entry = new \stdClass();
+		$entry->Uhrzeit = date('h:i:s', strtotime("13:10:10"));
+		$entry->Anzahl = 14;
+		array_push($result, $entry);
+		
+		$entry2 = new \stdClass();
+		$entry2->Uhrzeit = date('h:i:s',strtotime("18:20:10"));
+		$entry2->Anzahl = 36;
+		array_push($result, $entry2);
+		
+		$entry3 = new \stdClass();
+		$entry3->Uhrzeit = date('h:i:s',strtotime("22:05:10"));
+		$entry3->Anzahl = 20;
+		array_push($result, $entry3);
+	
+	echo json_encode($result);	
 }
 
 
