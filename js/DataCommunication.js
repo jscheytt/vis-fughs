@@ -138,9 +138,10 @@ function handleResponseViewZoom(){
 
 function handleResponseView2(){
 	if (requestData2 != null && requestData2.readyState == 4 && requestData2.status == 200){
+		
+		showView2(JSON.parse(requestData2.responseText)); // -> einkommentieren
 		requestData2 = null;
-		//showView2(JSON.parse(requestData2.responseText)); -> einkommentieren
-		showView2 (timestep); //löschen wenn das darüber einkommentiert
+		// showView2 (timestep); //löschen wenn das darüber einkommentiert
 		requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 	}
 }
