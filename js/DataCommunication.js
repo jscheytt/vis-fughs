@@ -147,8 +147,8 @@ function handleResponseView2(){
 
 function handleResponseView3(){
 	if (requestData3 != null && requestData3.readyState == 4 && requestData3.status == 200){
-		//showView3(JSON.parse(requestData.responseText)); -> einkommentieren
-		
+		//showView3(JSON.parse(requestData3.responseText)); -> einkommentieren
+		showView3("");
 		//Die Methode showView3 wird mit einem Array als Parameter aufgerufen das die Daten für die View in folgendem Format enthält: 
 		//JSON.parse(requestData.responseText) -> [{Bin: 1, Haltezeiten: [10, 17, 35]}, {Bin: 2, Haltezeiten: [22, 24]}, {Bin: 3, Haltezeiten: [8, 19, 200]}]
 		//Zugriff auf die Daten:
@@ -159,14 +159,16 @@ function handleResponseView3(){
 
 function handleResponseView4(){
 	if (requestData4 != null && requestData4.readyState == 4 && requestData4.status == 200){
-		//showView4(JSON.parse(requestData.responseText));
+		showView4("");
+		//showView4(JSON.parse(requestData4.responseText));
 		requestData4 = null;
 	}
 }
 
 function handleResponseView5(){
 	if (requestData5 != null && requestData5.readyState == 4 && requestData5.status == 200){
-		//showView5(JSON.parse(requestData.responseText));
+		showView5("");
+		//showView5(JSON.parse(requestData5.responseText));
 		requestData5 = null;
 	}
 }
