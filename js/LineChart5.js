@@ -48,7 +48,7 @@ d3.csv("data/LineChart5.csv")
 					.attr("preserveAspectRatio", "xMinYMin meet")
 					.attr("viewBox", "0 0 600 400")
 					.classed("svg-content-responsive", true);
-		
+
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
 		chartGroup.append("path")

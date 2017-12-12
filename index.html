@@ -2,30 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Passenger Visualisation</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<script type="text/javascript" src="js/DataCommunication.js"></script>
 	<script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body onload="loadData()">
-    <div class="container-fluid" id="container">
-	<div class="row" id= "headerDiv">
-		<div class="col-md-8" id= "logoDiv" >
-			<img alt="Logo" src="img/LogoPasVis.png" height="100px" >
-		</div>
-		<div class="col-md-4" id="helpDiv">
-			 <a href="#" class="btn btn-info" id="helpButton" type="button" >?</a>
-		</div>
-	</div>
-	<div class="row" id="infoDiv">
-		<div class="col-md-8" id="leftInfoDiv">
-			<div class="row" id="overview">
+    <div id="container">
+	<div id="infoDiv">
+		<div id="leftInfoDiv">
+			<div id="overview">
+				<div id= "logoDiv" >
+					<img alt="Logo" src="img/LogoPasVis.png" height="88px" >
+				</div>
 				<div id ="MapDiv">
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -3817,41 +3807,13 @@
      visibility="hidden">Tooltip</text>
 </svg>
 </div>			
-				<div class="col-md-4" id="EinAussteiger">
-					<div id="Einsteiger"> <input type="checkbox" id="EinsteigerCheckbox" onchange="onCheckChange(this.id)" checked>
-					<label>Einsteiger</label> </div>
-					<div id="Aussteiger"> <input type="checkbox" id="AussteigerCheckbox" onchange="onCheckChange(this.id)" checked>
-					<label>Aussteiger</label> </div>
-				</div>		
-			<div class="col-md-4" id="zoomView">
-				</div>
+					
+			<div id="zoomView">
 			</div>
-			<div class="row" id="bottomInfoDiv">
-				<div class="col-md-4" id="varianzAndTimestep">
-					<div id="Varianz">
-					<label class="switch">
-					<input type="checkbox" id = "VarianzCheckbox" onchange="onCheckChange()">
-					<span class="slider round"></span>
-					</label><label id="VarianzLabel" style="margin-bottom: 0px; margin-left: 5px">Varianz</label></div>
-					<div id="Timesteps">Zeitschritte
-					<div>
-					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio1" checked><label class="radiobuttonlabel">Gesamt</label></div>
-					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="barChart(1)"><label class="radiobuttonlabel">Monat</label></div>
-					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="barChart(2)"><label class="radiobuttonlabel">Woche</label></div>
-					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio3" onchange="barChart(3)"><label class="radiobuttonlabel">Tag</label></div>
-					</div></div>
-				</div>
-
-				
-				
-				
-				<div class="col-md-8" id="Timeline">
-						<div id="barchart"></div>
-					<!-- <img alt="Bootstrap Image Preview" src="img/BarChart.svg" style='height: 100%; width: 760px; object-fit: contain'> -->
-				</div>
+			
+	</div>
 			</div>
-		</div>
-		<div class="col-md-4" id="rightInfoDiv">
+				<div id="rightInfoDiv">
 			<div id="view3">
 				<div id="view3Diagram"> 
 				<script src="js/data.js"></script>
@@ -3867,12 +3829,35 @@
 				</div>
 			</div>
 		</div>
-	</div>
+			<div id="bottomInfoDiv">
+				<div id="varianzAndTimestep">
+					
+					<div id="Timesteps">Zeitschritte
+					<div>
+					<div class="radiobutton" style="margin-top: 10px;"><input type="radio" name="radio" value="" id="radio1" onchange="onTimestepChange(0)" checked><label class="radiobuttonlabel">Gesamt</label></div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="onTimestepChange(1)"><label class="radiobuttonlabel">Monat</label></div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="onTimestepChange(2)"><label class="radiobuttonlabel">Woche</label></div>
+					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio3" onchange="onTimestepChange(3)"><label class="radiobuttonlabel">Tag</label></div>
+					</div></div>
+				</div>
+				<div id="Timeline">
+						<div id="barchart"></div>
+				</div>
+				<div id="Varianz">
+					<label class="switch">
+					<input type="checkbox" id = "VarianzCheckbox" onchange="onCheckChange()">
+					<span class="slider round"></span>
+					</label><label id="VarianzLabel" style="margin-bottom: 0px; margin-left: 5px">Varianz</label></div>
+				<div id="EinAussteiger">
+					<div id="Einsteiger"> <input type="checkbox" id="EinsteigerCheckbox" onchange="onCheckChange(this.id)" checked>
+					<label>Einsteiger</label> </div>
+					<div id="Aussteiger"> <input type="checkbox" id="AussteigerCheckbox" onchange="onCheckChange(this.id)" checked>
+					<label>Aussteiger</label> </div>
+				</div>	
+			</div>
 </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/MapController.js"></script>
   	<script type="text/javascript" src="js/BarChart.js"></script>
     <script src="./js/chartView4.js"></script>

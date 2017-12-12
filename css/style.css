@@ -5,8 +5,8 @@ text {
 
 .svg-container {
     position: relative;
-    width: 150%;
-    padding-bottom: 100%; /* aspect ratio */
+    width: 100%;
+    height: 100%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
 }
@@ -92,8 +92,11 @@ path.line2 {
 	height:650px;
 }
 #container{
-	width:1250px;
-	height:700px;
+	width: 1460px;
+	height:100%;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: small;
+    margin-left: 40px;
 }
 
 #headerDiv{
@@ -102,11 +105,11 @@ path.line2 {
 }
 
 #logoDiv{
-	width: 50px;
+	width: 40px;
 	display: block;
-	margin-left: auto;
 	margin-right: auto;
 	float: left;
+	margin-top: -10px;
 }
 
 #helpDiv{
@@ -123,6 +126,7 @@ path.line2 {
 	width: 880px;
 	display: block;
 	height: 650px;
+	float:left;
 }
 
 
@@ -131,10 +135,12 @@ path.line2 {
 
 #MapDiv {
 	position: absolute;
-	width:100%;
+	width:906px;
 	height:500px;
 	display: block;
-	padding-right: 10px
+	padding-right: 10px;
+	margin-left: 46px;
+	margin-top: -7px;
 }
 
 line[id ^="line"]{
@@ -156,23 +162,36 @@ line[id ^="line"]{
 
 #overview{
 	display: block;
-	width: 880px;
-	height: 500px;
+	width: 1028px;
+	height: 565px;
+	float:left;
 }	
 	
 #EinAussteiger{
 	display: block;
-	width: 150px;
+	width: 100px;
 	height:50px;
 	float: left;
-	margin-top:20px;
+	margin-top:42px;
 }
 
 #Einsteiger,#Aussteiger{
 	height:25px;
+	margin-top: 2px;
+    padding-top: 2px;
+}
+
+#Einsteiger{
+    background-color: steelblue;
+}
+
+#Aussteiger{
+    background-color: lightsteelblue;
+	
 }
 
 #zoomView{
+	margin-top: 20px;
 	display: block;
 	width:150px;
 	overflow:auto;
@@ -190,11 +209,15 @@ line[id ^="line"]{
 /* Timeline styles */
 
 #varianzAndTimestep{
-	width: 150px;
+	width: 100px;
 	height:120px;
 	float: left;
 	display: inline-block;
 }	
+
+#Varianz{
+ margin-top:8px;	
+}
 
 /* Varianz */
 
@@ -203,7 +226,7 @@ line[id ^="line"]{
   display: inline-block;
   width: 30px;
   height: 17px;
-  top: 10px;
+  top: 4px;
 }
 
 .switch input {display:none;}
@@ -258,10 +281,12 @@ input:checked + .slider:before {
 /* Timesteps */
 #Timesteps {
 	margin-top: 10px;
-}
+	margin-left: 10px;
+	}
 
 .radiobutton {
 	height: 20px;
+	
 }
 
 .radiobuttonlabel {
@@ -270,18 +295,24 @@ input:checked + .slider:before {
 
 #bottomInfoDiv{
 	display: block;
-	height: 120px;
-	width: 1080px;
+    height: 142px;
+    width: 1054px;
+    float: left;
+    margin-top: -91px;
+    background-color: whitesmoke;
+	border-style: groove;
+    border-color: whitesmoke;
+	border-width: 0.5px;
 }	
 
 #Timeline{
-	width: 100%;
-	height: 145px;
+	width: 830px;
+    margin-top: 2px;
+    height: 138px;
 	float: left;
-	border-style: groove;
-    border-color: black;
-	border-width: 0.5px;
+	background-color: whitesmoke;
 	display:block;
+	margin-left: 10px;
 }
 #Timeline > svg {
 	width: 100%;
@@ -293,42 +324,46 @@ input:checked + .slider:before {
 	display:block;
 	float: right;
 	width: 250px;
-	margin-right: 0px;
+	margin-right: 28px;
 	height: 600px;
+    margin-top: 18px;
 }
 
 #view3{
-	height:200px;
-	width:350px;
+	height:218px;
+	width:360px;
 	float:right;
-	margin-bottom: 10px;
+	margin-bottom: 14px;
 	padding-left: 5px;
 	border-style: groove;
-    border-color: black;
+    border-color: whitesmoke;
 	border-width: 0.5px;
+	background-color: whitesmoke;
 	display: block;
 }
 
 #view4{
-	height:200px;
-	width:350px;
+	height:218px;
+	width:360px;
 	float:right;
 	padding-left: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 14px;
 	border-style: groove;
-    border-color: black;
+    border-color: whitesmoke;
 	border-width: 0.5px;
+	background-color: whitesmoke;
 	display: block;
 }
 
 #view5{
-	height:200px;
-	width:350px;
+	height:218px;
+	width:360px;
 	float:right;
 	padding-left: 5px;
 	border-style: groove;
-    border-color: black;
+    border-color: whitesmoke;
 	border-width: 0.5px;
+	background-color: whitesmoke;
 	display:block;
 }
 
