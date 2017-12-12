@@ -157,6 +157,7 @@ function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor,
 
 
 }
+
 var margin={top:10, bottom:30, left:30, right:10};
 
 var width=600;
@@ -169,41 +170,52 @@ var resolution=20;
 var d3ObjId="svgElement1";
 var interpolation='step-before';
 
-var y = d3.scaleLinear()
-            .range([height-margin.bottom, margin.top])
-            .domain(domain);
 
-var yAxis = d3.axisLeft()
-                .scale(y)
-                .ticks(5)
-                .tickSize(5,0,5);
-
-
-var svg = d3.select("div#view3")
-			.append("div")
-			.classed("svg-container2", true)
-			.append("svg")
-			.attr("preserveAspectRatio", "xMinYMin meet")
-			.attr("viewBox", "0 0 600 400")
-			.classed("svg-content-responsive", true);
-            
-
-svg.append("line")
-    .attr("class", "boxplot")
-    .attr("x1", margin.left)
-    .attr("x2", width-margin.right)
-    .attr("y1", y(0))
-    .attr("y2", y(0));
-
-for(var i=0; i<results.length; i++){
-    results[i]=results[i].sort(d3.ascending)
-    var g=svg.append("g").attr("transform", "translate("+(i*(boxWidth+boxSpacing)+margin.left)+",0)");
-    addViolin(g, results[i], height, boxWidth, domain, 0.25, "#cccccc");
-    addBoxPlot(g, results[i], height, boxWidth, domain, .15, "black", "white");
-
+function showView3(data){
+	
+	//clear region for chart
+	var regionChart = document.getElementById("view3");
+	if(regionChart != null){
+		regionChart.innerHTML = "";
+	}
+	
+	var y = d3.scaleLinear()
+				.range([height-margin.bottom, margin.top])
+				.domain(domain);
+	
+	var yAxis = d3.axisLeft()
+					.scale(y)
+					.ticks(5)
+					.tickSize(5,0,5);
+	
+	
+	var svg = d3.select("div#view3")
+				.append("div")
+				.classed("svg-container2", true)
+				.append("svg")
+				.attr("preserveAspectRatio", "xMinYMin meet")
+				.attr("viewBox", "0 0 360 200")
+				.classed("svg-content-responsive", true);
+				
+	
+	svg.append("line")
+		.attr("class", "boxplot")
+		.attr("x1", margin.left)
+		.attr("x2", width-margin.right)
+		.attr("y1", y(0))
+		.attr("y2", y(0));
+	
+	for(var i=0; i<results.length; i++){
+		results[i]=results[i].sort(d3.ascending)
+		var g=svg.append("g").attr("transform", "translate("+(i*(boxWidth+boxSpacing)+margin.left)+",0)");
+		addViolin(g, results[i], height, boxWidth, domain, 0.25, "#cccccc");
+		addBoxPlot(g, results[i], height, boxWidth, domain, .15, "black", "white");
+	
+	}
+	
+	svg.append("g")
+		.attr('class', 'axis')
+		.attr("transform", "translate("+margin.left+",0)")
+		.call(yAxis);
+		
 }
-
-svg.append("g")
-    .attr('class', 'axis')
-    .attr("transform", "translate("+margin.left+",0)")
-    .call(yAxis);
