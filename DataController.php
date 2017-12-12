@@ -206,24 +206,21 @@ function loadView2($timestep, $selectedTime, $passenger, $varianz){
 			if($passenger == 0){ //in + out
 				$station = new \stdClass();
 				$station->Datum = $spalten[0];
-				$station->AnzahlEin = $spalten[$in];
-				$station->AnzahlAus = $spalten[$out];
+				$station->Anzahl = $spalten[$inAndOut];
 				array_push($resultList, $station);
 			}
 			
 			if($passenger == 1){ //in
 				$station = new \stdClass();
 				$station->Datum = $spalten[0];
-				$station->AnzahlEin = $spalten[$in];
-				$station->AnzahlAus = 0;
+				$station->Anzahl = $spalten[$in];
 				array_push($resultList, $station);
 			}
 			
 			if($passenger == 2){ //out
 				$station = new \stdClass();
 				$station->Datum = $spalten[0];
-				$station->AnzahlEin = 0;
-				$station->AnzahlAus = $spalten[$out];
+				$station->Anzahl = $spalten[$out];
 				array_push($resultList, $station);
 			}
 		}

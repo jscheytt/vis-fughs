@@ -1,9 +1,9 @@
-function addViolin(svg, results, height, width, domain, imposeMax, violinColor){
+function addViolin(svg, dataOfBin, height, width, domain, imposeMax, violinColor){
 
 
 		var data = d3.histogram()
 					.thresholds(resolution)
-					(results);
+					(dataOfBin);
 
         var y = d3.scaleLinear()
                     .range([width/2, 0])
@@ -62,27 +62,25 @@ function addViolin(svg, results, height, width, domain, imposeMax, violinColor){
           .style("stroke", violinColor);
 
 
-        gMinus.append("path")
-          .datum(data)
-          .attr("class", "area")
-          .attr("d", area)
-          .style("fill", violinColor);
+        // gMinus.append("path")
+          // .datum(data)
+          // .attr("class", "area")
+          // .attr("d", area)
+          // .style("fill", violinColor);
 
-        gMinus.append("path")
-          .datum(data)
-          .attr("class", "violin")
-          .attr("d", line)
-          .style("stroke", violinColor);
-
-        var x=width;
+        // gMinus.append("path")
+          // .datum(data)
+          // .attr("class", "violin")
+          // .attr("d", line)
+          // .style("stroke", violinColor);
 
         gPlus.attr("transform", "rotate(90,0,0)  translate(0,-"+width+")");//translate(0,-200)");
-        gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
+        //gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
 
 
 }
 
-function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor, boxInsideColor){
+function addBoxPlot(svg, dataOfBin, height, width, domain, boxPlotWidth, boxColor, boxInsideColor){
         var y = d3.scaleLinear()
                     .range([height, 0])
                     .domain(domain);
@@ -95,7 +93,7 @@ function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor,
 
         var probs=[0.05,0.25,0.5,0.75,0.95];
         for(var i=0; i<probs.length; i++){
-            probs[i]=y(d3.quantile(results, probs[i]))
+            probs[i]=y(d3.quantile(dataOfBin, probs[i]))
         }
 
         svg.append("rect")
@@ -142,7 +140,7 @@ function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor,
         svg.append("circle")
             .attr("class", "boxplot mean")
             .attr("cx", x(0.5))
-            .attr("cy", y(d3.mean(results)))
+            .attr("cy", y(d3.mean(dataOfBin)))
             .attr("r", x(boxPlotWidth/5))
             .style("fill", boxInsideColor)
             .style("stroke", 'None');
@@ -150,7 +148,7 @@ function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor,
         svg.append("circle")
             .attr("class", "boxplot mean")
             .attr("cx", x(0.5))
-            .attr("cy", y(d3.mean(results)))
+            .attr("cy", y(d3.mean(dataOfBin)))
             .attr("r", x(boxPlotWidth/10))
             .style("fill", boxColor)
             .style("stroke", 'None');
@@ -161,24 +159,28 @@ function addBoxPlot(svg, results, height, width, domain, boxPlotWidth, boxColor,
 var margin={top:10, bottom:30, left:30, right:10};
 
 var width=600;
-var height=200;
-var boxWidth=100;
+var height=250;
+var boxWidth=30;
 var boxSpacing=10;
-var domain=[-10,10];
 
-var resolution=20;
+var resolution=1000;
 var d3ObjId="svgElement1";
 var interpolation='step-before';
 
 
 function showView3(data){
-	
+	//Die Methode showView3 wird mit einem Array als Parameter aufgerufen das die Daten für die View in folgendem Format enthält: 
+	//JSON.parse(requestData.responseText) -> [{Bin: 1, Haltezeiten: [10, 17, 35]}, {Bin: 2, Haltezeiten: [22, 24]}, {Bin: 3, Haltezeiten: [8, 19, 200]}]
+	//Zugriff auf die Daten:
+	//data[0].Bin -> 1, data[0].Haltezeiten -> [10, 17, 35]
+		
 	//clear region for chart
 	var regionChart = document.getElementById("view3");
 	if(regionChart != null){
 		regionChart.innerHTML = "";
 	}
 	
+	var domain=[0, 500];
 	var y = d3.scaleLinear()
 				.range([height-margin.bottom, margin.top])
 				.domain(domain);
@@ -194,7 +196,7 @@ function showView3(data){
 				.classed("svg-container2", true)
 				.append("svg")
 				.attr("preserveAspectRatio", "xMinYMin meet")
-				.attr("viewBox", "0 0 360 200")
+				.attr("viewBox", "0 0 360 220")
 				.classed("svg-content-responsive", true);
 				
 	
@@ -205,11 +207,11 @@ function showView3(data){
 		.attr("y1", y(0))
 		.attr("y2", y(0));
 	
-	for(var i=0; i<results.length; i++){
-		results[i]=results[i].sort(d3.ascending)
+	for(var i=0; i<data.length; i++){
+		data[i].Haltezeiten=data[i].Haltezeiten.sort(d3.ascending)
 		var g=svg.append("g").attr("transform", "translate("+(i*(boxWidth+boxSpacing)+margin.left)+",0)");
-		addViolin(g, results[i], height, boxWidth, domain, 0.25, "#cccccc");
-		addBoxPlot(g, results[i], height, boxWidth, domain, .15, "black", "white");
+		addViolin(g, data[i].Haltezeiten, height, boxWidth, domain, 0.25, "#cccccc");
+		addBoxPlot(g, data[i].Haltezeiten, height, boxWidth, domain, .15, "black", "white");
 	
 	}
 	
