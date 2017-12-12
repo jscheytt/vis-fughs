@@ -24,7 +24,7 @@ function showView2(valueJanis2) {
 	var yJanis = d3.scaleLinear()
 			  .range([height1, 0]);
 			  
-
+  
 	// var z1 = d3.scaleOrdinal(d3.schemeCategory20);
 	var colorBlue = "steelblue";
 	var ein = document.getElementById("EinsteigerCheckbox");
@@ -34,7 +34,6 @@ function showView2(valueJanis2) {
 	}   
 	
 	
-	// console.log(z1);
 	// append the svg object to the #barchart of the page
 	// append a 'group' element to 'svg'
 	// moves the 'group' element to the top left margin1

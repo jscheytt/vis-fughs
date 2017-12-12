@@ -62,20 +62,20 @@ function addViolin(svg, dataOfBin, height, width, domain, imposeMax, violinColor
           .style("stroke", violinColor);
 
 
-        // gMinus.append("path")
-          // .datum(data)
-          // .attr("class", "area")
-          // .attr("d", area)
-          // .style("fill", violinColor);
+        gMinus.append("path")
+          .datum(data)
+          .attr("class", "area")
+          .attr("d", area)
+          .style("fill", violinColor);
 
-        // gMinus.append("path")
-          // .datum(data)
-          // .attr("class", "violin")
-          // .attr("d", line)
-          // .style("stroke", violinColor);
+         gMinus.append("path")
+           .datum(data)
+           .attr("class", "violin")
+           .attr("d", line)
+           .style("stroke", violinColor);
 
         gPlus.attr("transform", "rotate(90,0,0)  translate(0,-"+width+")");//translate(0,-200)");
-        //gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
+        gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
 
 
 }
@@ -180,7 +180,7 @@ function showView3(data){
 		regionChart.innerHTML = "";
 	}
 	
-	var domain=[0, 500];
+	var domain=[0, 370];
 	var y = d3.scaleLinear()
 				.range([height-margin.bottom, margin.top])
 				.domain(domain);
