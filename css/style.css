@@ -135,8 +135,8 @@ line[id ^="line"]{
 
 #zoomView{
 	display: block;
-	width:150px;
-	overflow:auto;
+	width:160px;
+	overflow:hidden;
 	float: right;
 	border-style: none;
 	border-width: 0.5px;
