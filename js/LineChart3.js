@@ -46,7 +46,7 @@ d3.csv("data/LineChart3.csv")
 			.curve(d3.curveCardinal);
 
 
-		var svg = d3.select("div#view3").append("div").classed("svg-container", true).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400").classed("svg-content-responsive", true); 
+		// var svg = d3.select("div#view3").append("div").classed("svg-container", true).append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400").classed("svg-content-responsive", true); 
 		
 		var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 
