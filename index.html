@@ -3834,7 +3834,7 @@
 					
 					<div id="Timesteps">Zeitschritte
 					<div>
-					<div class="radiobutton" style="margin-top: 10px;"><input type="radio" name="radio" value="" id="radio1" onchange="onTimestepChange(0)" checked><label class="radiobuttonlabel">Gesamt</label></div>
+					<div class="radiobutton" style="margin-top: 10px;"><input type="radio" name="radio" value="" id="radio1" onchange="onTimestepChange(0)" checked ><label class="radiobuttonlabel">Gesamt</label></div>
 					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="onTimestepChange(1)"><label class="radiobuttonlabel">Monat</label></div>
 					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio2" onchange="onTimestepChange(2)"><label class="radiobuttonlabel">Woche</label></div>
 					<div class="radiobutton"><input type="radio" name="radio" value="" id="radio3" onchange="onTimestepChange(3)"><label class="radiobuttonlabel">Tag</label></div>
@@ -3849,10 +3849,13 @@
 					<span class="slider round"></span>
 					</label><label id="VarianzLabel" style="margin-bottom: 0px; margin-left: 5px">Varianz</label></div>
 				<div id="EinAussteiger">
-					<div id="Einsteiger"> <input type="checkbox" id="EinsteigerCheckbox" onchange="onCheckChange(this.id)" checked>
+					<div id="Mittelwert"> <input type="radio" name="radioBarChart" id="" onchange="onCheckChange(this.id)" >
+					<label>Mittelwert</label> </div>
+					<div id="Einsteiger"> <input type="radio" name="radioBarChart" id="EinsteigerCheckbox" onchange="onCheckChange(this.id)" checked>
 					<label>Einsteiger</label> </div>
-					<div id="Aussteiger"> <input type="checkbox" id="AussteigerCheckbox" onchange="onCheckChange(this.id)" checked>
+					<div id="Aussteiger"> <input type="radio" name="radioBarChart" id="AussteigerCheckbox" onchange="onCheckChange(this.id)" >
 					<label>Aussteiger</label> </div>
+					
 				</div>	
 			</div>
 </div>
