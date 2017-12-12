@@ -1,8 +1,8 @@
-function showView2(valueJanis) {
+function showView2(valueJanis2) {
 	//DataCommunication Zeile 150 einkommentieren, dann wird der Wert des Paramerters valueJanis ein Array mit den Daten vom Server im Format valueJanis = [{Datum: "01.11.2000", AnzahlEin: 1200, AnzahlAus: 3000}, {Datum: "01.12.2000", AnzahlEin: 2300, AnzahlAus: 600}]
 	//Zugriff: valueJanis[0].Datum -> "01.11.2000", valueJanis[0].AnzahlEin ->1200, valueJanis[0].AnzahlAus -> 600
 	
-	document.getElementById('barchart').innerHTML = "";
+	
 	//clear region for bar-chart
 	var regionBarChart = document.getElementById("barchart");
 	if(regionBarChart != null){
@@ -45,13 +45,17 @@ function showView2(valueJanis) {
 			if(ein.checked && aus.checked == true) {
 		// Lade Monat
 			
-					console.log();		
-					data = valueJanis;
-					var data = [{Datum:"Woche3", AnzahlEin:28, AnzahlAus:30},
+					// console.log(valueJanis2);	
+					//var data = valueJanis;
+						
+					 var data = [{Datum:"Woche3", AnzahlEin:28, AnzahlAus:30},
 								{Datum:"Woche4", AnzahlEin:38, AnzahlAus:30},
 								{Datum:"Woche5", AnzahlEin:48, AnzahlAus:30},
 								{Datum:"Woche6", AnzahlEin:58, AnzahlAus:30}]  
-					data.sort(function(a, b) { return b.total - a.total; });
+					// console.log(data);			
+								
+					
+					//data.sort(function(a, b) { return b.total - a.total; });
 					
 					// format the data
 					data.forEach(function(d) {
