@@ -22,11 +22,11 @@ function showView5(data){
 		regionChart.innerHTML = "";
 	}
 	
-	//data = [{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
+	//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
 	
 	max = d3.max(data, function(d) { return d.Anzahl; });
-	minDate = d3.min(data, function(d) {return parseDate(d.Uhrzeit); }); //eventuell Uhrzeit parsen parseDate(d.Uhrzeit)
-	maxDate = d3.max(data, function(d) { return parseDate(d.Uhrzeit); });
+	minDate = d3.min(data, function(d) {return parseDate(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
+	maxDate = d3.max(data, function(d) { return parseDate(d.Zeitpunkt); });
 	
 	
 	
@@ -55,7 +55,7 @@ function showView5(data){
 	var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 	
 	var line = d3.line()
-		.x(function(d){ return x(parseDate(d.Uhrzeit)); })
+		.x(function(d){ return x(parseDate(d.Zeitpunkt)); })
 		.y(function(d){ return y(d.Anzahl); })
 		.curve(d3.curveCardinal);
 
@@ -75,7 +75,7 @@ function showView5(data){
 		.style("text-anchor", "right")
 		.style ("font-size", "10px")
 		.style ("font-weight", "bold")
-		.text("Uhrzeit");
+		.text("Zeitpunkt");
 	
 	chartGroup.append("g")
 		.attr("class","axis y")

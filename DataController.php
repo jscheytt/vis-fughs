@@ -3,7 +3,10 @@
 if(!empty($_POST)){
 	$view = urldecode($_POST['view']);
 	$timestep = intval(urldecode($_POST['timestep']));
-	$selectedTime = urldecode($_POST['selectedTime']);
+	$selectedTime = urldecode($_POST['selectedTime']); //2016-12-01
+	if(urldecode($_POST['selectedTime']) != ""){
+		$selectedTime = date('d.m.Y', strtotime(urldecode($_POST['selectedTime'])));
+	}
 	$passenger = intval(urldecode($_POST['passenger']));
 	$varianz = urldecode($_POST['varianz']) === 'true'? true: false;
 	$stations = explode(",", urldecode($_POST['stations']));	
@@ -22,7 +25,7 @@ if(!empty($_POST)){
 		loadView4();
 	}
 	else if($view == "5"){
-		loadView5();
+		loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz);
 	}
 	else if($view == "zoom"){
 		loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger);
@@ -55,9 +58,9 @@ function loadView1($timestep, $selectedTime, $passenger){
 	{ 
 		$spalten = explode(";", $zeile); 
 		
-		//data: [0] Timestemp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
+		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 		
-		if($spalten[1] != "Station"){
+		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime)){ 
 			if($passenger == 0){ //in + out
 			
 				if(array_key_exists($spalten[1], $resultList)){
@@ -126,7 +129,7 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 		
 		//data: [0] Timestemp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 
-		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[2], $resultList)){
 					$resultList [$spalten[2]] = intval($resultList[$spalten[2]]) + intval($spalten[5]);
@@ -259,7 +262,7 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Bin, [4] EinHalte, [5] AusHalte, [6] DurchschnittHalte
 		
-		if($spalten[0] != "Timestamp" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+		if($spalten[0] != "Timestamp" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = array_merge($resultList [$spalten[3]], array_map('intval', explode(",", $spalten[6])));
@@ -304,26 +307,87 @@ function loadView4(){
 	echo "data view 4";	
 }
 
-function loadView5(){
-//[{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
+function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz){
+	//Data-files View 5
+	$dataView5_Complete = "data/2017_timedetail-prepped_complete.csv"; //-> Monate summieren [{Zeitpunkt: 01.11.2017, Anzahl: 2000}, {Zeitpunkt: 01.12.2017, Anzahl: 4000}]
+	$dataView5_Days = "data/2017_timedetail-prepped_days.csv"; //-> alle 3 Stunden summieren [{Zeitpunkt: 01.12.2017 00:00, Anzahl: 2000}, {Zeitpunkt: 01.12.2017 03:00, Anzahl: 2000}]
+	$dataView5_Months = "data/2017_timedetail-prepped_months.csv"; //-> Wochen summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 08.12.2017, Anzahl: 2000}]
+	$dataView5_Weeks = "data/2017_timedetail-prepped_weeks.csv"; //-> Tage summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 02.12.2017, Anzahl: 2000}]
+	
+	$timeformat = 'd.m.Y h:i';
+	if($timestep == 0){
+		$data = $dataView5_Complete;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 1){
+		$data = $dataView5_Months;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 2){	
+		$data = $dataView5_Weeks;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 3){
+		$data = $dataView5_Days;
+		$timeformat = 'd.m.Y h:i'; 
+	}
+	
+	$resultList = [];
+	$in = 3;
+	$out = 4;
+	$inAndOut = 5;
+	
+	$stations = array_map("getAbkStationname",$stations);
+	
+	$resultList = [];
+	
+	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
+	while($zeile = fgets($fp)) 
+	{ 
+		$spalten = explode(";", $zeile); 
+		
+		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
+
+		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+			$timeEntry = date($timeformat, strtotime($spalten[0]));
+			if($passenger == 0){ //in + out
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$inAndOut]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$inAndOut]);
+				}				
+			}
+			
+			if($passenger == 1){ //in
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$in]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$in]);
+				}				
+			}
+			
+			if($passenger == 2){ //out
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$out]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$out]);
+				}				
+			}
+		
+		}
+	} 
+	fclose($fp); 
+	
 	$result = [];
+	foreach($resultList as $key => $value){
+		if($value != 0){
+			$entry = new \stdClass();
+			$entry->Zeitpunkt = $key;
+			$entry->Anzahl = $value;
+			array_push($result, $entry);
+		}
+	}
+	//Ausgabe 
+	echo json_encode($result);
 	
-		$entry = new \stdClass();
-		$entry->Uhrzeit = date('h:i:s', strtotime("13:10:10"));
-		$entry->Anzahl = 14;
-		array_push($result, $entry);
-		
-		$entry2 = new \stdClass();
-		$entry2->Uhrzeit = date('h:i:s',strtotime("18:20:10"));
-		$entry2->Anzahl = 36;
-		array_push($result, $entry2);
-		
-		$entry3 = new \stdClass();
-		$entry3->Uhrzeit = date('h:i:s',strtotime("22:05:10"));
-		$entry3->Anzahl = 20;
-		array_push($result, $entry3);
-	
-	echo json_encode($result);	
+//[{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
 }
 
 
