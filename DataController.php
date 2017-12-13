@@ -233,10 +233,10 @@ function loadView2($timestep, $selectedTime, $passenger, $varianz){
 
 function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 	//Data-files View 2
-	$dataView3_Complete = "data/2017_duration-prepped_complete.csv";
-	$dataView3_Days = "data/2017_duration-prepped_days.csv";
-	$dataView3_Months = "data/2017_duration-prepped_months.csv";
-	$dataView3_Weeks = "data/2017_duration-prepped_weeks.csv";
+	$dataView3_Complete = "data/2017_duration_complete.csv";
+	$dataView3_Days = "data/2017_duration_days.csv";
+	$dataView3_Months = "data/2017_duration_months.csv";
+	$dataView3_Weeks = "data/2017_duration_weeks.csv";
 
 	if($timestep == 0){
 		$data = $dataView3_Complete;
