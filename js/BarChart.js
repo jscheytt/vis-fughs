@@ -140,12 +140,23 @@ function showView2(valueJanis2) {
 					  alert( "Handler for .click() called." + d3.select(this).attr("x"));
 					}); */
 					d3.selectAll("rect").on("click", function(d) {
-						selectedTime = d.Datum;
+						onSelectedTimeChange(d.Datum);
 					});
 			
-		
+			//simulate click on first bar after load
+			eventFire(document.getElementsByClassName("bar")[1], 'click');
 }
 
+
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+}
 
 
 

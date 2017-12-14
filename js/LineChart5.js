@@ -1,4 +1,4 @@
-var parseDate = d3.timeParse("%H:%M:%S");
+var parseTime = d3.timeParse("%H:%M");
 
 var width = 300;
 var height = 150;
@@ -11,10 +11,17 @@ var yNudge = 20;
 var minDate = new Date();
 var maxDate = new Date();
 
-var formatxAxis = d3.timeFormat("%H:%M");
+var formatxAxis = d3.timeFormat("%H:%M"); //for days
 
 
 function showView5(data){
+	parseTime = d3.timeParse("%H:%M");
+	formatxAxis = d3.timeFormat("%H:%M");
+	if(parseTime(data[0].Zeitpunkt) == null){
+		parseTime = d3.timeParse("%d.%m.%Y");
+		formatxAxis = d3.timeFormat("%m.%d.%Y"); //for month, complete, week
+	}
+	 
 	
 	//clear region for chart
 	var regionChart = document.getElementById("view5");
@@ -25,10 +32,8 @@ function showView5(data){
 	//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
 	
 	max = d3.max(data, function(d) { return d.Anzahl; });
-	minDate = d3.min(data, function(d) {return parseDate(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
-	maxDate = d3.max(data, function(d) { return parseDate(d.Zeitpunkt); });
-	
-	
+	minDate = d3.min(data, function(d) {return parseTime(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
+	maxDate = d3.max(data, function(d) { return parseTime(d.Zeitpunkt); });
 	
 	
 	var y = d3.scaleLinear()
@@ -55,7 +60,7 @@ function showView5(data){
 	var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 	
 	var line = d3.line()
-		.x(function(d){ return x(parseDate(d.Zeitpunkt)); })
+		.x(function(d){ return x(parseTime(d.Zeitpunkt)); })
 		.y(function(d){ return y(d.Anzahl); })
 		.curve(d3.curveCardinal);
 

@@ -17,22 +17,17 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 
 function onCheckChange(id){	
 	//Checkboxen Ein-/Aussteiger
-	var ein = document.getElementById("EinsteigerCheckbox");
-	var aus = document.getElementById("AussteigerCheckbox");
-	if(!ein.checked && !aus.checked){
-		if(id == "EinsteigerCheckbox"){
-			aus.checked = true;
-		}
-		if(id == "AussteigerCheckbox"){
-			ein.checked = true;
-		}
-	}
 	requestDataForView("2", "", "");
 }
 
 function onTimestepChange (step){
 	timestep = step;
 	requestDataForView("2", "", "");
+}
+
+function onSelectedTimeChange(selTime){
+	selectedTime = selTime;
+	requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 }
 
 //onVarianz change -> requestData("2") -> select timeslot again
@@ -48,9 +43,12 @@ function requestDataForView(view, stations, lines){
 	var passenger = 0;
 	var ein = document.getElementById("EinsteigerCheckbox");
 	var aus = document.getElementById("AussteigerCheckbox");
-	if(ein.checked && !aus.checked){
+	var mittel = document.getElementById("MittelwertCheckbox");
+	if(ein.checked){
+		passenger = 0;
+	}else if (aus.checked){
 		passenger = 1;
-	}else if (!ein.checked && aus.checked){
+	}else if (mittel.checked){
 		passenger = 2;
 	}
 	
@@ -142,7 +140,6 @@ function handleResponseView2(){
 		showView2(JSON.parse(requestData2.responseText)); // -> einkommentieren
 		requestData2 = null;
 		// showView2 (timestep); //löschen wenn das darüber einkommentiert
-		requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 	}
 }
 
@@ -155,8 +152,7 @@ function handleResponseView3(){
 
 function handleResponseView4(){
 	if (requestData4 != null && requestData4.readyState == 4 && requestData4.status == 200){
-		showView4("");
-		//showView4(JSON.parse(requestData4.responseText));
+		showView4(JSON.parse(requestData4.responseText));
 		requestData4 = null;
 	}
 }

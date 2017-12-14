@@ -31,8 +31,6 @@ function init(evt)
 	lineS11.setAttributeNS(null,"opacity",1);
 	lineS21.setAttributeNS(null,"opacity",1);
 	lineS31.setAttributeNS(null,"opacity",1);
-	
-	requestDataForView("1", "", "");
 }
 
 
@@ -56,9 +54,24 @@ function showView1(passengersPerStation){
 			 bobbelvalue = 0;	
 			}
 			bobbels[i].setAttributeNS(null,"r", bobbelvalue);
+			bobbels[i].style.fill =  colorBobbel();
 		}
 	}
 	requestDataForView("zoom", getStations(selectedStations[0], selectedStations[1]), zoomLines);
+}	
+	
+function colorBobbel(){
+	var ein = document.getElementById("EinsteigerCheckbox");
+	var aus = document.getElementById("AussteigerCheckbox");
+	var mittel = document.getElementById("MittelwertCheckbox");
+	
+	if(ein.checked){
+		return "steelblue";
+	}else if (aus.checked){
+		return "lightsteelblue";
+	}else{
+		return "#00335e";
+	}
 }	
 	
 function showTooltip(evt, id){	
@@ -352,7 +365,7 @@ function showViewZoom(dataLines){
 			"<svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" id=\"Station\" sodipodi:docname=\"Station.svg\" inkscape:version=\"0.92.2 (5c3e80d, 2017-08-06)\" x=\"0px\" y=\"0px\" display=\"inline-block\" viewBox=\"0 0 170 28.260856\" enable-background=\"new 0 0 170 28.260856\" xml:space=\"preserve\" onload=\"init(evt)\" style=\"display:inline-block; height: 50px; width: 100px; float:right\"><metadata id=\"metadata4732\"><rdf:RDF><cc:Work rdf:about=\"\"><dc:format>image/svg+xml</dc:format><dc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs id=\"defs4730\" /><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" inkscape:pageopacity=\"0\" inkscape:pageshadow=\"2\" inkscape:window-width=\"1920\" inkscape:window-height=\"1001\" id=\"namedview4728\" showgrid=\"false\" inkscape:snap-smooth-nodes=\"false\" inkscape:object-nodes=\"true\" inkscape:object-paths=\"false\" inkscape:zoom=\"0.625\" inkscape:cx=\"660.83357\" inkscape:cy=\"431.84027\" inkscape:window-x=\"-9\" inkscape:window-y=\"-9\" inkscape:window-maximized=\"1\" inkscape:current-layer=\"layer1\" /><g id=\"layer1\" transform=\"translate(5673.9687,-1482.2978)\" inkscape:label=\"Livello 1\" inkscape:groupmode=\"layer\">"+
 			"<path sodipodi:nodetypes=\"cc\" inkscape:connector-curvature=\"0\" d=\"m -5507.3861,1514.9395 -163.1486,-0.1178\" style=\"fill:none;stroke:"+lineColor+";stroke-width:7;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.8\" id=\"lineSmall_"+lines[j]+"\" />"+
 			"<rect  x=\"-5592.5132\" y=\"1510.5\" width=\"9\" height=\"9\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\"/>"+
-			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" /></g></svg>"+"</div>";
+			"<circle style=\"fill:"+colorBobbel()+";fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" /></g></svg>"+"</div>";
 			zoomSelection.push(lines[j]);
 			zoomLines.push(lines[j]);
 		}
@@ -387,7 +400,7 @@ function showViewZoom(dataLines){
 			
 			"<rect x=\"-5670.2241\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\"/>"+
 			
-			"<circle style=\"fill:#b3b3b3;fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" />"+
+			"<circle style=\"fill:"+colorBobbel()+";fill-opacity:0.71022728;stroke:none;stroke-width:2.70710683;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1\" id=\"bobbel_Neu Wulmstorf_line"+lines[j]+"\" cx=\"5588.542\" cy=\"1486.1528\" transform=\"scale(-1,1)\" onmousemove=\"showTooltip(evt, this.id)\" onmouseout=\"hideTooltip()\" r=\""+(bobbelWidth*factor)+"\" />"+
 			
 			"<rect x=\"-5514.8521\" y=\"1511.188\" width=\"7.1999998\" height=\"7.1989999\" style=\"display:block;fill:rgb(0, 0, 0);fill-opacity:1;stroke:rgb(0, 0, 0);stroke-width:4;stroke-linejoin:round\" />"
 	   
@@ -461,7 +474,7 @@ function getStations(start, end){
 var lineColors = [
 {line: "S1", 	color: "#27bb29"},
 {line: "S2", 	color: "#e08343"},
-{line: "S3", 	color: "#4861b4"},
+{line: "S3", 	color: "#266659"},
 {line: "S11", 	color: "#c837ab"},
 {line: "S21", 	color: "#b41043"},
 {line: "S31", 	color: "#751d72"},

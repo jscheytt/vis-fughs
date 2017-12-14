@@ -4,7 +4,10 @@ if(!empty($_POST)){
 	$view = urldecode($_POST['view']);
 	$timestep = intval(urldecode($_POST['timestep']));
 	$selectedTime = urldecode($_POST['selectedTime']); //2016-12-01
-	if(urldecode($_POST['selectedTime']) != ""){
+	if($selectedTime == "0"){
+		$selectedTime = "";
+	}
+	if($selectedTime != ""){
 		$selectedTime = date('d.m.Y', strtotime(urldecode($_POST['selectedTime'])));
 	}
 	$passenger = intval(urldecode($_POST['passenger']));
@@ -22,7 +25,7 @@ if(!empty($_POST)){
 		loadView3($timestep, $selectedTime, $stations, $lines, $passenger);
 	}
 	else if($view == "4"){
-		loadView4();
+		loadView4($timestep, $selectedTime, $stations, $lines, $passenger);
 	}
 	else if($view == "5"){
 		loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz);
@@ -60,7 +63,19 @@ function loadView1($timestep, $selectedTime, $passenger){
 		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 		
-		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime)){ 
+		if($spalten[1] != "Station"
+		&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
+		
+		){ 
 			if($passenger == 0){ //in + out
 			
 				if(array_key_exists($spalten[1], $resultList)){
@@ -129,7 +144,18 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 		
 		//data: [0] Timestemp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 
-		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
+		&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag	
+		){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[2], $resultList)){
 					$resultList [$spalten[2]] = intval($resultList[$spalten[2]]) + intval($spalten[5]);
@@ -262,7 +288,18 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Bin, [4] EinHalte, [5] AusHalte, [6] DurchschnittHalte
 		
-		if($spalten[0] != "Timestamp" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+		if($spalten[0] != "Timestamp" &&  in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
+		&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag			
+		){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = array_merge($resultList [$spalten[3]], array_map('intval', explode(",", $spalten[6])));
@@ -303,18 +340,204 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 	echo json_encode($result);	
 }
 
-function loadView4(){
-	echo "data view 4";	
+function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
+	//Data-files View 4
+	$dataView5_Complete = "data/2017_calendar_complete.csv";
+	$dataView5_Days = "data/2017_calendar_days.csv";
+	$dataView5_Months = "data/2017_calendar_months.csv";
+	$dataView5_Weeks = "data/2017_calendar_weeks.csv";
+	
+	$timeformat = 'D H:i'; 
+	
+	if($timestep == 0){
+		$data = $dataView5_Complete;
+	}else if($timestep == 1){
+		$data = $dataView5_Months;
+	}else if($timestep == 2){	
+		$data = $dataView5_Weeks;
+	}else if($timestep == 3){
+		$data = $dataView5_Days;
+	}
+	
+	$resultList = [];
+	$in = 4;
+	$out = 5;
+	$inAndOut = 6;
+	
+	$stations = array_map("getAbkStationname",$stations);
+	
+	$resultList = [];
+	
+	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
+	while($zeile = fgets($fp)) 
+	{ 
+
+		$spalten = explode(";", $zeile); 
+		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Timeslot, [4] Einsteiger, [5] Aussteiger, [6] Durchschnitt
+		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
+			&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
+		){
+			
+			if($passenger == 0){ //in + out
+				if(array_key_exists($spalten[3], $resultList)){
+					$resultList [$spalten[3]] = intval($resultList[$spalten[3]]) + intval($spalten[$inAndOut]);
+				}else{
+					$resultList [$spalten[3]] = intval($spalten[$inAndOut]);
+				}				
+			}
+			
+			if($passenger == 1){ //in
+				if(array_key_exists($spalten[3], $resultList)){
+					$resultList [$spalten[3]] = intval($resultList[$spalten[3]]) + intval($spalten[$in]);
+				}else{
+					$resultList [$spalten[3]] = intval($spalten[$in]);
+				}				
+			}
+			
+			if($passenger == 2){ //out
+				if(array_key_exists($spalten[3], $resultList)){
+					$resultList [$spalten[3]] = intval($resultList[$spalten[3]]) + intval($spalten[$out]);
+				}else{
+					$resultList [$spalten[3]] = intval($spalten[$out]);
+				}				
+			}
+		
+		}
+	} 
+	fclose($fp); 
+	
+	$result = [];
+	foreach($resultList as $key => $value){
+		if($value != 0){
+			$entry = new \stdClass();
+			$entry->Tag = getTag($key);
+			$entry->Uhrzeit = getUhrzeit($key);
+			$entry->Anzahl = $value;
+			array_push($result, $entry);
+		}
+	}
+	//Ausgabe 
+	echo json_encode($result);
+}
+
+function getTag($key){
+	$day = $key[0].$key[1];
+	if($day == "Mo"){
+		return 1;
+	}
+	else if($day == "Di"){
+		return 2;
+	}
+	else if($day == "Mi"){
+		return 3;
+	}
+	else if($day == "Do"){
+		return 4;
+	}
+	else if($day == "Fr"){
+		return 5;
+	}
+	else if($day == "Sa"){
+		return 6;
+	}
+	else if($day == "So"){
+		return 7;
+	}
+}
+
+function getUhrzeit($key){
+	$uhr = $key[2].$key[3];
+	if($uhr == "00"){
+		return 1;
+	}
+	else if($uhr == "01"){
+		return 2;
+	}
+	else if($uhr == "02"){
+		return 3;
+	}
+	else if($uhr == "03"){
+		return 4;
+	}
+	else if($uhr == "04"){
+		return 5;
+	}
+	else if($uhr == "05"){
+		return 6;
+	}
+	else if($uhr == "06"){
+		return 7;
+	}
+	else if($uhr == "07"){
+		return 8;
+	}
+	else if($uhr == "08"){
+		return 9;
+	}
+	else if($uhr == "09"){
+		return 10;
+	}
+	else if($uhr == "10"){
+		return 11;
+	}
+	else if($uhr == "11"){
+		return 12;
+	}
+	else if($uhr == "12"){
+		return 13;
+	}
+	else if($uhr == "13"){
+		return 14;
+	}
+	else if($uhr == "14"){
+		return 15;
+	}
+	else if($uhr == "15"){
+		return 16;
+	}
+	else if($uhr == "16"){
+		return 17;
+	}
+	else if($uhr == "17"){
+		return 18;
+	}
+	else if($uhr == "18"){
+		return 19;
+	}
+	else if($uhr == "19"){
+		return 20;
+	}
+	else if($uhr == "20"){
+		return 21;
+	}
+	else if($uhr == "21"){
+		return 22;
+	}
+	else if($uhr == "22"){
+		return 23;
+	}
+	else if($uhr == "23"){
+		return 24;
+	}
 }
 
 function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz){
 	//Data-files View 5
-	$dataView5_Complete = "data/2017_timedetail-prepped_complete.csv"; //-> Monate summieren [{Zeitpunkt: 01.11.2017, Anzahl: 2000}, {Zeitpunkt: 01.12.2017, Anzahl: 4000}]
-	$dataView5_Days = "data/2017_timedetail-prepped_days.csv"; //-> alle 3 Stunden summieren [{Zeitpunkt: 01.12.2017 00:00, Anzahl: 2000}, {Zeitpunkt: 01.12.2017 03:00, Anzahl: 2000}]
-	$dataView5_Months = "data/2017_timedetail-prepped_months.csv"; //-> Wochen summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 08.12.2017, Anzahl: 2000}]
-	$dataView5_Weeks = "data/2017_timedetail-prepped_weeks.csv"; //-> Tage summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 02.12.2017, Anzahl: 2000}]
+	$dataView5_Complete = "data/2017_timedetail_complete.csv"; //-> Monate summieren [{Zeitpunkt: 01.11.2017, Anzahl: 2000}, {Zeitpunkt: 01.12.2017, Anzahl: 4000}]
+	$dataView5_Days = "data/2017_timedetail_days.csv"; //-> alle 3 Stunden summieren [{Zeitpunkt: 01.12.2017 00:00, Anzahl: 2000}, {Zeitpunkt: 01.12.2017 03:00, Anzahl: 2000}]
+	$dataView5_Months = "data/2017_timedetail_months.csv"; //-> Wochen summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 08.12.2017, Anzahl: 2000}]
+	$dataView5_Weeks = "data/2017_timedetail_weeks.csv"; //-> Tage summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 02.12.2017, Anzahl: 2000}]
 	
-	$timeformat = 'd.m.Y h:i';
+	$timeformat = 'd.m.Y H:i';
 	if($timestep == 0){
 		$data = $dataView5_Complete;
 		$timeformat = 'd.m.Y';
@@ -326,8 +549,13 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 		$timeformat = 'd.m.Y';
 	}else if($timestep == 3){
 		$data = $dataView5_Days;
-		$timeformat = 'd.m.Y h:i'; 
+		$timeformat = 'H:i'; 
 	}
+	
+	//if gesamt -> $selectedTime == ""
+	//if monat -> alle wo monat im datum ist
+	//if weeks -> date('d.m.Y', strtotime($spalten[0])) in $selectedTime-Array für ab datum + 7 tage
+	//if days -> date('d.m.Y', strtotime($spalten[0])) == $selectedTime
 	
 	$resultList = [];
 	$in = 3;
@@ -341,12 +569,25 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
 	while($zeile = fgets($fp)) 
 	{ 
-		$spalten = explode(";", $zeile); 
-		
-		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 
-		if($spalten[1] != "Station" && ($selectedTime == "" || date('d.m.Y', strtotime($spalten[0])) == $selectedTime) && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))){
+		$spalten = explode(";", $zeile); 
+		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
+		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
+			&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
+		){
+			
+			
 			$timeEntry = date($timeformat, strtotime($spalten[0]));
+		
 			if($passenger == 0){ //in + out
 				if(array_key_exists($timeEntry, $resultList)){
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$inAndOut]);
