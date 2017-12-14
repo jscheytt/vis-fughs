@@ -60,13 +60,14 @@ function addViolin(svg, dataOfBin, height, width, domain, imposeMax, violinColor
           .attr("d", area)
           .style("fill", violinColor);
 
-        gMinus.append("path")
-          .datum(data)
-          .attr("class", "violin")
-          .attr("d", line)
-          .style("stroke", violinColor);
+         gMinus.append("path")
+           .datum(data)
+           .attr("class", "violin")
+           .attr("d", line)
+           .style("stroke", violinColor);
 
-		gPlus.attr("transform", "rotate(90,0,0)  translate(0,-"+width+")");
+        gPlus.attr("transform", "rotate(90,0,0)  translate(0,-"+width+")");//translate(0,-200)");
+
         gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
 
 

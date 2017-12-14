@@ -121,9 +121,9 @@ Timestamp | Station | Linie | Zeitslot | Einsteiger | Aussteiger | Avg
 Es gibt insgesamt 3 Files für den Gesamtzeitraum, die Monate und die Wochen. Die Timestamps sind analog zu denen von #2. Das Format der Zeitslots ist ```[erste 2 Buchstaben Wochentag][Startuhrzeit des Intervalls]```. Bspw. entspricht ```Sa00``` dem Intervall "Samstag von 0 bis 1 Uhr".
 
 ## Für #5 TimeDetail
-Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg | AbwEin | AbwAus | AbwAvg
---- | --- | --- | --- | --- | --- | --- | --- | ---
-2016-12-31 03:00 | [68] | [6] | 123 | 321 | 222 | -27 | 171 | 72
+Timestamp | Station | Linie | Einsteiger | Aussteiger | Avg
+--- | --- | --- | --- | --- | ---
+2016-12-31 03:00 | [68] | [6] | 123 | 321 | 222
 
 Es gibt insgesamt 4 Files analog zu #2. Die Aufteilung ist wie folgt:
 
