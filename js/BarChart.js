@@ -1,4 +1,4 @@
-function showView2(valueJanis2) {
+function showView2(data) {
 	//DataCommunication Zeile 150 einkommentieren, dann wird der Wert des Paramerters valueJanis ein Array mit den Daten vom Server im Format valueJanis = [{Datum: "01.11.2000", AnzahlEin: 1200, AnzahlAus: 3000}, {Datum: "01.12.2000", AnzahlEin: 2300, AnzahlAus: 600}]
 	//Zugriff: valueJanis[0].Datum -> "01.11.2000", valueJanis[0].AnzahlEin ->1200, valueJanis[0].AnzahlAus -> 600
 	
@@ -45,11 +45,7 @@ function showView2(valueJanis2) {
 			  "translate(" + margin1.left + "," + margin1.top + ")");
 	
 	var stack = d3.stack();
-		
-		
-			
-			var data = valueJanis2;
-					console.log(data);
+	
 					data.sort(function(a) { return a.total; });
 					
 					// format the data
