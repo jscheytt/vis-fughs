@@ -339,6 +339,7 @@ input:checked + .slider:before {
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display: block;
+	position: relative;
 }
 
 #view4{
@@ -352,6 +353,7 @@ input:checked + .slider:before {
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display: block;
+	position: relative;
 }
 
 #view5{
@@ -364,6 +366,7 @@ input:checked + .slider:before {
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display:block;
+	position: relative;
 }
 
 /* View 4 */
