@@ -26,17 +26,9 @@ function addViolin(svg, dataOfBin, height, width, domain, imposeMax, violinColor
                 })
             .y0(width/2)
             .y1(function(d) { return y(d.length); });
+
 			
-// const area = d3.area()
-    // .curve(d3.curveCardinal)
-    // .x(d => xScale(parseTime(d.data.date)))
-    // .y0(d => yScale(d[0] || 0))
-    // .y1(d => yScale(d[1] || 0));
-
-
-
         var line=d3.line()
-            //.interpolate(interpolation)
 			//Ergänzte folgende Linie
 			.curve(d3.curveCardinal)
             .x(function(d) {
@@ -75,6 +67,7 @@ function addViolin(svg, dataOfBin, height, width, domain, imposeMax, violinColor
            .style("stroke", violinColor);
 
         gPlus.attr("transform", "rotate(90,0,0)  translate(0,-"+width+")");//translate(0,-200)");
+
         gMinus.attr("transform", "rotate(90,0,0) scale(1,-1)");
 
 
