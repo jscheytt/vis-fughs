@@ -62,15 +62,24 @@ function showView5(data){
 	var line = d3.line()
 		.x(function(d){ return x(parseTime(d.Zeitpunkt)); })
 		.y(function(d){ return y(d.Anzahl); })
-		.curve(d3.curveCardinal);
+		.curve(d3.curveLinear);
 
 	chartGroup.append("path")
 		.attr("class","line2")
 		.attr("d",function(d){ return line(data); })
 
+	svg.selectAll("dot")
+		.data(data)
+		.enter().append("circle")
+		.attr("r", 4)
+		.attr("class","dot")
+		.attr("transform","translate("+xNudge+","+yNudge+")")
+		.attr("cx", function(d) {return x(parseTime(d.Zeitpunkt)); })
+		.attr("cy", function(d) { return y(d.Anzahl); });
 
 	chartGroup.append("g")
 		.attr("class","axis x")
+		.attr("width", width)
 		.attr("transform","translate(0,"+height+")")
 		.call(xAxis);
 		

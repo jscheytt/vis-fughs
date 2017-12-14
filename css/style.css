@@ -64,16 +64,12 @@ text {
     stroke: #fff;
 }
 
-path.line1 {
+path.line2 {
     fill: none;
-    stroke: lightgrey;
+    stroke: grey;
     stroke-width: 3px;
 }
 
-path.line2 {
-    fill: none;
-    stroke: black;
-    stroke-width: 3px;
 }
 
 .axis path, .axis line {
