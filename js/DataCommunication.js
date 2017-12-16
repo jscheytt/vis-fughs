@@ -93,7 +93,7 @@ function requestDataForView(view, stations, lines){
 		}
 		
 		//clear view 3
-		var regionChart = document.getElementById("view3");
+		var regionChart = document.getElementById("view3Diagram");
 		if(regionChart != null){
 			regionChart.innerHTML = "";
 		}
@@ -117,10 +117,9 @@ function requestDataForView(view, stations, lines){
 		}
 		
 		//clear view 4
-		var regionChart = document.getElementById("view4");
-		var heat = document.getElementById("heatmap");
-		if(heat != null){
-			heat.innerHTML = "";
+		var regionChart = document.getElementById("heatmap");
+		if(regionChart != null){
+			regionChart.innerHTML = "";
 		}
 		if(spinner4 == null){
 			spinner4 = new Spinner();
@@ -142,7 +141,7 @@ function requestDataForView(view, stations, lines){
 		}
 		
 		//clear view 5		
-		var regionChart = document.getElementById("view5");
+		var regionChart = document.getElementById("view5Diagram");
 		if(regionChart != null){
 			regionChart.innerHTML = "";
 		}

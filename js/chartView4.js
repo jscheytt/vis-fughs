@@ -1,8 +1,8 @@
-var margin = { top: 20, right: 20, bottom: 0, left: 40 },
-	width = 350 - margin.left - margin.right,
-	height = 180 - margin.top - margin.bottom,
-	gridSizeWidth = Math.floor(width / 7),
-	gridSizeHeight = Math.floor(height / 24),
+var margin4 = { top: 20, right: 20, bottom: 0, left: 40 },
+	width4 = 350 - margin4.left - margin4.right,
+	height4 = 180 - margin4.top - margin4.bottom,
+	gridSizeWidth = Math.floor(width4 / 7),
+	gridSizeHeight = Math.floor(height4 / 24),
 	legendElementWidth = gridSizeWidth/2,
 	buckets = 9,
 	colors = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'], // alternatively colorbrewer.YlGnBu[9]
@@ -18,10 +18,10 @@ function showView4(data){
 	
 	
 	var svg = d3.select('#heatmap').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width4 + margin4.left + margin4.right)
+		.attr('height', height4 + margin4.top + margin4.bottom)
 		.append('g')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+		.attr('transform', 'translate(' + margin4.left + ',' + margin4.top + ')');
 	
 	svg.selectAll('.timeLabel')
 		.data(times)
@@ -48,8 +48,10 @@ function showView4(data){
 }
 
 function generateView4 (svg, data) {
+	var maxData = d3.max(data, function(e) {return e.Anzahl});
+
 	var colorScale = d3.scaleQuantile()
-				.domain([0, buckets - 1, d3.max(data, function(d) {return d.Anzahl})])
+				.domain([0, buckets - 1, maxData])
 				.range(colors);
 				
 	var cards = svg.selectAll('.day')
@@ -72,20 +74,21 @@ function generateView4 (svg, data) {
 	var legend = svg.selectAll('.legend')
 		.data([0].concat(colorScale.quantiles()), function(d) { return d; });
 	
+	//legend x-axis
 	var g = legend.enter().append('g')
 		.attr('class', 'legend');
 		g.append('rect')
 		.attr('x', function(d, i) { return legendElementWidth * i; })
-		.attr('y', height -4)
+		.attr('y', height4 -4)
 		.attr('width', legendElementWidth)
 		.attr('height', 4)
 		.style('fill', function(d, i) { return colors[i]; })
 		
 		g.append('text')
 		.attr('class', 'mono')
-		.text(function(d) { return '≥ ' + Math.round(d); })
+		.text(function(d) { if(d==0 || colorScale(d) == '#081d58' || colorScale(d) ==  '#c7e9b4' || colorScale(d) == '#41b6c4' || colorScale(d) == '#225ea8'){ return '≥ ' + Math.round(d);} return ""; })
 		.attr('x', function(d, i) { return legendElementWidth * i; })
-		.attr('y', height + gridSizeHeight -11);
+		.attr('y', height4 + gridSizeHeight -11);
 	
 	legend.exit().remove();
 	};
