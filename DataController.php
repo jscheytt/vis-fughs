@@ -1,4 +1,7 @@
 <?php
+$filefolder = "data";
+
+
 //Request an entsprechende Funktion weiterleiten
 if(!empty($_POST)){
 	$view = urldecode($_POST['view']);
@@ -37,12 +40,13 @@ if(!empty($_POST)){
 
 
 function loadView1($timestep, $selectedTime, $passenger){
+	global $filefolder;
 	
 	//Data-files View 1 & Zoom
-	$dataView1_Complete = "data/2017_mapzoom_complete.csv";
-	$dataView1_Days = "data/2017_mapzoom_days.csv";
-	$dataView1_Months = "data/2017_mapzoom_months.csv";
-	$dataView1_Weeks = "data/2017_mapzoom_weeks.csv";
+	$dataView1_Complete = $filefolder."/2017_mapzoom_complete.csv";
+	$dataView1_Days = $filefolder."/2017_mapzoom_days.csv";
+	$dataView1_Months = $filefolder."/2017_mapzoom_months.csv";
+	$dataView1_Weeks = $filefolder."/2017_mapzoom_weeks.csv";
 
 	if($timestep == 0){
 		$data = $dataView1_Complete;
@@ -116,12 +120,13 @@ function loadView1($timestep, $selectedTime, $passenger){
 }
 
 function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
+	global $filefolder;
 	
 	//Data-files View 1 & Zoom
-	$dataView1_Complete = "data/2017_mapzoom_complete.csv";
-	$dataView1_Days = "data/2017_mapzoom_days.csv";
-	$dataView1_Months = "data/2017_mapzoom_months.csv";
-	$dataView1_Weeks = "data/2017_mapzoom_weeks.csv";
+	$dataView1_Complete = $filefolder."/2017_mapzoom_complete.csv";
+	$dataView1_Days = $filefolder."/2017_mapzoom_days.csv";
+	$dataView1_Months = $filefolder."/2017_mapzoom_months.csv";
+	$dataView1_Weeks = $filefolder."/2017_mapzoom_weeks.csv";
 	
 	if($timestep == 0){
 		$data = $dataView1_Complete;
@@ -198,12 +203,13 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 }
 
 function loadView2($timestep, $selectedTime, $passenger, $varianz){
+	global $filefolder;
 	
 	//Data-files View 2
-	$dataView2_Complete = "data/2017_timeline_complete.csv";
-	$dataView2_Days = "data/2017_timeline_days.csv";
-	$dataView2_Months = "data/2017_timeline_months.csv";
-	$dataView2_Weeks = "data/2017_timeline_weeks.csv";
+	$dataView2_Complete = $filefolder."/2017_timeline_complete.csv";
+	$dataView2_Days = $filefolder."/2017_timeline_days.csv";
+	$dataView2_Months = $filefolder."/2017_timeline_months.csv";
+	$dataView2_Weeks = $filefolder."/2017_timeline_weeks.csv";
 
 	if($timestep == 0){
 		$data = $dataView2_Complete;
@@ -261,11 +267,13 @@ function loadView2($timestep, $selectedTime, $passenger, $varianz){
 }
 
 function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
+	global $filefolder;
+	
 	//Data-files View 2
-	$dataView3_Complete = "data/2017_duration_complete.csv";
-	$dataView3_Days = "data/2017_duration_days.csv";
-	$dataView3_Months = "data/2017_duration_months.csv";
-	$dataView3_Weeks = "data/2017_duration_weeks.csv";
+	$dataView3_Complete = $filefolder."/2017_duration_complete.csv";
+	$dataView3_Days = $filefolder."/2017_duration_days.csv";
+	$dataView3_Months = $filefolder."/2017_duration_months.csv";
+	$dataView3_Weeks = $filefolder."/2017_duration_weeks.csv";
 
 	if($timestep == 0){
 		$data = $dataView3_Complete;
@@ -341,11 +349,13 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 }
 
 function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
+	global $filefolder;
+	
 	//Data-files View 4
-	$dataView5_Complete = "data/2017_calendar_complete.csv";
-	$dataView5_Days = "data/2017_calendar_days.csv";
-	$dataView5_Months = "data/2017_calendar_months.csv";
-	$dataView5_Weeks = "data/2017_calendar_weeks.csv";
+	$dataView5_Complete = $filefolder."/2017_calendar_complete.csv";
+	$dataView5_Days = $filefolder."/2017_calendar_days.csv";
+	$dataView5_Months = $filefolder."/2017_calendar_months.csv";
+	$dataView5_Weeks = $filefolder."/2017_calendar_weeks.csv";
 	
 	$timeformat = 'D H:i'; 
 	
@@ -428,6 +438,112 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	//Ausgabe 
 	echo json_encode($result);
 }
+
+function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz){
+	global $filefolder;
+	
+	//Data-files View 5
+	$dataView5_Complete = $filefolder."/2017_timedetail_complete.csv"; //-> Monate summieren [{Zeitpunkt: 01.11.2017, Anzahl: 2000}, {Zeitpunkt: 01.12.2017, Anzahl: 4000}]
+	$dataView5_Days = $filefolder."/2017_timedetail_days.csv"; //-> alle 3 Stunden summieren [{Zeitpunkt: 01.12.2017 00:00, Anzahl: 2000}, {Zeitpunkt: 01.12.2017 03:00, Anzahl: 2000}]
+	$dataView5_Months = $filefolder."/2017_timedetail_months.csv"; //-> Wochen summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 08.12.2017, Anzahl: 2000}]
+	$dataView5_Weeks = $filefolder."/2017_timedetail_weeks.csv"; //-> Tage summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 02.12.2017, Anzahl: 2000}]
+	
+	$timeformat = 'd.m.Y H:i';
+	if($timestep == 0){
+		$data = $dataView5_Complete;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 1){
+		$data = $dataView5_Months;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 2){	
+		$data = $dataView5_Weeks;
+		$timeformat = 'd.m.Y';
+	}else if($timestep == 3){
+		$data = $dataView5_Days;
+		$timeformat = 'H:i'; 
+	}
+	
+	//if gesamt -> $selectedTime == ""
+	//if monat -> alle wo monat im datum ist
+	//if weeks -> date('d.m.Y', strtotime($spalten[0])) in $selectedTime-Array für ab datum + 7 tage
+	//if days -> date('d.m.Y', strtotime($spalten[0])) == $selectedTime
+	
+	$resultList = [];
+	$in = 3;
+	$out = 4;
+	$inAndOut = 5;
+	
+	$stations = array_map("getAbkStationname",$stations);
+	
+	$resultList = [];
+	
+	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
+	while($zeile = fgets($fp)) 
+	{ 
+
+		$spalten = explode(";", $zeile); 
+		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
+		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
+			&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
+				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
+		){
+			
+			
+			$timeEntry = date($timeformat, strtotime($spalten[0]));
+		
+			if($passenger == 0){ //in + out
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$inAndOut]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$inAndOut]);
+				}				
+			}
+			
+			if($passenger == 1){ //in
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$in]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$in]);
+				}				
+			}
+			
+			if($passenger == 2){ //out
+				if(array_key_exists($timeEntry, $resultList)){
+					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$out]);
+				}else{
+					$resultList [$timeEntry] = intval($spalten[$out]);
+				}				
+			}
+		
+		}
+	} 
+	fclose($fp); 
+	
+	$result = [];
+	foreach($resultList as $key => $value){
+		if($value != 0){
+			$entry = new \stdClass();
+			$entry->Zeitpunkt = $key;
+			$entry->Anzahl = $value;
+			array_push($result, $entry);
+		}
+	}
+	//Ausgabe 
+	echo json_encode($result);
+	
+//[{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
+}
+
+
+//Help-methods
 
 function getTag($key){
 	$day = $key[0].$key[1];
@@ -530,109 +646,6 @@ function getUhrzeit($key){
 	}
 }
 
-function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $varianz){
-	//Data-files View 5
-	$dataView5_Complete = "data/2017_timedetail_complete.csv"; //-> Monate summieren [{Zeitpunkt: 01.11.2017, Anzahl: 2000}, {Zeitpunkt: 01.12.2017, Anzahl: 4000}]
-	$dataView5_Days = "data/2017_timedetail_days.csv"; //-> alle 3 Stunden summieren [{Zeitpunkt: 01.12.2017 00:00, Anzahl: 2000}, {Zeitpunkt: 01.12.2017 03:00, Anzahl: 2000}]
-	$dataView5_Months = "data/2017_timedetail_months.csv"; //-> Wochen summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 08.12.2017, Anzahl: 2000}]
-	$dataView5_Weeks = "data/2017_timedetail_weeks.csv"; //-> Tage summieren [{Zeitpunkt: 01.12.2017, Anzahl: 2000}, {Zeitpunkt: 02.12.2017, Anzahl: 2000}]
-	
-	$timeformat = 'd.m.Y H:i';
-	if($timestep == 0){
-		$data = $dataView5_Complete;
-		$timeformat = 'd.m.Y';
-	}else if($timestep == 1){
-		$data = $dataView5_Months;
-		$timeformat = 'd.m.Y';
-	}else if($timestep == 2){	
-		$data = $dataView5_Weeks;
-		$timeformat = 'd.m.Y';
-	}else if($timestep == 3){
-		$data = $dataView5_Days;
-		$timeformat = 'H:i'; 
-	}
-	
-	//if gesamt -> $selectedTime == ""
-	//if monat -> alle wo monat im datum ist
-	//if weeks -> date('d.m.Y', strtotime($spalten[0])) in $selectedTime-Array für ab datum + 7 tage
-	//if days -> date('d.m.Y', strtotime($spalten[0])) == $selectedTime
-	
-	$resultList = [];
-	$in = 3;
-	$out = 4;
-	$inAndOut = 5;
-	
-	$stations = array_map("getAbkStationname",$stations);
-	
-	$resultList = [];
-	
-	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
-	while($zeile = fgets($fp)) 
-	{ 
-
-		$spalten = explode(";", $zeile); 
-		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
-		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
-			&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
-			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
-		){
-			
-			
-			$timeEntry = date($timeformat, strtotime($spalten[0]));
-		
-			if($passenger == 0){ //in + out
-				if(array_key_exists($timeEntry, $resultList)){
-					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$inAndOut]);
-				}else{
-					$resultList [$timeEntry] = intval($spalten[$inAndOut]);
-				}				
-			}
-			
-			if($passenger == 1){ //in
-				if(array_key_exists($timeEntry, $resultList)){
-					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$in]);
-				}else{
-					$resultList [$timeEntry] = intval($spalten[$in]);
-				}				
-			}
-			
-			if($passenger == 2){ //out
-				if(array_key_exists($timeEntry, $resultList)){
-					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$out]);
-				}else{
-					$resultList [$timeEntry] = intval($spalten[$out]);
-				}				
-			}
-		
-		}
-	} 
-	fclose($fp); 
-	
-	$result = [];
-	foreach($resultList as $key => $value){
-		if($value != 0){
-			$entry = new \stdClass();
-			$entry->Zeitpunkt = $key;
-			$entry->Anzahl = $value;
-			array_push($result, $entry);
-		}
-	}
-	//Ausgabe 
-	echo json_encode($result);
-	
-//[{Uhrzeit: 10.00 Uhr, Anzahl: 10}, {Uhrzeit: 11.00 Uhr, Anzahl: 30}, {Uhrzeit: 12.00 Uhr, Anzahl: 20}]
-}
-
-
-//Help-methods
 function getCompleteStationname($abk){
 	if($abk == "ABG"){
 		return "Agathenburg";

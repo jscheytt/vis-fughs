@@ -19,12 +19,12 @@ function showView5(data){
 	formatxAxis = d3.timeFormat("%H:%M");
 	if(parseTime(data[0].Zeitpunkt) == null){
 		parseTime = d3.timeParse("%d.%m.%Y");
-		formatxAxis = d3.timeFormat("%m.%d.%Y"); //for month, complete, week
+		formatxAxis = d3.timeFormat("%m.%d.%y"); //for month, complete, week
 	}
 	 
 	
 	//clear region for chart
-	var regionChart = document.getElementById("view5");
+	var regionChart = document.getElementById("view5Diagram");
 	if(regionChart != null){
 		regionChart.innerHTML = "";
 	}
@@ -50,11 +50,11 @@ function showView5(data){
 	
 	xAxis.tickFormat(formatxAxis);
 	
-	var svg = d3.select("div#view5")
+	var svg = d3.select("div#view5Diagram")
 				.append("div").classed("svg-container", true)
 				.append("svg")
 				.attr("preserveAspectRatio", "xMinYMin meet")
-				.attr("viewBox", "0 0 360 200")
+				.attr("viewBox", "0 0 380 220")
 				.classed("svg-content-responsive", true);
 	
 	var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
@@ -71,7 +71,7 @@ function showView5(data){
 	svg.selectAll("dot")
 		.data(data)
 		.enter().append("circle")
-		.attr("r", 4)
+		.attr("r", 3)
 		.attr("class","dot")
 		.attr("transform","translate("+xNudge+","+yNudge+")")
 		.attr("cx", function(d) {return x(parseTime(d.Zeitpunkt)); })
@@ -81,15 +81,20 @@ function showView5(data){
 		.attr("class","axis x")
 		.attr("width", width)
 		.attr("transform","translate(0,"+height+")")
-		.call(xAxis);
+		.call(xAxis)
+		.selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)" );;
 		
 	// Add the text label for the x axis
 	svg.append("text")
 		.attr("transform", "translate(" + (width / 1.62) + " ," + (height * 1.35) + ")")
 		.style("text-anchor", "right")
 		.style ("font-size", "10px")
-		.style ("font-weight", "bold")
-		.text("Zeitpunkt");
+		.style ("font-weight", "bold");
+		//.text("Zeitpunkt");
 	
 	chartGroup.append("g")
 		.attr("class","axis y")

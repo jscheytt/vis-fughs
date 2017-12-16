@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Passenger Visualisation</title>
-	<script type="text/javascript" src="js/DataCommunication.js"></script>
-	<script type="text/javascript" src="js/spin.js"></script>
 	<script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -3816,16 +3814,17 @@
 			</div>
 				<div id="rightInfoDiv">
 			<div id="view3">
-				<div id="view3Diagram"> 
-				<script src="js/plot.js"></script>	
+				<label class="labelView">Haltedauer in Sekunden pro Passagierzahl</label>
+				<div id="view3Diagram"> 					
 				</div>
 			</div>
 			<div id="view4">
+				<label class="labelView">Durchschnittliche Passagierzahl pro Tageszeit</label>
 				<div id="heatmap"></div>
 			</div>
 			<div id="view5">
+				<label class="labelView">Anzahl Passagiere im gewählten Zeitraum</label>
 				<div id="view5Diagram">
-				<script src="js/LineChart5.js" ></script>
 				</div>
 			</div>
 		</div>
@@ -3864,5 +3863,9 @@
 	<script type="text/javascript" src="js/MapController.js"></script>
   	<script type="text/javascript" src="js/BarChart.js"></script>
     <script src="./js/chartView4.js"></script>
+	<script type="text/javascript" src="js/DataCommunication.js"></script>
+	<script type="text/javascript" src="js/spin.js"></script>
+	<script src="js/plot.js"></script>
+	<script src="js/LineChart5.js" ></script>
   </body>
 </html>

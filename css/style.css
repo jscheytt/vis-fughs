@@ -67,15 +67,17 @@ text {
 path.line2 {
     fill: none;
     stroke: grey;
-    stroke-width: 3px;
+    stroke-width: 1px;
 }
 
+.domain {
+    stroke-width: 1px;
 }
 
 .axis path, .axis line {
   fill: none;
   stroke: black;
-  stroke-width: 2px;
+  stroke-width: 1px;
   color-rendering: optimizeQuality !important;
   shape-rendering: crispEdges !important;
   text-rendering: geometricPrecision !important; 
@@ -340,6 +342,8 @@ input:checked + .slider:before {
 	background-color: whitesmoke;
 	display: block;
 	position: relative;
+	text-align: center;
+    padding-top: 5px;
 }
 
 #view4{
@@ -354,6 +358,8 @@ input:checked + .slider:before {
 	background-color: whitesmoke;
 	display: block;
 	position: relative;
+	text-align: center;
+    padding-top: 5px;
 }
 
 #view5{
@@ -367,12 +373,28 @@ input:checked + .slider:before {
 	background-color: whitesmoke;
 	display:block;
 	position: relative;
+	text-align: center;
+    padding-top: 5px;
+}
+
+#view5Diagram, #view3Diagram{
+	height:200px;
+	width:360px;
+	position: absolute;
+}
+
+.labelView{
+	font-size: 12px;
+	font-weight: bold;
 }
 
 /* View 4 */
 
 #heatmap{
 	font-size: 6px;
+	height:200px;
+	width:360px;
+	position: absolute;
 }
 
 
