@@ -19,7 +19,7 @@ function showView5(data){
 	formatxAxis = d3.timeFormat("%H:%M");
 	if(parseTime(data[0].Zeitpunkt) == null){
 		parseTime = d3.timeParse("%d.%m.%Y");
-		formatxAxis = d3.timeFormat("%m.%d.%y"); //for month, complete, week
+		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete, week
 	}
 	 
 	
