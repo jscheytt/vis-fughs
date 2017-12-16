@@ -52,8 +52,16 @@ function loadView1($timestep, $selectedTime, $passenger){
 		$data = $dataView1_Complete;
 	}else if($timestep == 1){
 		$data = $dataView1_Months;
+		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView1_Weeks;
+		$selectedDay = date('d.m.Y', strtotime($selectedTime));
+		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
+		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
+		$Day4OfWeek = date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)));
+		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
+		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
+		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
 	}else if($timestep == 3){
 		$data = $dataView1_Days;
 	}
@@ -65,18 +73,20 @@ function loadView1($timestep, $selectedTime, $passenger){
 	{ 
 		$spalten = explode(";", $zeile); 
 		
+		if($spalten[1] != "Station" && $timestep == 2){
+			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
+		}
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
-		
 		if($spalten[1] != "Station"
-		&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+				&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| $spalten0 == $Day2OfWeek
+				|| $spalten0 == $Day3OfWeek 
+				|| $spalten0 == $Day4OfWeek
+				|| $spalten0 == $Day5OfWeek
+				|| $spalten0 == $Day6OfWeek
+				|| $spalten0 == $Day7OfWeek
 			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
 		
 		){ 
@@ -132,8 +142,16 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 		$data = $dataView1_Complete;
 	}else if($timestep == 1){
 		$data = $dataView1_Months;
+		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView1_Weeks;
+		$selectedDay = date('d.m.Y', strtotime($selectedTime));
+		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
+		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
+		$Day4OfWeek = date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)));
+		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
+		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
+		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
 	}else if($timestep == 3){
 		$data = $dataView1_Days;
 	}
@@ -147,19 +165,22 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 	{ 
 		$spalten = explode(";", $zeile); 
 		
+		if($spalten[1] != "Station" && $timestep == 2){
+			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
+		}
+		
 		//data: [0] Timestemp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
-
 		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
 		&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
-			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag	
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| $spalten0 == $Day2OfWeek
+				|| $spalten0 == $Day3OfWeek 
+				|| $spalten0 == $Day4OfWeek
+				|| $spalten0 == $Day5OfWeek
+				|| $spalten0 == $Day6OfWeek
+				|| $spalten0 == $Day7OfWeek
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
 		){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[2], $resultList)){
@@ -279,8 +300,16 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 		$data = $dataView3_Complete;
 	}else if($timestep == 1){
 		$data = $dataView3_Months;
+		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView3_Weeks;
+		$selectedDay = date('d.m.Y', strtotime($selectedTime));
+		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
+		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
+		$Day4OfWeek = date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)));
+		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
+		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
+		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
 	}else if($timestep == 3){
 		$data = $dataView3_Days;
 	}
@@ -294,19 +323,23 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 	{ 
 		$spalten = explode(";", $zeile); 
 		
+		if($spalten[1] != "Station" && $timestep == 2){
+			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
+		}
+		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Bin, [4] EinHalte, [5] AusHalte, [6] DurchschnittHalte
 		
 		if($spalten[0] != "Timestamp" &&  in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
-		&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
-			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag			
+				&& (( $timestep == 0 && $selectedTime == "") //gesamt
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| $spalten0 == $Day2OfWeek
+				|| $spalten0 == $Day3OfWeek 
+				|| $spalten0 == $Day4OfWeek
+				|| $spalten0 == $Day5OfWeek
+				|| $spalten0 == $Day6OfWeek
+				|| $spalten0 == $Day7OfWeek
+			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag		
 		){
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[3], $resultList)){
@@ -357,14 +390,20 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	$dataView5_Months = $filefolder."/2017_calendar_months.csv";
 	$dataView5_Weeks = $filefolder."/2017_calendar_weeks.csv";
 	
-	$timeformat = 'D H:i'; 
-	
 	if($timestep == 0){
 		$data = $dataView5_Complete;
 	}else if($timestep == 1){
 		$data = $dataView5_Months;
+		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView5_Weeks;
+		$selectedDay = date('d.m.Y', strtotime($selectedTime));
+		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
+		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
+		$Day4OfWeek = date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)));
+		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
+		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
+		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
 	}else if($timestep == 3){
 		$data = $dataView5_Days;
 	}
@@ -381,19 +420,23 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	$fp = @fopen($data, "r") or die ("Datei nicht lesbar"); 
 	while($zeile = fgets($fp)) 
 	{ 
-
 		$spalten = explode(";", $zeile); 
+		
+		if($spalten[1] != "Station" && $timestep == 2){
+			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
+		}
+		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Timeslot, [4] Einsteiger, [5] Aussteiger, [6] Durchschnitt
 		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
 			&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| $spalten0 == $Day2OfWeek
+				|| $spalten0 == $Day3OfWeek 
+				|| $spalten0 == $Day4OfWeek
+				|| $spalten0 == $Day5OfWeek
+				|| $spalten0 == $Day6OfWeek
+				|| $spalten0 == $Day7OfWeek
 			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
 		){
 			
@@ -455,9 +498,17 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 	}else if($timestep == 1){
 		$data = $dataView5_Months;
 		$timeformat = 'd.m.Y';
+		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView5_Weeks;
 		$timeformat = 'd.m.Y';
+		$selectedDay = date('d.m.Y', strtotime($selectedTime));
+		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
+		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
+		$Day4OfWeek = date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)));
+		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
+		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
+		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
 	}else if($timestep == 3){
 		$data = $dataView5_Days;
 		$timeformat = 'H:i'; 
@@ -482,17 +533,22 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 	{ 
 
 		$spalten = explode(";", $zeile); 
+		
+		if($spalten[1] != "Station" && $timestep == 2){
+			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
+		}
+		
 		//data: [0] Timestamp, [1] Station, [2] Linie, [3] Einsteiger, [4] Aussteiger, [5] Durchschnitt
 		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
 			&& (( $timestep == 0 && $selectedTime == "") //gesamt
-				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == date('m.Y', strtotime($selectedTime)))// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && (date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime($selectedTime))  //weeks -> für ab datum + 7 tage
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+3 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)))
-				|| date('d.m.Y', strtotime($spalten[0]))== date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)))
+				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
+				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| $spalten0 == $Day2OfWeek
+				|| $spalten0 == $Day3OfWeek 
+				|| $spalten0 == $Day4OfWeek
+				|| $spalten0 == $Day5OfWeek
+				|| $spalten0 == $Day6OfWeek
+				|| $spalten0 == $Day7OfWeek
 			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
 		){
 			

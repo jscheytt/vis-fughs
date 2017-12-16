@@ -93,6 +93,7 @@ function showView2(data) {
 						
 						.style("text-anchor", "middle");
 				
+					
 					// x axis label
 					svg1.append("text")
 						.attr("class", "axis axis--y")
