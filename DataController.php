@@ -386,7 +386,6 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	
 	//Data-files View 4
 	$dataView5_Complete = $filefolder."/2017_calendar_complete.csv";
-	$dataView5_Days = $filefolder."/2017_calendar_days.csv";
 	$dataView5_Months = $filefolder."/2017_calendar_months.csv";
 	$dataView5_Weeks = $filefolder."/2017_calendar_weeks.csv";
 	
@@ -395,7 +394,7 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	}else if($timestep == 1){
 		$data = $dataView5_Months;
 		$selectedDay = date('m.Y', strtotime($selectedTime));
-	}else if($timestep == 2){	
+	}else if($timestep == 2 || $timestep == 3){	
 		$data = $dataView5_Weeks;
 		$selectedDay = date('d.m.Y', strtotime($selectedTime));
 		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
@@ -404,8 +403,6 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 		$Day5OfWeek =  date('d.m.Y', strtotime("+4 day", strtotime($selectedTime)));
 		$Day6OfWeek = date('d.m.Y', strtotime("+5 day", strtotime($selectedTime)));
 		$Day7OfWeek = date('d.m.Y', strtotime("+6 day", strtotime($selectedTime)));
-	}else if($timestep == 3){
-		$data = $dataView5_Days;
 	}
 	
 	$resultList = [];
@@ -422,7 +419,7 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	{ 
 		$spalten = explode(";", $zeile); 
 		
-		if($spalten[1] != "Station" && $timestep == 2){
+		if($spalten[1] != "Station" && ($timestep == 2 || $timestep == 3)){
 			$spalten0 = date('d.m.Y', strtotime($spalten[0]));
 		}
 		
@@ -430,15 +427,15 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 		if($spalten[1] != "Station" && in_array($spalten[1], $stations) && (in_array($spalten[2],$lines) || count($lines) == 0 || (count($lines) == 1 && $lines[0] == ""))
 			&& (( $timestep == 0 && $selectedTime == "") //gesamt
 				|| ($timestep == 1 && date('m.Y', strtotime($spalten[0])) == $selectedDay)// monat -> alle wo monat im datum ist
-				|| ($timestep == 2 && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
+				|| (($timestep == 2 || $timestep == 3) && ($spalten0 == $selectedDay  //weeks -> für ab datum + 7 tage
 				|| $spalten0 == $Day2OfWeek
 				|| $spalten0 == $Day3OfWeek 
 				|| $spalten0 == $Day4OfWeek
 				|| $spalten0 == $Day5OfWeek
 				|| $spalten0 == $Day6OfWeek
 				|| $spalten0 == $Day7OfWeek
-			)) ||($timestep == 3 && date('d.m.Y', strtotime($spalten[0])) == $selectedTime)) //alle für den tag
-		){
+			)) //alle für den tag
+		)){
 			
 			if($passenger == 0){ //in + out
 				if(array_key_exists($spalten[3], $resultList)){
@@ -469,15 +466,32 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 	fclose($fp); 
 	
 	$result = [];
-	foreach($resultList as $key => $value){
-		if($value != 0){
-			$entry = new \stdClass();
-			$entry->Tag = getTag($key);
-			$entry->Uhrzeit = getUhrzeit($key);
-			$entry->Anzahl = $value;
-			array_push($result, $entry);
+	
+	if($timestep != 3){
+		foreach($resultList as $key => $value){
+			if($value != 0){
+				$entry = new \stdClass();
+				$entry->Tag = getTag($key);
+				$entry->Uhrzeit = getUhrzeit($key);
+				$entry->Anzahl = $value;
+				array_push($result, $entry);
+			}
+		}
+	}else{
+		//nur den Tag 
+		$day = date('w', strtotime($selectedTime)); //0 für sonntag, 6 für samstag
+		foreach($resultList as $key => $value){
+			$tag = getTag($key); //1 Mo -> 7 So
+			if($value != 0 && ($day == $tag || ($day == 0 && $tag == 7))){
+				$entry = new \stdClass();
+				$entry->Tag = $tag; 
+				$entry->Uhrzeit = getUhrzeit($key);
+				$entry->Anzahl = $value;
+				array_push($result, $entry);
+			}
 		}
 	}
+	
 	//Ausgabe 
 	echo json_encode($result);
 }
