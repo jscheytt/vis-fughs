@@ -299,7 +299,7 @@ input:checked + .slider:before {
     height: 142px;
     width: 1054px;
     float: left;
-    margin-top: -91px;
+    margin-top: -75px;
     background-color: whitesmoke;
 	border-style: groove;
     border-color: whitesmoke;
