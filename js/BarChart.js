@@ -29,9 +29,13 @@ function showView2(data) {
 	var colorBlue = "steelblue";
 	var ein = document.getElementById("EinsteigerCheckbox");
 	var aus = document.getElementById("AussteigerCheckbox");
-	 if(aus.checked && !ein.checked == true) {
+	var mittel = document.getElementById("MittelwertCheckbox");
+	if(aus.checked && !ein.checked == true) {
 		colorBlue = "lightsteelblue";
 	}   
+	if(mittel.checked == true) {
+		colorBlue = "#00335e";
+	}
 	
 	
 	// append the svg object to the #barchart of the page
@@ -138,6 +142,8 @@ function showView2(data) {
 					}); */
 					d3.selectAll("rect").on("click", function(d) {
 						onSelectedTimeChange(d.Datum);
+						$('.highlightBarChart').removeClass('highlightBarChart');
+						$(this).addClass('highlightBarChart');
 					});
 			
 			//simulate click on first bar after load
