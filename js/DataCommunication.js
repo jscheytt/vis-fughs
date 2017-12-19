@@ -26,6 +26,15 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 
 function onCheckChange(id){	
 	//Checkboxen Ein-/Aussteiger
+	if(document.getElementById("VarianzCheckbox").checked){
+		document.getElementById("view5").style.backgroundColor = "#fff6e9";
+		document.getElementById("Timeline").style.backgroundColor = "#fff6e9";
+		document.getElementById("bottomInfoDiv").style.backgroundColor = "#fff6e9";
+	}else{
+		document.getElementById("view5").style.backgroundColor = "whitesmoke";
+		document.getElementById("Timeline").style.backgroundColor = "whitesmoke";
+		document.getElementById("bottomInfoDiv").style.backgroundColor = "whitesmoke";
+	}
 	requestDataForView("2", "", "");
 }
 
