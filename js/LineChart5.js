@@ -17,11 +17,10 @@ var formatxAxis = d3.timeFormat("%H:%M"); //for days
 function showView5(data){
 	parseTime = d3.timeParse("%H:%M");
 	formatxAxis = d3.timeFormat("%H:%M");
-	if(parseTime(data[0].Zeitpunkt) == null){
+	if(data != null && data.length > 0 && parseTime(data[0].Zeitpunkt) == null){
 		parseTime = d3.timeParse("%d.%m.%Y");
 		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete, week
 	}
-	 
 	
 	//clear region for chart
 	var regionChart = document.getElementById("view5Diagram");
@@ -29,11 +28,19 @@ function showView5(data){
 		regionChart.innerHTML = "";
 	}
 	
-	//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
 	
-	max = d3.max(data, function(d) { return d.Anzahl; });
-	minDate = d3.min(data, function(d) {return parseTime(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
-	maxDate = d3.max(data, function(d) { return parseTime(d.Zeitpunkt); });
+	if(data != null && data.length > 0){
+		//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
+		max = d3.max(data, function(d) { return d.Anzahl; });
+		minDate = d3.min(data, function(d) {return parseTime(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
+		maxDate = d3.max(data, function(d) { return parseTime(d.Zeitpunkt); });
+	}else{
+		max = 0;
+		parseTime = d3.timeParse("%d.%m.%Y");
+		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete, week
+		minDate = parseTime(selectedTime);
+		maxDate = parseTime(selectedTime);
+	}
 	
 	
 	var y = d3.scaleLinear()
@@ -59,34 +66,36 @@ function showView5(data){
 	
 	var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 	
-	var line = d3.line()
-		.x(function(d){ return x(parseTime(d.Zeitpunkt)); })
-		.y(function(d){ return y(d.Anzahl); })
-		.curve(d3.curveLinear);
-
-	chartGroup.append("path")
-		.attr("class","line2")
-		.attr("d",function(d){ return line(data); })
-
-	svg.selectAll("dot")
-		.data(data)
-		.enter().append("circle")
-		.attr("r", 3)
-		.attr("class","dot")
-		.attr("transform","translate("+xNudge+","+yNudge+")")
-		.attr("cx", function(d) {return x(parseTime(d.Zeitpunkt)); })
-		.attr("cy", function(d) { return y(d.Anzahl); });
-
-	chartGroup.append("g")
-		.attr("class","axis x")
-		.attr("width", width)
-		.attr("transform","translate(0,"+height+")")
-		.call(xAxis)
-		.selectAll("text")  
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)" );;
+	//if(data != null && data.length > 0){
+		var line = d3.line()
+			.x(function(d){ return x(parseTime(d.Zeitpunkt)); })
+			.y(function(d){ return y(d.Anzahl); })
+			.curve(d3.curveLinear);
+	
+		chartGroup.append("path")
+			.attr("class","line2")
+			.attr("d",function(d){ return line(data); })
+	
+		svg.selectAll("dot")
+			.data(data)
+			.enter().append("circle")
+			.attr("r", 3)
+			.attr("class","dot")
+			.attr("transform","translate("+xNudge+","+yNudge+")")
+			.attr("cx", function(d) {return x(parseTime(d.Zeitpunkt)); })
+			.attr("cy", function(d) { return y(d.Anzahl); });
+	
+		chartGroup.append("g")
+			.attr("class","axis x")
+			.attr("width", width)
+			.attr("transform","translate(0,"+height+")")
+			.call(xAxis)
+			.selectAll("text")  
+				.style("text-anchor", "end")
+				.attr("dx", "-.8em")
+				.attr("dy", ".15em")
+				.attr("transform", "rotate(-45)" );	
+	//}
 		
 	// Add the text label for the x axis
 	svg.append("text")
