@@ -299,6 +299,9 @@ function selectStation (id){
 				oldStationFirst.style.strokeWidth = 0.8;
 				oldStationFirst.style.fill = "#ffffff";
 				selectedStations[0] = id;
+				if(selectedStations[0] != ""){
+					zoomSelection = linesOfStations.find(function(f) { return f.station === selectedStations[0]; }).lines;
+				}
 			}
 		}
 		//new route, delete selection and set selected as first
