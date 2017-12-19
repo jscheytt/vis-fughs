@@ -203,7 +203,7 @@ function showView3(data){
 	for(var i=0; i<data.length; i++){
 		data[i].Haltezeiten=data[i].Haltezeiten.sort(d3.ascending)
 		var g=svg.append("g").attr("transform", "translate("+(i*(boxWidth+boxSpacing)+marginPlot.left)+",0)");
-		addViolin(g, data[i].Haltezeiten, heightPlot, boxWidth, domain, 0.25, "#cccccc");
+		addViolin(g, data[i].Haltezeiten, heightPlot, boxWidth, domain, 0.25, "#424242");
 		addBoxPlot(g, data[i].Haltezeiten, heightPlot, boxWidth, domain, .15, "black", "white");
 	
 	}
