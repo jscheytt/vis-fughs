@@ -9,11 +9,11 @@ var spinner3;
 var spinner4;
 var spinner5;
 
-var timeForView1;
-var timeForView2;
-var timeForView3;
-var timeForView4;
-var timeForView5;
+//var timeForView1;
+//var timeForView2;
+//var timeForView3;
+//var timeForView4;
+//var timeForView5;
 
 // 0 -> gesamt, 1 -> months, 2 -> weeks, 3 -> days
 var timestep = 0;
@@ -67,7 +67,7 @@ function requestDataForView(view, stations, lines){
 		}else{
 			requestData1 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		timeForView1 = Date.now();
+		//timeForView1 = Date.now();
 		requestData1.open('post', 'DataController.php', true);
 		requestData1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData1.onreadystatechange = handleResponseView1;
@@ -79,7 +79,7 @@ function requestDataForView(view, stations, lines){
 		}else{
 			requestData2 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		timeForView2 = Date.now();
+		//timeForView2 = Date.now();
 		requestData2.open('post', 'DataController.php', true);
 		requestData2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData2.onreadystatechange = handleResponseView2;
@@ -103,7 +103,7 @@ function requestDataForView(view, stations, lines){
 		spinner3.spin();
 		regionChart.appendChild(spinner3.el);
 		
-		timeForView3 = Date.now();
+		//timeForView3 = Date.now();
 		requestData3.open('post', 'DataController.php', true);
 		requestData3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData3.onreadystatechange = handleResponseView3;
@@ -127,7 +127,7 @@ function requestDataForView(view, stations, lines){
 		spinner4.spin();
 		regionChart.appendChild(spinner4.el);
 		
-		timeForView4 = Date.now();
+		//timeForView4 = Date.now();
 		requestData4.open('post', 'DataController.php', true);
 		requestData4.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData4.onreadystatechange = handleResponseView4;
@@ -151,7 +151,7 @@ function requestDataForView(view, stations, lines){
 		spinner5.spin();
 		regionChart.appendChild(spinner5.el);
 		
-		timeForView5 = Date.now();
+		//timeForView5 = Date.now();
 		requestData5.open('post', 'DataController.php', true);
 		requestData5.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
 		requestData5.onreadystatechange = handleResponseView5;
@@ -175,57 +175,92 @@ function handleResponseView1(){
 		showView1(JSON.parse(requestData1.responseText));
 		requestData1 = null;
 		
-		timeForView1 = Date.now() - timeForView1;
-		console.log("Loading Time View 1: "+timeForView1+" ms\n");
+		//timeForView1 = Date.now() - timeForView1;
+		//console.log("Loading Time View 1: "+timeForView1+" ms\n");
 	}
 }
 
 function handleResponseViewZoom(){
 	if (requestDataZoom != null && requestDataZoom.readyState == 4 && requestDataZoom.status == 200){
-		showViewZoom(JSON.parse(requestDataZoom.responseText));
-		requestDataZoom = null;
+		try {
+			showViewZoom(JSON.parse(requestDataZoom.responseText));
+		}
+		catch(err) {
+			//Intentionally left blank
+		}finally {
+			requestDataZoom = null;
+		}
 	}
 }
 
 function handleResponseView2(){
 	if (requestData2 != null && requestData2.readyState == 4 && requestData2.status == 200){	
-		showView2(JSON.parse(requestData2.responseText));
-		requestData2 = null;
-		
-		timeForView2 = Date.now() - timeForView2;
-		console.log("Loading Time View 2: "+timeForView2+" ms\n");
+		try {
+			showView2(JSON.parse(requestData2.responseText));
+		}
+		catch(err) {
+			//Intentionally left blank
+		}finally {
+			requestData2 = null;
+			//timeForView2 = Date.now() - timeForView2;
+			//console.log("Loading Time View 2: "+timeForView2+" ms\n");
+		}
 	}
 }
 
 function handleResponseView3(){
 	if (requestData3 != null && requestData3.readyState == 4 && requestData3.status == 200){
-		showView3(JSON.parse(requestData3.responseText));
-		spinner3.stop();
-		requestData3 = null;
-		
-		timeForView3 = Date.now() - timeForView3;
-		console.log("Loading Time View 3: "+timeForView3+" ms\n");
+		try {
+			showView3(JSON.parse(requestData3.responseText));
+		}
+		catch(err) {
+			var regionChart = document.getElementById("view3Diagram");
+			if(regionChart != null){
+				regionChart.innerHTML = "<img alt=\"Error-Image\" src=\"img/Error.png\" width=\"150px\" style=\"margin-top:50px\">";
+			}
+		}finally {
+			requestData3 = null;
+			spinner3.stop();
+			//timeForView3 = Date.now() - timeForView3;
+			//console.log("Loading Time View 3: "+timeForView3+" ms\n");
+		}
 	}
 }
 
 function handleResponseView4(){
 	if (requestData4 != null && requestData4.readyState == 4 && requestData4.status == 200){
-		showView4(JSON.parse(requestData4.responseText));
-		spinner4.stop();
-		requestData4 = null;
-		
-		timeForView4 = Date.now() - timeForView4;
-		console.log("Loading Time View 4: "+timeForView4+" ms\n");
+		try {
+			showView4(JSON.parse(requestData4.responseText));
+		}
+		catch(err) {
+			var regionChart = document.getElementById("heatmap");
+			if(regionChart != null){
+				regionChart.innerHTML = "<img alt=\"Error-Image\" src=\"img/Error.png\" width=\"150px\" style=\"margin-top:50px\">";
+			}
+		}finally {
+			requestData4 = null;
+			spinner4.stop();
+			//timeForView4 = Date.now() - timeForView4;
+			//console.log("Loading Time View 4: "+timeForView4+" ms\n");
+		}
 	}
 }
 
 function handleResponseView5(){
 	if (requestData5 != null && requestData5.readyState == 4 && requestData5.status == 200){
-		showView5(JSON.parse(requestData5.responseText));
-		spinner5.stop();
-		requestData5 = null;
-		
-		timeForView5 = Date.now() - timeForView5;
-		console.log("Loading Time View 5: "+timeForView5+" ms\n");
+		try {
+			showView5(JSON.parse(requestData5.responseText));
+		}
+		catch(err) {
+			var regionChart = document.getElementById("view5Diagram");
+			if(regionChart != null){
+				regionChart.innerHTML = "<img alt=\"Error-Image\" src=\"img/Error.png\" width=\"150px\" style=\"margin-top:50px\">";
+			}
+		}finally {
+			requestData5 = null;
+			spinner5.stop();
+			//timeForView5 = Date.now() - timeForView5;
+			//console.log("Loading Time View 5: "+timeForView5+" ms\n");
+		}
 	}
 }
