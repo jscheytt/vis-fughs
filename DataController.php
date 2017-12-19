@@ -528,10 +528,9 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 		$timeformat = 'H:i'; 
 	}
 	
-	//if gesamt -> $selectedTime == ""
-	//if monat -> alle wo monat im datum ist
-	//if weeks -> date('d.m.Y', strtotime($spalten[0])) in $selectedTime-Array für ab datum + 7 tage
-	//if days -> date('d.m.Y', strtotime($spalten[0])) == $selectedTime
+	//berechne varianz
+	$count = 0;
+	$sum = 0;
 	
 	$resultList = [];
 	$in = 3;
@@ -574,7 +573,13 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$inAndOut]);
 				}else{
 					$resultList [$timeEntry] = intval($spalten[$inAndOut]);
-				}				
+					if($varianz){
+						$count = $count +1;
+					}
+				}	
+				if($varianz){
+					$sum = $sum + intval($spalten[$inAndOut]);
+				}
 			}
 			
 			if($passenger == 1){ //in
@@ -582,6 +587,12 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$in]);
 				}else{
 					$resultList [$timeEntry] = intval($spalten[$in]);
+					if($varianz){
+						$count = $count +1;
+					}
+				}		
+				if($varianz){
+					$sum = $sum + intval($spalten[$in]);
 				}				
 			}
 			
@@ -590,6 +601,12 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$out]);
 				}else{
 					$resultList [$timeEntry] = intval($spalten[$out]);
+					if($varianz){
+						$count = $count +1;
+					}
+				}	
+				if($varianz){
+					$count = $count +1;
 				}				
 			}
 		
@@ -598,12 +615,24 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 	fclose($fp); 
 	
 	$result = [];
-	foreach($resultList as $key => $value){
-		if($value != 0){
-			$entry = new \stdClass();
-			$entry->Zeitpunkt = $key;
-			$entry->Anzahl = $value;
-			array_push($result, $entry);
+	if($varianz){
+		$mean = intval($sum / $count);
+		foreach($resultList as $key => $value){
+			if($value != 0){
+				$entry = new \stdClass();
+				$entry->Zeitpunkt = $key;
+				$entry->Anzahl = intval($value - $mean);
+				array_push($result, $entry);
+			}
+		}
+	}else{
+		foreach($resultList as $key => $value){
+			if($value != 0){
+				$entry = new \stdClass();
+				$entry->Zeitpunkt = $key;
+				$entry->Anzahl = $value;
+				array_push($result, $entry);
+			}
 		}
 	}
 	//Ausgabe 
