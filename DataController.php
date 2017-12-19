@@ -99,7 +99,7 @@ function loadView1($timestep, $selectedTime, $passenger){
 				}
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				if(array_key_exists($spalten[1], $resultList)){
 					$resultList [$spalten[1]] = $resultList[$spalten[1]] + intval($spalten[3]);
 				}else{
@@ -107,7 +107,7 @@ function loadView1($timestep, $selectedTime, $passenger){
 				}
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				if(array_key_exists($spalten[1], $resultList)){
 					$resultList [$spalten[1]] = $resultList[$spalten[1]] + intval($spalten[4]);
 				}else{
@@ -190,7 +190,7 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				if(array_key_exists($spalten[2], $resultList)){
 					$resultList [$spalten[2]] = intval($resultList[$spalten[2]]) + intval($spalten[3]);
 				}else{
@@ -198,7 +198,7 @@ function loadViewZoom($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				if(array_key_exists($spalten[2], $resultList)){
 					$resultList [$spalten[2]] = intval($resultList[$spalten[2]]) + intval($spalten[4]);
 				}else{
@@ -266,14 +266,14 @@ function loadView2($timestep, $selectedTime, $passenger, $varianz){
 				array_push($resultList, $station);
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				$station = new \stdClass();
 				$station->Datum = $spalten[0];
 				$station->Anzahl = $spalten[$in];
 				array_push($resultList, $station);
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				$station = new \stdClass();
 				$station->Datum = $spalten[0];
 				$station->Anzahl = $spalten[$out];
@@ -349,7 +349,7 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = array_merge($resultList [$spalten[3]], array_map('intval', explode(",", $spalten[4])));
 				}else{
@@ -357,7 +357,7 @@ function loadView3($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = array_merge($resultList [$spalten[3]], array_map('intval', explode(",", $spalten[5])));
 				}else{
@@ -445,7 +445,7 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = intval($resultList[$spalten[3]]) + intval($spalten[$in]);
 				}else{
@@ -453,7 +453,7 @@ function loadView4($timestep, $selectedTime, $stations, $lines, $passenger){
 				}				
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				if(array_key_exists($spalten[3], $resultList)){
 					$resultList [$spalten[3]] = intval($resultList[$spalten[3]]) + intval($spalten[$out]);
 				}else{
@@ -582,7 +582,7 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 				}
 			}
 			
-			if($passenger == 1){ //in
+			else if($passenger == 1){ //in
 				if(array_key_exists($timeEntry, $resultList)){
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$in]);
 				}else{
@@ -596,7 +596,7 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 				}				
 			}
 			
-			if($passenger == 2){ //out
+			else if($passenger == 2){ //out
 				if(array_key_exists($timeEntry, $resultList)){
 					$resultList [$timeEntry] = intval($resultList[$timeEntry]) + intval($spalten[$out]);
 				}else{
@@ -606,7 +606,7 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 					}
 				}	
 				if($varianz){
-					$count = $count +1;
+					$sum = $sum + intval($spalten[$out]);
 				}				
 			}
 		
