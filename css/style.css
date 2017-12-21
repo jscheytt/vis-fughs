@@ -35,8 +35,10 @@ text {
   shape-rendering: crispEdges;
   fill: none;
   stroke: black;
-  stroke-width: 1px;
+  stroke-width: 1.5px;
 }
+
+
 .boxplot.fill{
   fill: black;
 }

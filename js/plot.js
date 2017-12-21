@@ -16,8 +16,6 @@ function addViolin(svg, dataOfBin, heightPlot, widthPlot, domain, imposeMax, vio
 
 
         var area = d3.area()
-           // .interpolate(interpolation)
-		   //Folgende Linie wurde nur ergänzt
 			.curve(d3.curveCardinal)
             .x(function(d) {
                    if(interpolation=="step-before")
@@ -29,7 +27,6 @@ function addViolin(svg, dataOfBin, heightPlot, widthPlot, domain, imposeMax, vio
 
 			
         var line=d3.line()
-			//Ergänzte folgende Linie
 			.curve(d3.curveCardinal)
             .x(function(d) {
                    if(interpolation=="step-before")
@@ -173,6 +170,11 @@ function showView3(data){
 		regionChart.innerHTML = "";
 	}
 	
+	// .domain([0, Math.max(imposeMax, d3.max(data, function(d) { return d.length; }))]);
+	
+	// Idee: var max = d3.max(data, function(d) {return d.length; }); 
+	//In folgender Zeile dann 370 mit max ersetzen
+	
 	var domain=[0, 370];
 	var y = d3.scaleLinear()
 				.range([heightPlot-marginPlot.bottom, marginPlot.top])
@@ -182,8 +184,18 @@ function showView3(data){
 					.scale(y)
 					.ticks(5)
 					.tickSize(5,0,5);
-	
-	
+					
+	var steps = 50;
+	var scale = d3.scalePoint()
+	  .range([51.2, 376])
+	  .domain(d3.range(data.length));
+	  
+	var xAxis = d3.axisBottom(scale)
+					.tickFormat(function(d, i) {
+						return i ? (d * steps) + 1 + " - " + (d * steps + steps) : (d * steps) + " - " + (d * steps + steps);
+	  });
+	  
+
 	var svg = d3.select("div#view3Diagram")
 				.append("div")
 				.classed("svg-container2", true)
@@ -213,4 +225,7 @@ function showView3(data){
 		.attr("transform", "translate("+marginPlot.left+",0)")
 		.call(yAxis);
 		
+	svg.append("g")
+		.attr("transform", "translate(0,220)")
+		.call(xAxis);					
 }
