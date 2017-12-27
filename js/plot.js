@@ -227,5 +227,14 @@ function showView3(data){
 		
 	svg.append("g")
 		.attr("transform", "translate(0,220)")
-		.call(xAxis);					
+		.call(xAxis);
+		
+	// Add Sekunden Label
+	svg.append("text")
+		.attr("transform", "translate(" + (width / 1000) + " ," + (height / 20) + ")")
+		.style("text-anchor", "right")
+		.style ("font-size", "12px")
+		.text("[s]");
+	
+		
 }
