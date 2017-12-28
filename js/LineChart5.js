@@ -4,6 +4,7 @@ var width = 300;
 var height = 150;
 
 var max = 0;
+var min = 0;
 
 var xNudge = 50;
 var yNudge = 20;
@@ -32,10 +33,12 @@ function showView5(data){
 	if(data != null && data.length > 0){
 		//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
 		max = d3.max(data, function(d) { return d.Anzahl; });
+		min = d3.min(data, function(d) { return d.Anzahl; });
 		minDate = d3.min(data, function(d) {return parseTime(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
 		maxDate = d3.max(data, function(d) { return parseTime(d.Zeitpunkt); });
 	}else{
 		max = 0;
+		min = 0;
 		parseTime = d3.timeParse("%d.%m.%Y");
 		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete, week
 		minDate = parseTime(selectedTime);
@@ -44,7 +47,7 @@ function showView5(data){
 	
 	
 	var y = d3.scaleLinear()
-				.domain([0,max])
+				.domain([min,max])
 				.range([height,0]);
 	
 	var x = d3.scaleTime()
