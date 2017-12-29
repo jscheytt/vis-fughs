@@ -3,16 +3,35 @@ text {
     font-size: 10px;
 }
 
-.svg-container2 {
+.svg-container-view3 {
     position: relative;
-    width: 100%;
-	left: -10px;
+    vertical-align: top;
+	padding-bottom: 100%;
+	width: 100%;
+	transform: scale(0.8);
+	bottom: 40px;
+    overflow: visible;
+}
+
+
+.svg-container-view5 {
+    position: relative;
+	width: 100%;
     padding-bottom: 100%; /* aspect ratio */
     vertical-align: top;
     overflow: visible;
 }
 
-.svg-content-responsive {
+
+.svg-content-responsive-view3 {
+    display: inline-block;
+    position: absolute;
+	left: -35px;
+    top: 5px;
+	overflow: visible;
+}
+
+.svg-content-responsive-view5 {
     display: inline-block;
     position: absolute;
     top: -5px;
