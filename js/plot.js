@@ -157,6 +157,9 @@ var resolution=1000;
 var d3ObjId="svgElement1";
 var interpolation='step-before';
 
+// var max = 0;
+// var min = 0;
+
 
 function showView3(data){
 	//Die Methode showView3 wird mit einem Array als Parameter aufgerufen das die Daten für die View in folgendem Format enthält: 
@@ -170,12 +173,24 @@ function showView3(data){
 		regionChart.innerHTML = "";
 	}
 	
+	//ergänzt 28.12.2017
+	// if(data != null && data.length > 0){
+		// max = d3.max(data, function(d) { return d.length; });
+		// min = d3.min(data, function(d) { return d.length; });
+	// }else{
+		// max = 0;
+		// min = 0;
+	// }
+		
+		
 	// .domain([0, Math.max(imposeMax, d3.max(data, function(d) { return d.length; }))]);
 	
 	// Idee: var max = d3.max(data, function(d) {return d.length; }); 
 	//In folgender Zeile dann 370 mit max ersetzen
 	
 	var domain=[0, 370];
+	
+	
 	var y = d3.scaleLinear()
 				.range([heightPlot-marginPlot.bottom, marginPlot.top])
 				.domain(domain);
@@ -189,7 +204,6 @@ function showView3(data){
 	var scale = d3.scalePoint()
 	  .range([51.2, 376])
 	  .domain(d3.range(data.length));
-	  
 	var xAxis = d3.axisBottom(scale)
 					.tickFormat(function(d, i) {
 						return i ? (d * steps) + 1 + " - " + (d * steps + steps) : (d * steps) + " - " + (d * steps + steps);
@@ -198,11 +212,11 @@ function showView3(data){
 
 	var svg = d3.select("div#view3Diagram")
 				.append("div")
-				.classed("svg-container2", true)
+				.classed("svg-container-view3", true)
 				.append("svg")
 				.attr("preserveAspectRatio", "xMinYMin meet")
-				.attr("viewBox", "0 0 430 430")
-				.classed("svg-content-responsive", true);
+				// .attr("viewBox", "0 0 430 430")
+				.classed("svg-content-responsive-view3", true);
 				
 	
 	svg.append("line")
@@ -230,11 +244,22 @@ function showView3(data){
 		.call(xAxis);
 		
 	// Add Sekunden Label
-	svg.append("text")
-		.attr("transform", "translate(" + (width / 1000) + " ," + (height / 20) + ")")
-		.style("text-anchor", "right")
-		.style ("font-size", "12px")
-		.text("[s]");
+	// svg.append("text")
+		// .attr("transform", "translate(" + (width / 1000) + " ," + (height / 20) + ")")
+		// .style("text-anchor", "right")
+		// .attr("x", -10)
+		// .style ("font-size", "12px")
+		// .text("in [s]");
 	
+	// Add the text label for the Y axis
+	svg.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", -15)
+		.attr("x",0 - (height / 1.65))
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")
+		.style ("font-size", "12px")
+		.style ("font-weight", "bold")
+		.text("Haltedauer in [s]");
 		
 }

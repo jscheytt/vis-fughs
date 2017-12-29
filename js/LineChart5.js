@@ -61,11 +61,11 @@ function showView5(data){
 	xAxis.tickFormat(formatxAxis);
 	
 	var svg = d3.select("div#view5Diagram")
-				.append("div").classed("svg-container", true)
+				.append("div").classed("svg-container-view5", true)
 				.append("svg")
 				.attr("preserveAspectRatio", "xMinYMin meet")
 				.attr("viewBox", "0 0 380 220")
-				.classed("svg-content-responsive", true);
+				.classed("svg-content-responsive-view5", true);
 	
 	var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
 	
