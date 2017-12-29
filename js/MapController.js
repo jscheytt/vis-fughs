@@ -135,7 +135,6 @@ function selectLine (id){
 	var zoomView = document.getElementById("zoomView");
 	zoomView.innerHTML = "";
 	zoomView.style.borderStyle = "none";
-	
 	if(selectedStations[0] != "" || selectedStations[1] != ""){
 		if(selectedStations[0] != ""){
 			var oldFirst = selectedStations[0];	
@@ -292,6 +291,7 @@ function selectStation (id){
 			var lines = lines1.filter((n) => lines2.includes(n))
 				
 			zoomSelection = lines;
+	
 			if(lines.length != 0){
 				selectedStations[1] = id;
 			}else{
@@ -476,6 +476,9 @@ function showViewZoom(dataLines){
 		
 		if(zoomSelection == null || zoomSelection.length == 0){
 			zoomSelection = lines;
+		}
+		if(line != ""){
+			zoomSelection = [line];
 		}
 	
 		zoomView.innerHTML = selectedStations[0] +" -> "+selectedStations[1] + lineoptions;

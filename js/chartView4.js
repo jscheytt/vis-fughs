@@ -9,7 +9,7 @@ var margin4 = { top: 20, right: 20, bottom: 0, left: 40 },
 	// colors = ['#ffffff','#ffebeb','#ffd8d8','#ffc4c4','#ffb1b1','#ff9d9d','#ff8989','#ff7676','#ff6262','#ff4e4e','#ff3b3b','#ff2727','#ff1414'], // alternatively colorbrewer.YlGnBu[9]
 	// colors = ['#ff3800','#f53e0a','#eb4314','#e2491d','#d84e27','#ce5431','#c4593b','#ba5f45','#b1644e','#a76a58','#9d6f62','#93756c','#897a76'], // alternatively colorbrewer.YlGnBu[9]
 	// colors = ['#ff7800','#ff6300','#ff4d00','#ff3800','#ff2300','#ff0e00','#ff0008'], // alternatively colorbrewer.YlGnBu[9]
-	colors = ['#00ff00','#55ff00','#aaff00','#aaff00','#ffff00','#ffaa00','#ff5500','#ff0000'], // alternatively colorbrewer.YlGnBu[9]
+	colors = ['#15ff00','#55ff00', '#aaff00','#d2ff4d','#ffff00','#ffaa00','#ff5500','#ff0000', '#b30000'], // alternatively colorbrewer.YlGnBu[9]
 	// colors = ['#0000ff','#2a00ff','#5500ff','#8000ff','#aa00ff','#d500ff','#ff00ff','#ff00d5','#ff00aa','#ff0080','#ff0055','#ff002b','#ff0000'], // alternatively colorbrewer.YlGnBu[9]
 	days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
 	times = ['', '2 Uhr', '', '', '', '6 Uhr', '', '', '', '10 Uhr', '', '', '', '14 Uhr', '', '', '', '18 Uhr', '', '', '', '22 Uhr', '', ''];
@@ -55,9 +55,11 @@ function showView4(data){
 function generateView4 (svg, data) {
 	var maxData = d3.max(data, function(e) {return e.Anzahl});
 
-	var colorScale = d3.scaleQuantile()
-				.domain([0, buckets - 1, maxData])
+	var colorScale = d3.scaleLinear()
+				.domain(d3.ticks(0, maxData, 9))
 				.range(colors);
+
+	var step = maxData / 9;
 				
 	var cards = svg.selectAll('.day')
 		.data(data, function(d) {return d.Uhrzeit+':'+d.Tag;});
@@ -70,14 +72,14 @@ function generateView4 (svg, data) {
 		.attr('class', 'hour bordered')
 		.attr('width', gridSizeWidth)
 		.attr('height', gridSizeHeight)
-		.style('fill', function(d) { return colorScale(d.Anzahl);})
+		.style('fill', function(f) { return colorScale(f.Anzahl);})
 		.text(function(d) { return d.Anzahl; });
 	
 	
 	cards.exit().remove();
 	
 	var legend = svg.selectAll('.legend')
-		.data([0].concat(colorScale.quantiles()), function(d) { return d; });
+		.data(colors, function(d) { return d; });
 	
 	//legend x-axis
 	var g = legend.enter().append('g')
@@ -87,11 +89,17 @@ function generateView4 (svg, data) {
 		.attr('y', height4 -4)
 		.attr('width', legendElementWidth)
 		.attr('height', 4)
-		.style('fill', function(d, i) { return colors[i]; })
+		.style('fill', function(d, i) {  return colors[i]; })
 		
 		g.append('text')
 		.attr('class', 'mono')
-		.text(function(d) { if(d==0 || colorScale(d) == '#081d58' || colorScale(d) ==  '#c7e9b4' || colorScale(d) == '#41b6c4' || colorScale(d) == '#225ea8'){ return '≥ ' + Math.round(d);} return ""; })
+		.text(function(g) { 
+		if(g== '#15ff00'){ return '≥ 0';} 
+		else if(g == '#aaff00'){ return '≥ ' + Math.round(2*step); } 
+		else if(g ==  '#ffff00'){ return '≥ ' + Math.round(4*step);} 
+		else if(g == '#ff5500'){  return '≥ ' + Math.round(6*step);} 
+		else if(g == '#b30000'){return '≥ ' + Math.round(8*step);} 
+		return ""; })
 		.attr('x', function(d, i) { return legendElementWidth * i; })
 		.attr('y', height4 + gridSizeHeight -11);
 	
