@@ -5,7 +5,12 @@ var margin4 = { top: 20, right: 20, bottom: 0, left: 40 },
 	gridSizeHeight = Math.floor(height4 / 24),
 	legendElementWidth = gridSizeWidth/2,
 	buckets = 9,
-	colors = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'], // alternatively colorbrewer.YlGnBu[9]
+	// colors = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'], // alternatively colorbrewer.YlGnBu[9]
+	// colors = ['#ffffff','#ffebeb','#ffd8d8','#ffc4c4','#ffb1b1','#ff9d9d','#ff8989','#ff7676','#ff6262','#ff4e4e','#ff3b3b','#ff2727','#ff1414'], // alternatively colorbrewer.YlGnBu[9]
+	// colors = ['#ff3800','#f53e0a','#eb4314','#e2491d','#d84e27','#ce5431','#c4593b','#ba5f45','#b1644e','#a76a58','#9d6f62','#93756c','#897a76'], // alternatively colorbrewer.YlGnBu[9]
+	// colors = ['#ff7800','#ff6300','#ff4d00','#ff3800','#ff2300','#ff0e00','#ff0008'], // alternatively colorbrewer.YlGnBu[9]
+	colors = ['#00ff00','#55ff00','#aaff00','#aaff00','#ffff00','#ffaa00','#ff5500','#ff0000'], // alternatively colorbrewer.YlGnBu[9]
+	// colors = ['#0000ff','#2a00ff','#5500ff','#8000ff','#aa00ff','#d500ff','#ff00ff','#ff00d5','#ff00aa','#ff0080','#ff0055','#ff002b','#ff0000'], // alternatively colorbrewer.YlGnBu[9]
 	days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
 	times = ['', '2 Uhr', '', '', '', '6 Uhr', '', '', '', '10 Uhr', '', '', '', '14 Uhr', '', '', '', '18 Uhr', '', '', '', '22 Uhr', '', ''];
 
