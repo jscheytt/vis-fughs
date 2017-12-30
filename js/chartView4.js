@@ -53,10 +53,11 @@ function showView4(data){
 }
 
 function generateView4 (svg, data) {
-	var maxData = d3.max(data, function(e) {return e.Anzahl});
-
+	var maxData = d3.max(data, function(e) {return e.Anzahl;});
+	var values = data.map(function(obj) {return obj.Anzahl;}); 
+	
 	var colorScale = d3.scaleLinear()
-				.domain(d3.ticks(0, maxData, 9))
+				.domain(values)
 				.range(colors);
 
 	var step = maxData / 9;
@@ -72,7 +73,7 @@ function generateView4 (svg, data) {
 		.attr('class', 'hour bordered')
 		.attr('width', gridSizeWidth)
 		.attr('height', gridSizeHeight)
-		.style('fill', function(f) { return colorScale(f.Anzahl);})
+		.style('fill', function(d) { return colorScale(d.Anzahl);})
 		.text(function(d) { return d.Anzahl; });
 	
 	
