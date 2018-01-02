@@ -70,82 +70,6 @@ function addViolin(svg, dataOfBin, heightPlot, widthPlot, domain, imposeMax, vio
 
 }
 
-function addBoxPlot(svg, dataOfBin, heightPlot, widthPlot, domain, boxPlotWidth, boxColor, boxInsideColor){
-        // var y = d3.scaleLinear()
-                    // .range([heightPlot, 0])
-                    // .domain(domain);
-
-        // var x = d3.scaleLinear()
-                    // .range([0, widthPlot])
-
-        // var left=0.5-boxPlotWidth/2;
-        // var right=0.5+boxPlotWidth/2;
-
-        // var probs=[0.05,0.25,0.5,0.75,0.95];
-        // for(var i=0; i<probs.length; i++){
-            // probs[i]=y(d3.quantile(dataOfBin, probs[i]))
-        // }
-
-        // svg.append("rect")
-            // .attr("class", "boxplot fill")
-            // .attr("x", x(left))
-            // .attr("width", x(right)-x(left))
-            // .attr("y", probs[3])
-            // .attr("height", -probs[3]+probs[1])
-            // .style("fill", boxColor);
-
-        // var iS=[0,2,4];
-        // var iSclass=["","median",""];
-        // var iSColor=[boxColor, boxInsideColor, boxColor]
-        // for(var i=0; i<iS.length; i++){
-            // svg.append("line")
-                // .attr("class", "boxplot "+iSclass[i])
-                // .attr("x1", x(left))
-                // .attr("x2", x(right))
-                // .attr("y1", probs[iS[i]])
-                // .attr("y2", probs[iS[i]])
-                // .style("fill", iSColor[i])
-                // .style("stroke", iSColor[i]);
-        // }
-
-        // var iS=[[0,1],[3,4]];
-        // for(var i=0; i<iS.length; i++){
-            // svg.append("line")
-                // .attr("class", "boxplot")
-                // .attr("x1", x(0.5))
-                // .attr("x2", x(0.5))
-                // .attr("y1", probs[iS[i][0]])
-                // .attr("y2", probs[iS[i][1]])
-                // .style("stroke", boxColor);
-        // }
-
-        // svg.append("rect")
-            // .attr("class", "boxplot")
-            // .attr("x", x(left))
-            // .attr("width", x(right)-x(left))
-            // .attr("y", probs[3])
-            // .attr("height", -probs[3]+probs[1])
-            // .style("stroke", boxColor);
-
-        // svg.append("circle")
-            // .attr("class", "boxplot mean")
-            // .attr("cx", x(0.5))
-            // .attr("cy", y(d3.mean(dataOfBin)))
-            // .attr("r", x(boxPlotWidth/5))
-            // .style("fill", boxInsideColor)
-            // .style("stroke", 'None');
-
-        // svg.append("circle")
-            // .attr("class", "boxplot mean")
-            // .attr("cx", x(0.5))
-            // .attr("cy", y(d3.mean(dataOfBin)))
-            // .attr("r", x(boxPlotWidth/10))
-            // .style("fill", boxColor)
-            // .style("stroke", 'None');
-
-
-}
-
 var marginPlot={top:10, bottom:0, left:30, right:10};
 
 var widthPlot=400;
@@ -173,22 +97,30 @@ function showView3(data){
 		regionChart.innerHTML = "";
 	}
 	
-	//ergänzt 28.12.2017
-	// if(data != null && data.length > 0){
-		// max = d3.max(data, function(d) { return d.length; });
-		// min = d3.min(data, function(d) { return d.length; });
-	// }else{
-		// max = 0;
-		// min = 0;
-	// }
-		
-		
-	// .domain([0, Math.max(imposeMax, d3.max(data, function(d) { return d.length; }))]);
+	if(selectedStations[0] != "" && selectedStations[1] == "" && 
+		(selectedStations[0] == "Pinneberg" || 
+		selectedStations[0] == "Wedel" || 
+		selectedStations[0] == "Poppenbuettel" || 
+		selectedStations[0] == "Aumuehle" || 
+		selectedStations[0] == "Stade" || 
+		(selectedStations[0] == "Hamburg-Altona" && zoomSelection.length == 1 && zoomSelection[0] == "S2") || 
+		(selectedStations[0] == "Elbgaustrasse" && zoomSelection.length == 1 && zoomSelection[0] == "S21") ||
+		(selectedStations[0] == "Blankenese" && zoomSelection.length == 1 && zoomSelection[0] == "S11") ||
+		(selectedStations[0] == "Hamburg-Altona" && zoomSelection.length == 1 && zoomSelection[0] == "S31") ||
+		(selectedStations[0] == "Hamburg-Altona" && zoomSelection.length == 2 && zoomSelection.includes("S31") && zoomSelection.includes("S2")) ||
+		(selectedStations[0] == "Hamburg-Bergedorf" && zoomSelection.length == 1 && zoomSelection[0] == "S2") ||
+		(selectedStations[0] == "Neugraben" && zoomSelection.length == 1 && zoomSelection[0] == "S31")
+		)){
+			regionChart.innerHTML = "<img alt=\"Enstation\" src=\"img/Endstation.png\" width=\"150px\" style=\"margin-top:50px\">";
+			return;
+	}
 	
-	// Idee: var max = d3.max(data, function(d) {return d.length; }); 
-	//In folgender Zeile dann 370 mit max ersetzen
+	var max = 0;
+	 if(data != null && data.length > 0){
+		max = d3.max(data, function(d) { return Math.max.apply(null, d.Haltezeiten); });
+	 }
 	
-	var domain=[0, 370];
+	var domain=[0, max];
 	
 	
 	var y = d3.scaleLinear()
@@ -230,8 +162,6 @@ function showView3(data){
 		data[i].Haltezeiten=data[i].Haltezeiten.sort(d3.ascending)
 		var g=svg.append("g").attr("transform", "translate("+(i*(boxWidth+boxSpacing)+marginPlot.left)+",0)");
 		addViolin(g, data[i].Haltezeiten, heightPlot, boxWidth, domain, 0.25, "#424242");
-		addBoxPlot(g, data[i].Haltezeiten, heightPlot, boxWidth, domain, .15, "black", "white");
-	
 	}
 	
 	svg.append("g")
