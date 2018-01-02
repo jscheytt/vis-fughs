@@ -20,7 +20,11 @@ function showView5(data){
 	formatxAxis = d3.timeFormat("%H:%M");
 	if(data != null && data.length > 0 && parseTime(data[0].Zeitpunkt) == null){
 		parseTime = d3.timeParse("%d.%m.%Y");
-		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete, week
+		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete
+	}
+	if(data != null && data.length > 0 && timestep == 2){ //week
+		parseTime = d3.timeParse("%d.%m.%Y %H:%M");
+		formatxAxis = d3.timeFormat("%d.%m.%y"); //for month, complete
 	}
 	
 	//clear region for chart
@@ -59,6 +63,10 @@ function showView5(data){
 	var xAxis = d3.axisBottom(x);
 	
 	xAxis.tickFormat(formatxAxis);
+	
+	if(timestep == 2){
+		xAxis.ticks(7);
+	}
 	
 	var svg = d3.select("div#view5Diagram")
 				.append("div").classed("svg-container-view5", true)

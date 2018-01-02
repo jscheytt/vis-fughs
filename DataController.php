@@ -515,7 +515,7 @@ function loadView5($timestep, $selectedTime, $stations, $lines, $passenger, $var
 		$selectedDay = date('m.Y', strtotime($selectedTime));
 	}else if($timestep == 2){	
 		$data = $dataView5_Weeks;
-		$timeformat = 'd.m.Y';
+		$timeformat = 'd.m.Y H:i';
 		$selectedDay = date('d.m.Y', strtotime($selectedTime));
 		$Day2OfWeek = date('d.m.Y', strtotime("+1 day", strtotime($selectedTime)));
 		$Day3OfWeek = date('d.m.Y', strtotime("+2 day", strtotime($selectedTime)));
