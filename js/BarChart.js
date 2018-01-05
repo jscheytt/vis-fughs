@@ -4,6 +4,7 @@ function showView2(data) {
 	
 	
 	//clear region for bar-chart
+	var formatTime = d3.timeFormat("%d.%m.%Y");
 	var regionBarChart = document.getElementById("barchart");
 	if(regionBarChart != null){
 		regionBarChart.innerHTML = "";
@@ -50,12 +51,16 @@ function showView2(data) {
 	
 	var stack = d3.stack();
 	
-					data.sort(function(a) { return a.total; });
+	
+					/* data.sort(function(a) { return a.total; }); */
 					
 					// format the data
 					data.forEach(function(d) {
 						d.Anzahl = +d.Anzahl;
 					});
+					data.forEach(function(d) {
+						d.Datum = formatTime(new Date(d.Datum));
+					}); 
 					
 					
 					// Scale the range of the data in the domains
@@ -65,7 +70,12 @@ function showView2(data) {
 
 					// declare y axis with ticks
 					var yAxisJanis = d3.axisLeft(yJanis);
-					yAxisJanis.ticks(5);
+					yAxisJanis.ticks(5);					  
+					
+					if (timestep == 2 || timestep == 3) {
+						yAxisJanis.ticks(7);					  
+					}
+					
 					 
 					// create y axis
 					svg1.append("g")
@@ -107,7 +117,7 @@ function showView2(data) {
 						.style ("font-weight", "bold")
 						.text("Tage");
 				  
-					var ticksJanis = d3.selectAll("#barchart .tick text");
+					var ticksJanis = d3.selectAll("#barchart .axis--x text");
 					if (timestep == 2) {
 						ticksJanis.style("display", function (d, i) { return i % 2 ? "none" : "initial" })						  
 					}
@@ -145,6 +155,13 @@ function showView2(data) {
 						$('.highlightBarChart').removeClass('highlightBarChart');
 						$(this).addClass('highlightBarChart');
 					});
+					
+					if (timestep == 0) {
+						document.getElementById('VarianzCheckbox').disabled = true;
+					} 
+					else {
+						document.getElementById('VarianzCheckbox').disabled = false;
+					}
 			
 			//simulate click on first bar after load
 			eventFire(document.getElementsByClassName("bar")[1], 'click');

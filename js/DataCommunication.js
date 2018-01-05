@@ -16,7 +16,7 @@ var spinner5;
 //var timeForView5;
 
 // 0 -> gesamt, 1 -> months, 2 -> weeks, 3 -> days
-var timestep = 0;
+var timestep = 1;
 var selectedTime = "";
 
 
