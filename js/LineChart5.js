@@ -38,6 +38,9 @@ function showView5(data){
 		//data = [{Zeitpunkt: 10.00 Uhr, Anzahl: 10}, {Zeitpunkt: 11.00 Uhr, Anzahl: 30}, {Zeitpunkt: 12.00 Uhr, Anzahl: 20}]
 		max = d3.max(data, function(d) { return d.Anzahl; });
 		min = d3.min(data, function(d) { return d.Anzahl; });
+		if(min >= 0){
+			min = 0;
+		}
 		minDate = d3.min(data, function(d) {return parseTime(d.Zeitpunkt); }); //eventuell Zeitpunkt parsen parseDate(d.Zeitpunkt)
 		maxDate = d3.max(data, function(d) { return parseTime(d.Zeitpunkt); });
 	}else{
