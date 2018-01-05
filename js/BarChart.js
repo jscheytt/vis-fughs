@@ -125,7 +125,9 @@ function showView2(data) {
 					.attr("class", "bar")
 					.attr("width", xJanis.bandwidth())
 					.attr("height", function(d){return height1 - yJanis(d.Anzahl);})
-					.attr("fill", colorBlue)					
+					.attr("fill", colorBlue)		
+					.attr("name", function(d){return d.Datum;})
+					//Text attribut auf d.Datum stetzen
 					.on("mousemove", function(d){
 						tooltipJanis
 						.style("left", d3.event.pageX - 50 + "px")
@@ -146,8 +148,13 @@ function showView2(data) {
 						$(this).addClass('highlightBarChart');
 					});
 			
+			if(selectedTime == ""){
+				eventFire(document.getElementsByClassName("bar")[1], 'click');
+			}else{
+				eventFire(document.getElementsByName(selectedTime)[0], 'click');
+			}
 			//simulate click on first bar after load
-			eventFire(document.getElementsByClassName("bar")[1], 'click');
+			
 }
 
 

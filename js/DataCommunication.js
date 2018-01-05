@@ -39,6 +39,7 @@ function onCheckChange(id){
 }
 
 function onTimestepChange (step){
+	selectedTime = "";
 	timestep = step;
 	requestDataForView("2", "", "");
 }
