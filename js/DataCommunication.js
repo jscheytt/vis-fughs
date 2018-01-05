@@ -22,6 +22,87 @@ var selectedTime = "";
 
 function loadData(){ //wird bei onload der Seite aufgerufen  
 	requestDataForView("2", "", ""); //timeline laden
+	// Instance the tour
+	var tour = new Tour({
+		storage: false,
+		steps: [
+			{	element: "#logoImg",
+				title: "Willkommen bei PasVis",
+				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017. <br><br>Klicke auf 'Next' um mehr zu erfahren."
+			},
+			{
+				element: "#EinAussteiger",
+				title: "Wähle welche Passagiere du sehen willst",
+				content: "Du hast die Wahl dir nur die Einsteiger, Aussteiger oder den Mittelwert aus beiden anzeigen zu lassen."
+			},
+			{
+				element: ".highlightBarChart",
+				title: "Bestimme einen Zeitraum",
+				content: "Mit einem Klick auf einen der Balken wählst du einen Zeitraum aus und die entsprechenden Passagierdaten werden für dich visualisiert."
+			},
+			{
+				element: "#Timesteps",
+				title: "Wähle einen Zeitschritt",
+				content: "Um dir die Daten für einen größeren oder kleineren Zeitraum anzuschauen, kannst du hier die Größe der Zeitschritte wählen."
+			},
+			{
+				element: "#MapDiv",
+				title: "Das Liniennetz der S-Bahn",
+				content: "In diesem Bereich siehst du das Liniennetz der Hamburger S-Bahn, auch mit diesem kannst du interagieren."
+			},
+			
+			{	element: "#label_S1",
+				title: "Wahl einer Linie",
+				content: "Mit einem Klick auf den Liniennamen kannst du eine gesamte Linie im Netz wählen.."
+			},
+			{
+				element: "#Hamburg-Altona",
+				title: "Wahl einer Station",
+				content: "..oder auch nur eine einzelne Station um dir die Daten für den gewählten Zeitraum für diese anzeigen zu lassen."
+			},
+			
+			{
+				element: "#Jungfernstieg",
+				title: "Wahl einer Strecke",
+				content: "Klicke auf eine zweite Station um eine Strecke auszuwählen."
+			},
+			{
+				element: "#bobbel_Veddel",
+				title: "Informationen zu den Bobbels",
+				content: "Wenn du mit der Maus über einen Bobbel fährst wird dir die Passagieranzahl zu dieser Station angezeigt."
+			},
+			//{
+				// element: "#view3",
+				// title: "Title of my step",
+				// content: "Content of my step"
+			// },
+			// {
+				// element: "#view4",
+				// title: "Title of my step",
+				// content: "Content of my step"
+			// },
+			// {
+				// element: "#view5",
+				// title: "Title of my step",
+				// content: "Content of my step"
+			// },
+			{
+				element: ".switch",
+				title: "Normalisierte Daten",
+				content: "Mit einem Klick auf den Varianz Button kannst du dir die Daten in normalisierter Form ansehen."
+			},
+			{	element: "#logoImg",
+				title: "Viel Spaß!",
+				content: "Nun weißt du die wichtigsten Dinge über unsere Webseite und deine Erkundungstour durch die Datenwelt kann starten!"
+			},
+		]
+	});
+
+	// Initialize the tour
+	tour.init();
+
+	// Start the tour
+	tour.start();
 }
 
 function onCheckChange(id){	
