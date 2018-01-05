@@ -45,7 +45,11 @@ function onTimestepChange (step){
 }
 
 function onSelectedTimeChange(selTime){
-	selectedTime = selTime;
+	if(timestep != 0){
+		selectedTime = selTime;
+	}else{
+		selectedTime = "0";
+	}
 	requestDataForView("1", getStations(selectedStations[0], selectedStations[1]), line);
 }
 
