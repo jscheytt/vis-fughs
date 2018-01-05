@@ -75,6 +75,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestData1 = new XMLHttpRequest();
 		}else{
+			if(requestData1 != null){
+				requestData1.abort();
+			}
 			requestData1 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		//timeForView1 = Date.now();
@@ -87,6 +90,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestData2 = new XMLHttpRequest();
 		}else{
+			if(requestData2 != null){
+				requestData2.abort();
+			}
 			requestData2 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		//timeForView2 = Date.now();
@@ -99,6 +105,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestData3 = new XMLHttpRequest();
 		}else{
+			if(requestData3 != null){
+				requestData3.abort();
+			}
 			requestData3 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		
@@ -123,6 +132,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestData4 = new XMLHttpRequest();
 		}else{
+			if(requestData4 != null){
+				requestData4.abort();
+			}
 			requestData4 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		
@@ -147,6 +159,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestData5 = new XMLHttpRequest();
 		}else{
+			if(requestData5 != null){
+				requestData5.abort();
+			}
 			requestData5 = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		
@@ -171,6 +186,9 @@ function requestDataForView(view, stations, lines){
 		if(window.XMLHttpRequest){
 			requestDataZoom = new XMLHttpRequest();
 		}else{
+			if(requestDataZoom != null){
+				requestDataZoom.abort();
+			}
 			requestDataZoom = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		requestDataZoom.open('post', 'DataController.php', true);
