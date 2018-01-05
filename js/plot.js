@@ -184,12 +184,23 @@ function showView3(data){
 	// Add the text label for the Y axis
 	svg.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", -15)
+		.attr("y", -25)
 		.attr("x",0 - (height / 1.65))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
 		.style ("font-size", "12px")
 		.style ("font-weight", "bold")
 		.text("Haltedauer in [s]");
+		
+		
+	// Add the text label for the x axis
+	svg.append("text")
+	    .attr("transform", "translate(" + (width / 1.35) + " ," + (height * 1.7) + ")")
+		.style("text-anchor", "middle")
+		.style ("font-size", "12px")
+		.style ("font-weight", "bold")
+		.text("Ein-/Aussteiger Intervalle");
+
+
 		
 }
