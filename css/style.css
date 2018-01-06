@@ -446,3 +446,9 @@ input:checked + .slider:before {
 	fill: grey;
 }
   
+button#help {
+    position: absolute;
+    display: block;
+    margin-top: -75px;
+    margin-left: 10px;
+}

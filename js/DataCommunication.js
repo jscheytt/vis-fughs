@@ -29,7 +29,7 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 		steps: [
 			{	element: "#logoImg",
 				title: "Willkommen bei PasVis!",
-				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017.<br /><br />Klicke auf <em>Weiter</em> oder nutze die Pfeiltasten, um mehr zu erfahren.<br /><br />Klicke auf <em>Beenden</em>, um direkt zu starten. (Durch Löschen der Cookies dieser Seite kannst du die Tour erneut anzeigen lassen.)"
+				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017.<br /><br />Klicke auf <em>Weiter</em> oder nutze die Pfeiltasten, um mehr zu erfahren. Klicke auf <em>Beenden</em>, um direkt zu starten."
 			},
 			{
 				element: "#EinAussteiger",
@@ -102,16 +102,22 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 			},
 		]
 	});
-
+	
+	// Initialize the tour
+	tour.init();
 
 	// Start the tour if cookie is not set
 	var cookieName = "guidedTourTaken",
 		cookieValue = "true";
 	if (readCookie(cookieName) != cookieValue) {
-		tour.init();
 		tour.start();
 		createCookie(cookieName, cookieValue, 5);
 	}
+	
+	// Start the tour on clicking help button
+	$("button#help").click(function() {
+		tour.start();
+	});
 }
 
 // Cookie helper functions from https://www.quirksmode.org/js/cookies.html
