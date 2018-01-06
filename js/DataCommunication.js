@@ -33,43 +33,43 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 			{
 				element: "#EinAussteiger",
 				title: "Wähle welche Passagiere du sehen willst",
-				content: "Du hast die Wahl dir nur die Einsteiger, Aussteiger oder den Mittelwert aus beiden anzeigen zu lassen."
+				content: "Du hast die Wahl, dir nur die Einsteiger, Aussteiger oder den Mittelwert aus beiden anzeigen zu lassen."
 			},
 			{
 				element: ".highlightBarChart",
-				title: "Bestimme einen Zeitraum",
-				content: "Mit einem Klick auf einen der Balken wählst du einen Zeitraum aus und die entsprechenden Passagierdaten werden für dich visualisiert."
+				title: "Wähle einen Zeitraum",
+				content: "Mit einem Klick auf einen der Balken wählst du einen Zeitraum aus und die entsprechenden Passagierdaten werden visualisiert."
 			},
 			{
 				element: "#Timesteps",
 				title: "Wähle einen Zeitschritt",
 				content: "Um dir die Daten für einen größeren oder kleineren Zeitraum anzuschauen, kannst du hier die Größe der Zeitschritte wählen."
 			},
-			{
-				element: "#MapDiv",
-				title: "Das Liniennetz der S-Bahn",
-				content: "In diesem Bereich siehst du das Liniennetz der Hamburger S-Bahn, auch mit diesem kannst du interagieren."
-			},
+			// {
+				// element: "#MapDiv",
+				// title: "Das Liniennetz der S-Bahn",
+				// content: "In diesem Bereich siehst du das Liniennetz der Hamburger S-Bahn. Auch mit diesem kannst du interagieren."
+			// },
 			
 			{	element: "#label_S1",
-				title: "Wahl einer Linie",
-				content: "Mit einem Klick auf den Liniennamen kannst du eine gesamte Linie im Netz wählen.."
+				title: "Wähle eine Linie",
+				content: "Mit einem Klick auf den Liniennamen kannst du deine Auswahl auf eine gesamte Linie im Netz beschränken ..."
 			},
 			{
 				element: "#Hamburg-Altona",
-				title: "Wahl einer Station",
-				content: "..oder auch nur eine einzelne Station um dir die Daten für den gewählten Zeitraum für diese anzeigen zu lassen."
+				title: "Wähle eine Station",
+				content: " ... oder mit Klick auf eine einzelne Station nur die Daten zu dieser Station anzeigen lassen."
 			},
 			
 			{
 				element: "#Jungfernstieg",
-				title: "Wahl einer Strecke",
-				content: "Klicke auf eine zweite Station um eine Strecke auszuwählen."
+				title: "Wähle eine Teilstrecke",
+				content: "Klicke auf eine zweite Station um eine Teilstrecke auszuwählen."
 			},
 			{
 				element: "#bobbel_Veddel",
-				title: "Informationen zu den Bobbels",
-				content: "Wenn du mit der Maus über einen Bobbel fährst wird dir die Passagieranzahl zu dieser Station angezeigt."
+				title: "Bobbels zeigen den Passagierwert",
+				content: "Wenn du mit der Maus über einen Bobbel fährst, wird dir die Passagieranzahl zu dieser Station angezeigt."
 			},
 			//{
 				// element: "#view3",
@@ -89,11 +89,11 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 			{
 				element: ".switch",
 				title: "Normalisierte Daten",
-				content: "Mit einem Klick auf den Varianz Button kannst du dir die Daten in normalisierter Form ansehen."
+				content: "Mit einem Klick auf den Varianz-Schalter kannst du dir die Daten in normalisierter Form ansehen. Hierbei wird der Mittelwert abgezogen."
 			},
 			{	element: "#logoImg",
 				title: "Viel Spaß!",
-				content: "Nun weißt du die wichtigsten Dinge über unsere Webseite und deine Erkundungstour durch die Datenwelt kann starten!"
+				content: "Nun weißt du die wichtigsten Dinge über unsere Webseite und deine Erkundungstour durch die Datenwelt kann losgehen!"
 			},
 		]
 	});
