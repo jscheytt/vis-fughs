@@ -157,6 +157,7 @@ function showView2(data) {
 	// create bars, tooltip, hover		  
 	var barsJanis = svg1.selectAll(".bar").data(data)
 	.enter().append("g")
+	.attr("class", "barhover")
 	.attr("transform", function(d) {
 
 		if (d.Anzahl > 0){
