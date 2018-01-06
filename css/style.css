@@ -65,7 +65,7 @@ text {
   shape-rendering: crispEdges;
   fill: none;
   stroke: black;
-  stroke-width: 1.5px;
+  stroke-width: 2.5px;
 }
 
 
@@ -87,7 +87,7 @@ text {
 }
 
 .domain {
-	stroke-width: 2.5px;
+	stroke-width: 2px;
 	stroke: black;
 }
 
@@ -99,17 +99,13 @@ text {
 path.line2 {
     fill: none;
     stroke: grey;
-    stroke-width: 1px;
-}
-
-.domain {
-    stroke-width: 1px;
+    stroke-width: 2px;
 }
 
 .axis path, .axis line {
   fill: none;
   stroke: black;
-  stroke-width: 1px;
+  stroke-width: 2px;
   color-rendering: optimizeQuality !important;
   shape-rendering: crispEdges !important;
   text-rendering: geometricPrecision !important; 
@@ -374,6 +370,7 @@ input:checked + .slider:before {
 	position: relative;
 	text-align: center;
     padding-top: 5px;
+	stroke-width: 2px;
 }
 
 #view4{
