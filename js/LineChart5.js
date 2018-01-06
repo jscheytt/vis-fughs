@@ -134,5 +134,13 @@ function showView5(data){
 		.style ("font-size", "10px")
 		.style ("font-weight", "bold")
 		.text("Anzahl Passagiere");
+		
+	// Das ist die x-Achse
+	/* svg.append("g")
+		.attr("class", "x axis")
+		.append("line")
+		.attr("y1", y(0))
+		.attr("y2", y(0))
+		.attr("x2", width);	 */
 	
 }
