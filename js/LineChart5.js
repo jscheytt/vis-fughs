@@ -131,8 +131,16 @@ function showView5(data){
 		.attr("x",0 - (height / 1.65))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
-		.style ("font-size", "10px")
+		.style ("font-size", "12px")
 		.style ("font-weight", "bold")
 		.text("Anzahl Passagiere");
+		
+	// Add the text label for the x axis
+	svg.append("text")
+	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
+		.style("text-anchor", "middle")
+		.style ("font-size", "12px")
+		.style ("font-weight", "bold")
+		.text("gewählter Zeitraum");
 	
 }

@@ -34,6 +34,7 @@ text {
 .svg-container-view5 {
     position: relative;
 	width: 100%;
+	transform: scale(0.9);
     vertical-align: top;
     overflow: visible;
 }
@@ -51,7 +52,7 @@ text {
     display: inline-block;
     position: absolute;
     top: -5px;
-    left: 20px;
+    left: 5px;
 	overflow: visible;
 }
 
