@@ -185,10 +185,10 @@ function showView3(data){
 	svg.append("text")
 		.attr("transform", "rotate(-90)")
 		.attr("y", -25)
-		.attr("x",0 - (height / 1.65))
+		.attr("x",0 - (height / 1.45))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
-		.style ("font-size", "12px")
+		.style ("font-size", "13px")
 		.style ("font-weight", "bold")
 		.text("Haltedauer in [s]");
 		
@@ -197,10 +197,9 @@ function showView3(data){
 	svg.append("text")
 	    .attr("transform", "translate(" + (width / 1.35) + " ," + (height * 1.7) + ")")
 		.style("text-anchor", "middle")
-		.style ("font-size", "12px")
+		.style ("font-size", "13px")
 		.style ("font-weight", "bold")
 		.text("Ein-/Aussteiger Intervalle");
-
 
 		
 }
