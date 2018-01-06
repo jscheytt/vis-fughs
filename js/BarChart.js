@@ -55,6 +55,9 @@ function showView2(data) {
 	data.forEach(function(d) {
 		d.Anzahl = +d.Anzahl;
 		d.Datum = formatTime(new Date(d.Datum));
+		if(timestep == 0) {
+			d.Datum = "Gesamt";
+		}
 	}); 
 	
 	// Scale the range of the data in the x-domain
@@ -152,7 +155,8 @@ function showView2(data) {
 
 		if (d.Anzahl > 0){
 			return "translate(" + xJanis(d.Datum) + ", " + yJanis(d.Anzahl) + ")"
-		} else {
+		} 
+		else {
 			return "translate(" + xJanis(d.Datum) + ", " + yJanis(0) + ")"
 		}
 
