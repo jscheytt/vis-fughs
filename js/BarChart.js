@@ -107,18 +107,32 @@ function showView2(data) {
 
   
 	// add the x Axis
+	if(document.getElementById("VarianzCheckbox").checked) {
 	svg1.append("g")
 		.attr("class", "axis axis--x")
 		.attr("transform", "translate(0," + height1 + ")")
 		.call(d3.axisBottom(xJanis))
-		// rotate elements on x axis 
+		.select(".domain").remove()
+		
+		// x Achse Linie
+	svg1.append("g")
+		.attr("class", "x axis")
+		.append("line")
+		.attr("y1", yJanis(0))
+		.attr("y2", yJanis(0))
+		.attr("x2", width1); 
+	}
+	else {
+		svg1.append("g")
+		.attr("class", "axis axis--x")
+		.attr("transform", "translate(0," + height1 + ")")
+		.call(d3.axisBottom(xJanis))
 		.selectAll("text")
 		.attr("y", 15)
-		.attr("x", 0)
 		.attr("dx", "-0.18em")
 		.attr("dy", ".35em")
 		.style("text-anchor", "middle");
-
+	}
 	
 	// x axis label
 	svg1.append("text")
@@ -128,14 +142,6 @@ function showView2(data) {
 		.style ("font-size", "10px")
 		.style ("font-weight", "bold")
 		.text("Tage");
-	
-	// x Achse Linie
-	svg1.append("g")
-		.attr("class", "x axis")
-		.append("line")
-		.attr("y1", yJanis(0))
-		.attr("y2", yJanis(0))
-		.attr("x2", width1);
   
 	// Ticks für die x-Achse
 	var ticksJanis = d3.selectAll("#barchart .axis--x text");
