@@ -28,8 +28,8 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 		template: "<div class='popover tour'> <div class='arrow'></div> <h3 class='popover-title'></h3> <div class='popover-content'></div> <div class='popover-navigation'> <button class='btn btn-default' data-role='prev'>« Zurück</button> <button class='btn btn-default' data-role='next'>Weiter »</button> <button class='btn btn-link' data-role='end'>Beenden</button> </div> </div>",
 		steps: [
 			{	element: "#logoImg",
-				title: "Willkommen bei PasVis",
-				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017. <br><br>Klicke auf <em>Weiter</em> oder drücke die <em>Links-Taste</em>, um mehr zu erfahren, oder klicke auf <em>Beenden</em>, um direkt zu starten."
+				title: "Willkommen bei PasVis!",
+				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017.<br /><br />Klicke auf <em>Weiter</em> oder nutze die Pfeiltasten, um mehr zu erfahren.<br /><br />Klicke auf <em>Beenden</em>, um direkt zu starten. (Durch Löschen der Cookies dieser Seite kannst du die Tour erneut anzeigen lassen.)"
 			},
 			{
 				element: "#EinAussteiger",
@@ -103,11 +103,38 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 		]
 	});
 
-	// Initialize the tour
-	tour.init();
 
-	// Start the tour
-	tour.start();
+	// Start the tour if cookie is not set
+	var cookieName = "guidedTourTaken",
+		cookieValue = "true";
+	if (readCookie(cookieName) != cookieValue) {
+		tour.init();
+		tour.start();
+		createCookie(cookieName, cookieValue, 5);
+	}
+}
+
+// Cookie helper functions from https://www.quirksmode.org/js/cookies.html
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
 }
 
 function onCheckChange(id){	
