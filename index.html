@@ -4,7 +4,9 @@
     <meta charset="utf-8">
 	<link rel="shortcut icon" href="img/pageicon.ico" />
     <title>Passenger Visualisation</title>
-	<script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/js/bootstrap-tour-standalone.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -14,7 +16,7 @@
 		<div id="leftInfoDiv">
 			<div id="overview">
 				<div id= "logoDiv" >
-					<img alt="Logo" src="img/LogoPasVis.png" height="88px" >
+					<img id="logoImg" alt="Logo" src="img/LogoPasVis.png" height="88px" >
 				</div>
 				<div id ="MapDiv">
 <svg
@@ -3815,16 +3817,16 @@
 			</div>
 				<div id="rightInfoDiv">
 			<div id="view3">
-				<label class="labelView">Haltedauer pro Ein-/Aussteiger Intervall</label>
+				<label id="labelView3">Haltedauer pro Ein-/Aussteiger Intervall</label>
 				<div id="view3Diagram"> 					
 				</div>
 			</div>
 			<div id="view4">
-				<label class="labelView">Durchschnittliche Passagierzahl pro Tageszeit</label>
+				<label id="labelView4">Durchschnittliche Passagierzahl pro Tageszeit</label>
 				<div id="heatmap"></div>
 			</div>
 			<div id="view5">
-				<label class="labelView">Anzahl Passagiere im gewählten Zeitraum</label>
+				<label id="labelView5">Anzahl Passagiere im gewählten Zeitraum</label>
 				<div id="view5Diagram">
 				</div>
 			</div>

@@ -1,3 +1,20 @@
+.popover-title{
+	background-color: #74a3c9;
+}
+
+.btn-default{
+	background-color: lightsteelblue;
+}
+
+.popover{
+	background-color: #f6fafff2;
+}
+
+.popover.right>.arrow:after{
+	border-right-color: #f6fafff2;
+}
+
+
 text {
     font-family: arial;
     font-size: 10px;
@@ -314,7 +331,6 @@ input:checked + .slider:before {
     width: 1054px;
     float: left;
     margin-top: -75px;
-    background-color: whitesmoke;
 	border-style: groove;
     border-color: whitesmoke;
 	border-width: 0.5px;
@@ -325,7 +341,6 @@ input:checked + .slider:before {
     margin-top: 2px;
     height: 138px;
 	float: left;
-	background-color: whitesmoke;
 	display:block;
 	margin-left: 10px;
 }
@@ -397,7 +412,7 @@ input:checked + .slider:before {
 	position: absolute;
 }
 
-.labelView{
+#labelView3, #labelView4, #labelView5{
 	font-size: 12px;
 	font-weight: bold;
 }
