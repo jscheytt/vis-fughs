@@ -103,7 +103,7 @@ function showView2(data) {
 		.style("text-anchor", "middle")
 		.style ("font-size", "10px")
 		.style ("font-weight", "bold")
-		.text("Anzahl");
+		.text("Anzahl Passagiere");
 
   
 	// add the x Axis
