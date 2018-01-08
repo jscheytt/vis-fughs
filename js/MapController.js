@@ -100,7 +100,8 @@ function showTooltip(evt, id){
 
 function getMouseoverText (id){
 	var bobbel = document.getElementById(id);
-	return bobbel.name;
+	var formatP = d3.format(",.0f");
+	return formatP(bobbel.name);
 }
 
 function hideTooltip (){
