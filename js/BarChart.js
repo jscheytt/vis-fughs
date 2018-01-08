@@ -2,6 +2,7 @@ function showView2(data) {
 	// Zahlen der y-Achse werden damit formatiert
 	var formatNumber = d3.format("");	
 	var formatM = d3.format(".2s");	
+	var formatP = d3.format(",.0f");	
 	
 	// Datums in der x-Achse werden damit formatiert
 	var formatTime = d3.timeFormat("%d.%m.%Y");
@@ -103,7 +104,7 @@ function showView2(data) {
 		.style("text-anchor", "middle")
 		.style ("font-size", "10px")
 		.style ("font-weight", "bold")
-		.text("Anzahl");
+		.text("Anzahl Passagiere");
 
   
 	// add the x Axis
@@ -180,7 +181,7 @@ function showView2(data) {
 		.style("left", d3.event.pageX - 50 + "px")
 		.style("top", d3.event.pageY - 90 + "px")
 		.style("display", "inline-block")
-		.html((d.Datum) + "<br>" + "Anzahl: " + (d.Anzahl));
+		.html((d.Datum) + "<br>" + "Anzahl: " + (formatP(d.Anzahl)));
 	})
 	.on("mouseout", function(d){ tooltipJanis.style("display", "none");});
 	
