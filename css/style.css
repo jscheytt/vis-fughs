@@ -329,7 +329,7 @@ input:checked + .slider:before {
     float: left;
     margin-top: -75px;
 	border-style: groove;
-    border-color: whitesmoke;
+    border-color: black;
 	border-width: 0.5px;
 }	
 
@@ -363,7 +363,7 @@ input:checked + .slider:before {
 	margin-bottom: 14px;
 	padding-left: 5px;
 	border-style: groove;
-    border-color: whitesmoke;
+    border-color: black;
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display: block;
@@ -380,7 +380,7 @@ input:checked + .slider:before {
 	padding-left: 5px;
 	margin-bottom: 14px;
 	border-style: groove;
-    border-color: whitesmoke;
+    border-color: black;
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display: block;
@@ -395,7 +395,7 @@ input:checked + .slider:before {
 	float:right;
 	padding-left: 5px;
 	border-style: groove;
-    border-color: whitesmoke;
+    border-color: black;
 	border-width: 0.5px;
 	background-color: whitesmoke;
 	display:block;
