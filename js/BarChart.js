@@ -69,11 +69,11 @@ function showView2(data) {
 		return d.Anzahl;
 		})).nice();
 		
-		document.getElementById('radio1').disabled = true;
+		//document.getElementById('radio1').disabled = true;
 	}
 	else {
 		yJanis.domain([0, (d3.max(data, function(d) { return d.Anzahl }))]);
-		document.getElementById('radio1').disabled = false;
+		//document.getElementById('radio1').disabled = false;
 	}
 	
 	// declare y axis with ticks
@@ -194,9 +194,11 @@ function showView2(data) {
 	// Falls Varianz aktiviert ist, soll der Radiobutton der Gesamtansicht disabled werden
 	if (timestep == 0) {
 		document.getElementById('VarianzCheckbox').disabled = true;
+		document.getElementById('VarianzLabel').style.color = "darkgray";
 	} 
 	else {
 		document.getElementById('VarianzCheckbox').disabled = false;
+		document.getElementById('VarianzLabel').style.color = "black";
 	}
 
 	// Wenn ein Balken ausgewählt ist soll dieser auch ausgewählt bleiben wenn zwischen Einsteiger/Aussteiger/Mittelwert navigiert wird

@@ -22,6 +22,11 @@ var selectedTime = "";
 
 function loadData(){ //wird bei onload der Seite aufgerufen  
 	requestDataForView("2", "", ""); //timeline laden
+	startGuide(false);
+	
+}
+
+function startGuide(resetCookie){
 	// Instance the tour
 	var tour = new Tour({
 		storage: false,
@@ -75,21 +80,6 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 				content: "Wenn du mit der Maus über einen Bobbel fährst, wird dir die Passagieranzahl zu dieser Station angezeigt.",
 				placement: "left",
 			},
-			//{
-				// element: "#view3",
-				// title: "Title of my step",
-				// content: "Content of my step"
-			// },
-			// {
-				// element: "#view4",
-				// title: "Title of my step",
-				// content: "Content of my step"
-			// },
-			// {
-				// element: "#view5",
-				// title: "Title of my step",
-				// content: "Content of my step"
-			// },
 			{
 				element: ".switch",
 				title: "Normalisierte Daten",
@@ -109,15 +99,10 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 	// Start the tour if cookie is not set
 	var cookieName = "guidedTourTaken",
 		cookieValue = "true";
-	if (readCookie(cookieName) != cookieValue) {
+	if (resetCookie || (readCookie(cookieName) != cookieValue)) {
 		tour.start();
 		createCookie(cookieName, cookieValue, 5);
 	}
-	
-	// Start the tour on clicking help button
-	$("button#help").click(function() {
-		tour.start();
-	});
 }
 
 // Cookie helper functions from https://www.quirksmode.org/js/cookies.html
@@ -160,7 +145,12 @@ function onCheckChange(id){
 function onTimestepChange (step){
 	selectedTime = "";
 	timestep = step;
-	requestDataForView("2", "", "");
+	if(step == 0 && document.getElementById("VarianzCheckbox").checked){
+		document.getElementById("VarianzCheckbox").checked = false;
+		onCheckChange();
+	}else{
+		requestDataForView("2", "", "");
+	}
 }
 
 function onSelectedTimeChange(selTime){
