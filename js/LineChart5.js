@@ -135,12 +135,19 @@ function showView5(data){
 		.style ("font-weight", "bold")
 		.text("Anzahl Passagiere");
 		
-	// Add the text label for the x axis
-	svg.append("text")
-	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
-		.style("text-anchor", "middle")
-		.style ("font-size", "12px")
-		.style ("font-weight", "bold")
-		.text("gewählter Zeitraum");
-	
+	// Das ist die x-Achse
+	/* svg.append("g")
+		.attr("class", "x axis")
+		.append("line")
+		.attr("y1", y(0))
+		.attr("y2", y(0))
+		.attr("x2", width);	 */
+
+	// Add the text label for the x axis (from master in conflict with above)
+	//svg.append("text")
+	 //   .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
+		//.style("text-anchor", "middle")
+		//.style ("font-size", "12px")
+		//.style ("font-weight", "bold")
+		//.text("gewählter Zeitraum");
 }

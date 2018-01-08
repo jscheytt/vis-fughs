@@ -436,7 +436,7 @@ input:checked + .slider:before {
   padding: 14px;
   text-align: center;
 }
-.bar rect:hover {
+.barhover rect:hover {
   fill: grey;
 }
 
