@@ -45,14 +45,13 @@ text {
     display: inline-block;
     position: absolute;
 	left: -35px;
-    top: 5px;
 	overflow: visible;
 }
 
 .svg-content-responsive-view5 {
     display: inline-block;
     position: absolute;
-    top: -5px;
+    top: -10px;
     left: 5px;
 	overflow: visible;
 }
