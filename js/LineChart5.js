@@ -140,11 +140,11 @@ function showView5(data){
 	// Add the text label for the Y axis
 	svg.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", -23)
+		.attr("y", -3)
 		.attr("x",0 - (height / 1.65))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
-		.style ("font-size", "12px")
+		.style ("font-size", "11px")
 		.style ("font-weight", "bold")
 		.text("Anzahl Passagiere");
 			
@@ -153,7 +153,7 @@ function showView5(data){
 	svg.append("text")
 	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.52) + ")")
 		.style("text-anchor", "middle")
-		.style ("font-size", "12px")
+		.style ("font-size", "11px")
 		.style ("font-weight", "bold")
 		.text("gewählter Zeitraum");
 }
