@@ -35,7 +35,7 @@ text {
 .svg-container-view5 {
     position: relative;
 	width: 100%;
-	transform: scale(0.9);
+	transform: scaleY(0.9);
     vertical-align: top;
     overflow: visible;
 }
