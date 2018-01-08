@@ -144,10 +144,10 @@ function showView5(data){
 		.attr("x2", width);	 */
 
 	// Add the text label for the x axis (from master in conflict with above)
-	//svg.append("text")
-	 //   .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
-		//.style("text-anchor", "middle")
-		//.style ("font-size", "12px")
-		//.style ("font-weight", "bold")
-		//.text("gewählter Zeitraum");
+	svg.append("text")
+	   .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
+		.style("text-anchor", "middle")
+		.style ("font-size", "12px")
+		.style ("font-weight", "bold")
+		.text("gewählter Zeitraum");
 }
