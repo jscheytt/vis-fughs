@@ -14,6 +14,8 @@ var maxDate = new Date();
 
 var formatxAxis = d3.timeFormat("%H:%M"); //for days
 
+var formatM = d3.format(".2s");	
+
 
 function showView5(data){
 	parseTime = d3.timeParse("%H:%M");
@@ -66,6 +68,7 @@ function showView5(data){
 	var xAxis = d3.axisBottom(x);
 	
 	xAxis.tickFormat(formatxAxis);
+	yAxis.ticks(10).tickFormat(function(d) { return formatM(d)});
 	
 	if(timestep == 2){
 		xAxis.ticks(7);
