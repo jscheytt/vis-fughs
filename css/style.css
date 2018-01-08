@@ -450,3 +450,14 @@ button#help {
     margin-top: -75px;
     margin-left: 10px;
 }
+
+.info-title {
+	background-color:lightgray;
+	width: 365px;
+	height: 20px;
+	position:relative;
+	top: -5px;
+	left: -5px;
+	padding-top: 3px;
+}
+
