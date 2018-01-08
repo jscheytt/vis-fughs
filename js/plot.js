@@ -103,6 +103,7 @@ function showView3(data){
 		selectedStations[0] == "Poppenbuettel" || 
 		selectedStations[0] == "Aumuehle" || 
 		selectedStations[0] == "Stade" || 
+		selectedStations[0] == "Hamburg Airport" || 
 		(selectedStations[0] == "Hamburg-Altona" && zoomSelection.length == 1 && zoomSelection[0] == "S2") || 
 		(selectedStations[0] == "Elbgaustrasse" && zoomSelection.length == 1 && zoomSelection[0] == "S21") ||
 		(selectedStations[0] == "Blankenese" && zoomSelection.length == 1 && zoomSelection[0] == "S11") ||
