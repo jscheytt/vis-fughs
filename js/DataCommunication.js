@@ -151,8 +151,8 @@ function onCheckChange(id){
 		document.getElementById("bottomInfoDiv").style.backgroundColor = "#fff6e9";
 	}else{
 		document.getElementById("view5").style.backgroundColor = "whitesmoke";
-		document.getElementById("Timeline").style.backgroundColor = "whitesmoke";
-		document.getElementById("bottomInfoDiv").style.backgroundColor = "whitesmoke";
+		document.getElementById("Timeline").style.backgroundColor = "#F0F8FF";
+		document.getElementById("bottomInfoDiv").style.backgroundColor = "#F0F8FF";
 	}
 	requestDataForView("2", "", "");
 }

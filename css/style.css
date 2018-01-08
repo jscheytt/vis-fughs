@@ -332,6 +332,7 @@ input:checked + .slider:before {
 	border-style: groove;
     border-color: black;
 	border-width: 0.5px;
+	background-color: #F0F8FF;
 }	
 
 #Timeline{
