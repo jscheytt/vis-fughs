@@ -151,7 +151,7 @@ function showView5(data){
 
 	// Add the text label for the x axis
 	svg.append("text")
-	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.55) + ")")
+	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.52) + ")")
 		.style("text-anchor", "middle")
 		.style ("font-size", "12px")
 		.style ("font-weight", "bold")
