@@ -443,4 +443,6 @@ button#help {
     padding-top: 3px;
 	border-radius: 5px 5px 0px 0px;
 }
-
+.bar, .radiopointer {
+	cursor: pointer;
+}
