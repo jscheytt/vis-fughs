@@ -327,11 +327,12 @@ input:checked + .slider:before {
     height: 142px;
     width: 1054px;
     float: left;
-    margin-top: -75px;
-	border-style: groove;
-    border-color: black;
-	border-width: 0.5px;
+    margin-top: -73px;
+	border-style: solid;
+    border-color: darkgray;
+	border-width: 1px;
 	background-color: #F0F8FF;
+	border-radius: 5px;
 }	
 
 #Timeline{
@@ -357,52 +358,33 @@ input:checked + .slider:before {
     margin-top: 18px;
 }
 
-#view3{
+.detail-view {
 	height:218px;
 	width:360px;
 	float:right;
 	margin-bottom: 14px;
 	padding-left: 5px;
-	border-style: groove;
-    border-color: black;
-	border-width: 0.5px;
+	border-style: solid;
+    border-color: darkgray;
+	border-width: 1px;
 	background-color: whitesmoke;
 	display: block;
 	position: relative;
 	text-align: center;
     padding-top: 5px;
+	border-radius: 5px;
+}
+
+#view3{
 	stroke-width: 2px;
 }
 
 #view4{
-	height:218px;
-	width:360px;
-	float:right;
-	padding-left: 5px;
-	margin-bottom: 14px;
-	border-style: groove;
-    border-color: black;
-	border-width: 0.5px;
-	background-color: whitesmoke;
-	display: block;
-	position: relative;
-	text-align: center;
-    padding-top: 5px;
+	border-radius: 5px;
 }
 
 #view5{
-	height:218px;
-	width:360px;
-	float:right;
-	padding-left: 5px;
-	border-style: groove;
-    border-color: black;
-	border-width: 0.5px;
-	background-color: whitesmoke;
-	display:block;
-	position: relative;
-	text-align: center;
-    padding-top: 5px;
+	margin-bottom: 0px;
 }
 
 #view5Diagram, #view3Diagram{
@@ -453,11 +435,12 @@ button#help {
 
 .info-title {
 	background-color:lightgray;
-	width: 365px;
-	height: 20px;
-	position:relative;
-	top: -5px;
-	left: -5px;
-	padding-top: 3px;
+	width: 361px;
+    height: 20px;
+    position: relative;
+    top: -3px;
+    left: -3px;
+    padding-top: 3px;
+	border-radius: 5px 5px 0px 0px;
 }
 
