@@ -140,7 +140,7 @@ function showView5(data){
 	// Add the text label for the Y axis
 	svg.append("text")
 		.attr("transform", "rotate(-90)")
-		.attr("y", -3)
+		.attr("y", -5)
 		.attr("x",0 - (height / 1.65))
 		.attr("dy", "1em")
 		.style("text-anchor", "middle")
