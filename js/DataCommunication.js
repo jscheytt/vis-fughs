@@ -25,51 +25,55 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 	// Instance the tour
 	var tour = new Tour({
 		storage: false,
+		template: "<div class='popover tour'> <div class='arrow'></div> <h3 class='popover-title'></h3> <div class='popover-content'></div> <div class='popover-navigation'> <button class='btn btn-default' data-role='prev'>« Zurück</button> <button class='btn btn-default' data-role='next'>Weiter »</button> <button class='btn btn-link' data-role='end'>Beenden</button> </div> </div>",
 		steps: [
 			{	element: "#logoImg",
-				title: "Willkommen bei PasVis",
-				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017. <br><br>Klicke auf 'Next' um mehr zu erfahren."
+				title: "Willkommen bei PasVis!",
+				content: "Diese Webseite visualisiert die Passagierdaten der Hamburger S-Bahn über den Zeitraum von Dezember 2016 bis März 2017.<br /><br />Klicke auf <em>Weiter</em> oder nutze die Pfeiltasten, um mehr zu erfahren. Klicke auf <em>Beenden</em>, um direkt zu starten."
 			},
 			{
 				element: "#EinAussteiger",
 				title: "Wähle welche Passagiere du sehen willst",
-				content: "Du hast die Wahl dir nur die Einsteiger, Aussteiger oder den Mittelwert aus beiden anzeigen zu lassen."
+				content: "Du hast die Wahl, dir nur die Einsteiger, Aussteiger oder den Mittelwert aus beiden anzeigen zu lassen."
 			},
 			{
 				element: ".highlightBarChart",
-				title: "Bestimme einen Zeitraum",
-				content: "Mit einem Klick auf einen der Balken wählst du einen Zeitraum aus und die entsprechenden Passagierdaten werden für dich visualisiert."
+				title: "Wähle einen Zeitraum",
+				content: "Mit einem Klick auf einen der Balken wählst du einen Zeitraum aus und die entsprechenden Passagierdaten werden visualisiert.",
+				placement: "top",
 			},
 			{
 				element: "#Timesteps",
 				title: "Wähle einen Zeitschritt",
-				content: "Um dir die Daten für einen größeren oder kleineren Zeitraum anzuschauen, kannst du hier die Größe der Zeitschritte wählen."
+				content: "Um dir die Daten für einen größeren oder kleineren Zeitraum anzuschauen, kannst du hier die Größe der Zeitschritte wählen.",
+				placement: "top",
 			},
-			{
-				element: "#MapDiv",
-				title: "Das Liniennetz der S-Bahn",
-				content: "In diesem Bereich siehst du das Liniennetz der Hamburger S-Bahn, auch mit diesem kannst du interagieren."
-			},
+			// {
+				// element: "#MapDiv",
+				// title: "Das Liniennetz der S-Bahn",
+				// content: "In diesem Bereich siehst du das Liniennetz der Hamburger S-Bahn. Auch mit diesem kannst du interagieren."
+			// },
 			
 			{	element: "#label_S1",
-				title: "Wahl einer Linie",
-				content: "Mit einem Klick auf den Liniennamen kannst du eine gesamte Linie im Netz wählen.."
+				title: "Wähle eine Linie",
+				content: "Mit einem Klick auf den Liniennamen kannst du deine Auswahl auf eine gesamte Linie im Netz beschränken ..."
 			},
 			{
 				element: "#Hamburg-Altona",
-				title: "Wahl einer Station",
-				content: "..oder auch nur eine einzelne Station um dir die Daten für den gewählten Zeitraum für diese anzeigen zu lassen."
+				title: "Wähle eine Station",
+				content: " ... oder mit Klick auf eine einzelne Station nur die Daten zu dieser Station anzeigen lassen."
 			},
 			
 			{
 				element: "#Jungfernstieg",
-				title: "Wahl einer Strecke",
-				content: "Klicke auf eine zweite Station um eine Strecke auszuwählen."
+				title: "Wähle eine Teilstrecke",
+				content: "Klicke auf eine zweite Station um eine Teilstrecke auszuwählen."
 			},
 			{
 				element: "#bobbel_Veddel",
-				title: "Informationen zu den Bobbels",
-				content: "Wenn du mit der Maus über einen Bobbel fährst wird dir die Passagieranzahl zu dieser Station angezeigt."
+				title: "Bobbels zeigen den Passagierwert",
+				content: "Wenn du mit der Maus über einen Bobbel fährst, wird dir die Passagieranzahl zu dieser Station angezeigt.",
+				placement: "left",
 			},
 			//{
 				// element: "#view3",
@@ -89,20 +93,54 @@ function loadData(){ //wird bei onload der Seite aufgerufen
 			{
 				element: ".switch",
 				title: "Normalisierte Daten",
-				content: "Mit einem Klick auf den Varianz Button kannst du dir die Daten in normalisierter Form ansehen."
+				content: "Mit einem Klick auf den Varianz-Schalter kannst du dir die Daten in normalisierter Form ansehen. Hierbei wird der Mittelwert abgezogen.",
+				placement: "left",
 			},
 			{	element: "#logoImg",
 				title: "Viel Spaß!",
-				content: "Nun weißt du die wichtigsten Dinge über unsere Webseite und deine Erkundungstour durch die Datenwelt kann starten!"
+				content: "Nun weißt du die wichtigsten Dinge über unsere Webseite und deine Erkundungstour durch die Datenwelt kann losgehen!"
 			},
 		]
 	});
-
+	
 	// Initialize the tour
 	tour.init();
 
-	// Start the tour
-	tour.start();
+	// Start the tour if cookie is not set
+	var cookieName = "guidedTourTaken",
+		cookieValue = "true";
+	if (readCookie(cookieName) != cookieValue) {
+		tour.start();
+		createCookie(cookieName, cookieValue, 5);
+	}
+	
+	// Start the tour on clicking help button
+	$("button#help").click(function() {
+		tour.start();
+	});
+}
+
+// Cookie helper functions from https://www.quirksmode.org/js/cookies.html
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
 }
 
 function onCheckChange(id){	
