@@ -99,8 +99,17 @@ function showView5(data){
 			.attr("cx", function(d) {return x(parseTime(d.Zeitpunkt)); })
 			.attr("cy", function(d) { return y(d.Anzahl); });
 	
+	
+		
+				
 		chartGroup.append("g")
 			.attr("class","axis x")
+			.append("line")
+			.attr("y1",  y(0))
+			.attr("y2", y(0))
+			.attr("x2", width);
+				
+		chartGroup.append("g")
 			.attr("width", width)
 			.attr("transform","translate(0,"+height+")")
 			.call(xAxis)
@@ -108,8 +117,9 @@ function showView5(data){
 				.style("text-anchor", "end")
 				.attr("dx", "-.8em")
 				.attr("dy", ".15em")
-				.attr("transform", "rotate(-45)" );	
-	//}
+				.attr("transform", "rotate(-45)" );
+
+		chartGroup.select(".domain").remove();
 		
 	// Add the text label for the x axis
 	svg.append("text")
@@ -134,18 +144,11 @@ function showView5(data){
 		.style ("font-size", "12px")
 		.style ("font-weight", "bold")
 		.text("Anzahl Passagiere");
-		
-	// Das ist die x-Achse
-	/* svg.append("g")
-		.attr("class", "x axis")
-		.append("line")
-		.attr("y1", y(0))
-		.attr("y2", y(0))
-		.attr("x2", width);	 */
+			
 
-	// Add the text label for the x axis (from master in conflict with above)
+	// Add the text label for the x axis
 	svg.append("text")
-	   .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.52) + ")")
+	    .attr("transform", "translate(" + (width / 1.5) + " ," + (height * 1.52) + ")")
 		.style("text-anchor", "middle")
 		.style ("font-size", "12px")
 		.style ("font-weight", "bold")
